@@ -6,8 +6,13 @@ namespace Program
     {
         static void Main()
         {
-            Console.Write("Enter the size of matrix: ");
+            Console.Write("Enter the size(odd) of matrix: ");
             int size = int.Parse(Console.ReadLine());
+            if (size % 2 == 0)
+            {
+                Console.WriteLine("Size should be an odd number");
+                return;
+            }
             int [,] matrix = CreateMatrix(size);
             PrintMatrix(matrix);
             SpiralBypass(matrix);
@@ -53,7 +58,7 @@ namespace Program
             Random random = new Random();
             for (int i = 0; i < matrix.GetLength(0); ++i)
             {
-                for (int j = 0; j < matrix.GetLength(1); ++j)
+                for (int j = 0; j < matrix.GetLength(0); ++j)
                 {
                     matrix[i, j] = random.Next(0, 9);
                 }
@@ -65,7 +70,7 @@ namespace Program
         {
             for (int i = 0; i < matrix.GetLength(0); ++i)
             {
-                for (int j = 0; j < matrix.GetLength(1); ++j)
+                for (int j = 0; j < matrix.GetLength(0); ++j)
                 {
                     Console.Write("{0,5}", matrix[i, j]);
                 }
