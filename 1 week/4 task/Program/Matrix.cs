@@ -4,21 +4,13 @@ namespace Program
 {
     class Matrix
     {
-        public int size;
-        public int[,] matrix;
+        public static int size;
+        public static int[,] matrix;
 
-        public Matrix(int size)
+        public Matrix(int number)
         {
-            this.size = size;
-            matrix = new int [this.size, this.size];
-        }
-
-        public int this[int i, int j]
-        {
-            get
-            {
-                return matrix[i, j];
-            }
+            size = number;
+            matrix = new int [number, number];
         }
 
         public int[,] Initialization()
@@ -45,6 +37,40 @@ namespace Program
                 Console.WriteLine();
             }
             Console.WriteLine();
+        }
+
+        public void SpiralBypass()
+        {
+            int delta = 1;
+            int direction = 1;
+            int i = size / 2;
+            int j = size / 2;
+
+            Console.Write($"{matrix[i, j]}  ");
+
+            while (delta < size)
+            {
+                for (int k = 0; k < delta; ++k)
+                {
+                    i -= direction;
+                    Console.Write($"{matrix[i, j]}  ");// up/down
+                }
+
+                for (int k = 0; k < delta; ++k)
+                {
+                    j += direction;
+                    Console.Write($"{matrix[i, j]}  ");// right/left
+                }
+
+                direction = -direction;
+                ++delta;
+            }
+
+            for (int k = 0; k < delta - 1; ++k)
+            {
+                i -= direction;
+                Console.Write($"{matrix[i, j]}  ");//last up
+            }
         }
     }
 }
