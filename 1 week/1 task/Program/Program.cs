@@ -41,17 +41,19 @@ namespace FirstTask
             }
         }
 
-        static int CalculateFibonacci(int number)
+        static int CalculateFibonacci(int position)
         {
-            if (number <= 0)
+            int current = 1;
+            int next = 1;
+            int answer = 1;
+
+            for(int i = 2; i < position; ++i)
             {
-                return 0;
+                answer = current + next;
+                current = next;
+                next = answer;
             }
-            if (number == 1)
-            {
-                return 1;
-            }
-            return CalculateFibonacci(number - 1) + CalculateFibonacci(number - 2);
+            return answer;
         }
     }
 }
