@@ -8,14 +8,14 @@ namespace Task1
         {
             List list = new List();
 
-            list.AddNode(7, 1);
+            list.AddNode(7, 1);//
             list.DeleteNode(5);
 
-            list.GetLengthOfList();
-            list.IsEmpty();
+            list.GetLengthOfList();//
+            list.IsEmpty();//
 
-            list.ChangeValue(8, 1);
-            list.GetValue(5);
+            list.SetValue(8, 1);//
+            list.GetValue(5);//
         }
     }
 }
