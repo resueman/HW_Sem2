@@ -8,13 +8,13 @@ namespace Program
         {
             Console.Write("Enter the size(odd) of matrix: ");
             int size = int.Parse(Console.ReadLine());
-            if (size % 2 == 0)
+            if (size > 0 && size % 2 == 0)
             {
-                Console.WriteLine("Size should be an odd number");
+                Console.WriteLine("Size should be an odd number above zero");
                 return;
             }
             
-            Matrix matrix = new Matrix(size);
+            var matrix = new Matrix(size);
             matrix.Initialization();
             matrix.PrintMatrix();
             matrix.SpiralBypass();
