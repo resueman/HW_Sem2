@@ -4,11 +4,11 @@ namespace Program
 {
     class Matrix
     {
-        private int[,] matrix;
+        private readonly int[,] matrix;
         
         public Matrix(int number)
         {
-            matrix = new int [number, number];
+            matrix = new int[number, number];
             var random = new Random();
             for (int i = 0; i < matrix.GetLength(0); ++i)
             {
