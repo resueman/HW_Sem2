@@ -15,7 +15,6 @@ namespace Program
             }
             
             var matrix = new Matrix(size);
-            matrix.Initialization();
             matrix.PrintMatrix();
             matrix.SpiralBypass();
         }
