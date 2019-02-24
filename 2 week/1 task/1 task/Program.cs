@@ -14,8 +14,6 @@ namespace Task1
             {
                 Console.WriteLine(";(");
             }
-
-            Console.ReadKey();
         }
     }
 }

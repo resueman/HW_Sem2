@@ -67,24 +67,6 @@ namespace Task1
             ++length;
         }
 
-        public void DeleteNode(int position)
-        {
-            if (!IsCorrectPosition(position))
-            {
-                return;
-            }
-            if (position == 1)
-            {
-                head = head.Next;
-            }
-            else
-            {
-                var previousNode = GetPreviousNodeByPosition(position);
-                previousNode.Next = previousNode.Next.Next;
-            }
-            --length;
-        }
-
         private bool IsCorrectPosition(int position)
         {
             if (position > length || position < 1)
@@ -112,7 +94,25 @@ namespace Task1
             GetPreviousNodeByPosition(position + 1).Value = value;
         }
 
-        public string PrintList()
+        public void DeleteNode(int position)
+        {
+            if (!IsCorrectPosition(position))
+            {
+                return;
+            }
+            if (position == 1)
+            {
+                head = head.Next;
+            }
+            else
+            {
+                var previousNode = GetPreviousNodeByPosition(position);
+                previousNode.Next = previousNode.Next.Next;
+            }
+            --length;
+        }
+
+        public string GetStringOfListElements()
         {
             string answer = "";
             Node current = head;
@@ -122,16 +122,6 @@ namespace Task1
                 current = current.Next;
             }
             return answer;
-        }
-
-        public void ClearList()
-        {
-            Node current = head;
-            while(length > 0)
-            {
-                DeleteNode(1);
-                current = current.Next;
-            }
         }
     }
 }

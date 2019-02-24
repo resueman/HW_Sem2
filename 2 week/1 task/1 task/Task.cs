@@ -38,7 +38,7 @@ namespace Task1
             list.AddNode(4, 3);
             list.AddNode(0, 1);
 
-            if (list.PrintList() != "0 1 3 4 7 9 15 18 21 27 " || list.GetLengthOfList() != 10)
+            if (list.GetStringOfListElements() != "0 1 3 4 7 9 15 18 21 27 " || list.GetLengthOfList() != 10)
             {
                 return false;
             }
@@ -50,7 +50,7 @@ namespace Task1
             list.SetValue(-3, 3);
             list.SetValue(-27, 10);
             list.SetValue(-7, 5);
-            if (list.PrintList() != "-1 1 -3 4 -7 9 15 18 21 -27 " || list.GetLengthOfList() != 10)
+            if (list.GetStringOfListElements() != "-1 1 -3 4 -7 9 15 18 21 -27 " || list.GetLengthOfList() != 10)
             {
                 return false;
             }
@@ -63,7 +63,7 @@ namespace Task1
             list.DeleteNode(1);
             list.DeleteNode(1);
 
-            if (list.PrintList() != "-3 4 -7 9 15 18 " || list.GetLengthOfList() != 6)
+            if (list.GetStringOfListElements() != "-3 4 -7 9 15 18 " || list.GetLengthOfList() != 6)
             {
                 return false;
             }
@@ -71,7 +71,7 @@ namespace Task1
             list.DeleteNode(3);
             list.DeleteNode(4);
 
-            if (list.PrintList() != "-3 4 9 18 " || list.GetLengthOfList() != 4)
+            if (list.GetStringOfListElements() != "-3 4 9 18 " || list.GetLengthOfList() != 4)
             {
                 return false;
             }
@@ -83,7 +83,7 @@ namespace Task1
             list.DeleteNode(2);
             list.DeleteNode(1);
 
-            if (list.PrintList() != "" || !list.IsEmpty() || list.GetLengthOfList() != 0)
+            if (list.GetStringOfListElements() != "" || !list.IsEmpty() || list.GetLengthOfList() != 0)
             {
                 return false;
             }
