@@ -6,8 +6,8 @@ namespace Program
     {
         public static int[] CreateArray(int size)
         {
-            int[] newArray = new int[size];
-            Random random = new Random();
+            var newArray = new int[size];
+            var random = new Random();
             for (int i = 0; i < size; ++i)
             {
                 newArray[i] = random.Next(-15, 15);
