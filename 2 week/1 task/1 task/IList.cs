@@ -4,10 +4,10 @@ namespace Task1
 {
     interface IList
     {
-        void AddNode(int position, int value);
+        void AddNode(int value, int position);
         void DeleteNode(int position);
         int GetValue(int position);
-        void ChangeValue(int position, int value);
+        void SetValue(int value, int position);
         int GetLengthOfList();
         bool IsEmpty();
     }

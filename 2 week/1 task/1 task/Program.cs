@@ -6,16 +6,16 @@ namespace Task1
     {
         static void Main()
         {
-            List list = new List();
+            if (Task.Test())
+            {
+                Console.WriteLine("Success!");
+            }
+            else
+            {
+                Console.WriteLine(";(");
+            }
 
-            list.AddNode(7, 1);//
-            list.DeleteNode(5);
-
-            list.GetLengthOfList();//
-            list.IsEmpty();//
-
-            list.SetValue(8, 1);//
-            list.GetValue(5);//
+            Console.ReadKey();
         }
     }
 }
