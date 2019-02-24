@@ -6,14 +6,13 @@ namespace Task1
     {
         static void Main()
         {
-            if (Task.Test())
+            if (!Task.Test())
             {
-                Console.WriteLine("Success!");
+                Console.WriteLine("Tests not passed");
+                return;
             }
-            else
-            {
-                Console.WriteLine(";(");
-            }
+            Console.WriteLine("Tests passed successfully!");
+            UserInteraction.Interaction();
         }
     }
 }

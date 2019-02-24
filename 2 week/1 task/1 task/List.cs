@@ -114,6 +114,11 @@ namespace Task1
 
         public string GetStringOfListElements()
         {
+            if (length == 0)
+            {
+                return "List is empty";
+            }
+
             string answer = "";
             Node current = head;
             for (int i = 0; i < length; ++i)
@@ -122,6 +127,16 @@ namespace Task1
                 current = current.Next;
             }
             return answer;
+        }
+
+        public void Clear()
+        {
+            Node current = head;
+            while (length > 0)
+            {
+                DeleteNode(1);
+                current = current.Next;
+            }
         }
     }
 }

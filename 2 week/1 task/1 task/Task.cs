@@ -83,7 +83,7 @@ namespace Task1
             list.DeleteNode(2);
             list.DeleteNode(1);
 
-            if (list.GetStringOfListElements() != "" || !list.IsEmpty() || list.GetLengthOfList() != 0)
+            if (list.GetStringOfListElements() != "List is empty" || !list.IsEmpty() || list.GetLengthOfList() != 0)
             {
                 return false;
             }
