@@ -4,15 +4,11 @@ namespace Task5
 {
     class Matrix
     {
-        readonly int[,] matrix;
+        private readonly int[,] matrix;
 
         public Matrix(int lines, int columns)
         {
             matrix = new int[lines, columns];
-        }
-
-        public void Initialization()
-        {
             var random = new Random();
             for (int i = 0; i < matrix.GetLength(0); ++i)
             {
@@ -23,7 +19,7 @@ namespace Task5
             }
         }
 
-        public void GetResultMatrix()
+        public void ColumnsSorting()
         {
             for (int i = 0; i < matrix.GetLength(1) - 1; ++i)
             {
@@ -39,7 +35,7 @@ namespace Task5
             }
         }
 
-        static void SwapColumns(int[,] matrix, int column1, int column2)
+        private void SwapColumns(int[,] matrix, int column1, int column2)
         {
             for (int i = 0; i < matrix.GetLength(0); ++i)
             {

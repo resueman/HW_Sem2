@@ -17,10 +17,9 @@ namespace Task5
             }
             var matrix = new Matrix(lines, columns);
             Console.WriteLine("Initial matrix:");
-            matrix.Initialization();
             matrix.PrintMatrix();
             Console.WriteLine("Result matrix:");
-            matrix.GetResultMatrix();
+            matrix.ColumnsSorting();
             matrix.PrintMatrix();
         }
     }
