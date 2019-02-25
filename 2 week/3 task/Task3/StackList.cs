@@ -30,10 +30,11 @@ namespace Task3
             head = newNode;
         }
 
-        public T Pop()
+        public T Pop(bool result)
         {
             if (IsEmpty())
             {
+                result = false;
                 throw new Exception("Stack is empty!");
             }
             T topValue = head.Value;

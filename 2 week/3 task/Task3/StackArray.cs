@@ -18,10 +18,11 @@ namespace Task3
         public T Top()
         => stack[head - 1];
 
-        public T Pop()
+        public T Pop(bool result)
         {
             if (IsEmpty())
             {
+                result = false;
                 throw new Exception("Stack is empty!");
             }
             --head;

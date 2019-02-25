@@ -5,7 +5,7 @@ namespace Task3
     interface IStack<T>
     {
         T Top();
-        T Pop();
+        T Pop(bool result);
         bool IsEmpty();
         void Push(T value);
     }
