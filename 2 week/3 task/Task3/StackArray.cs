@@ -17,7 +17,7 @@
         public int Top()
         => stack[head - 1];
 
-        public int Pop(bool result)
+        public int Pop(ref bool result)
         {
             if (IsEmpty())
             {

@@ -30,34 +30,32 @@
             return result;
         }
 
-        public int Calculation(string expression, bool isCorrectInput)
+        public int Calculation(string expression, ref bool isCorrectInput)
         {
-            for (int i = 0; i < expression.Length; ++i)
-            {
-                if (!isCorrectInput)
+            string[] expressionWithoutGaps;
+            char[] splitchar = { ' ' };
+            expressionWithoutGaps = expression.Split(splitchar);
+
+            foreach(string singleString in expressionWithoutGaps)
+            {                            
+                if (singleString == "+" || singleString == "-" || singleString == "*" || singleString == "/")
                 {
-                    return -666;
-                }
-                if (expression[i] == ' ')
-                {
-                    continue;
-                }
-                if (char.IsDigit(expression[i]))
-                {
-                    stack.Push(int.Parse(expression[i].ToString()));
-                    continue;
-                }
-                if (expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/')
-                {
-                    int number1 = stack.Pop(isCorrectInput);
-                    int number2 = stack.Pop(isCorrectInput);
-                    int resultOfOperation = PerformingOperation(number2, number1, expression[i]);
+                    int number1 = stack.Pop(ref isCorrectInput);
+                    int number2 = stack.Pop(ref isCorrectInput);
+                    char operation = char.Parse(singleString);
+                    int resultOfOperation = PerformingOperation(number2, number1, operation);
                     stack.Push(resultOfOperation);
+                    continue;
+                }                
+                if (int.TryParse(singleString, out int number))
+                {
+                    stack.Push(number);
                     continue;
                 }
                 isCorrectInput = false;
+                return -666;
             }
-            return stack.Pop(isCorrectInput);
+            return stack.Pop(ref isCorrectInput);
         }
     }
 }
