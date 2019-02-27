@@ -53,6 +53,7 @@ namespace Task1
         {
             if (position > length + 1 && position != 0 || position < 1)
             {
+                Console.WriteLine("Incorrect position");
                 return;
             }
             Node newNode = new Node(value);
@@ -71,6 +72,7 @@ namespace Task1
         {
             if (position > length || position < 1)
             {
+                Console.WriteLine("Incorrect position");
                 return false;
             }
             return true;

@@ -16,6 +16,7 @@ namespace Task1
             Console.WriteLine("6 - Set value of element by its position");
             Console.WriteLine("7 - Print List");
             Console.WriteLine("8 - Clear List");
+            Console.WriteLine("9 - Clear screen\n");
         }
 
         static private void Action(List list, int choice)
@@ -74,11 +75,23 @@ namespace Task1
                         break;
                     }
                 case 7:
-                    Console.WriteLine($"Elements:  {list.GetStringOfListElements()}\n");
-                    break;
+                    {
+                        string result = list.GetStringOfListElements();
+                        if (result == "List is empty\n")
+                        {
+                            Console.WriteLine(result);
+                            break;
+                        }
+                        Console.WriteLine($"Elements:  {result}\n");
+                        break;
+                    }
                 case 8:
                     list.Clear();
                     Console.WriteLine();
+                    break;
+                case 9:
+                    Console.Clear();
+                    PrintOptions();
                     break;
                 default:
                     Console.WriteLine("No such option\n");
