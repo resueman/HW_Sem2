@@ -2,16 +2,16 @@
 
 namespace Task3
 {
-    class StackList<T> : IStack<T>
+    class StackList : IStack
     {
         Node head = null;
 
         class Node
         {
-            public T Value { get; set; }
+            public int Value { get; set; }
             public Node Next { get; set; } = null;
 
-            public Node(T value)
+            public Node(int value)
             {
                 Value = value;
             }
@@ -20,24 +20,24 @@ namespace Task3
         public bool IsEmpty()
             => head == null;
        
-        public T Top()
+        public int Top()
             => head.Value;
 
-        public void Push(T value)
+        public void Push(int value)
         {
             var newNode = new Node(value);
             newNode.Next = head;
             head = newNode;
         }
 
-        public T Pop(bool result)
+        public int Pop(bool result)
         {
             if (IsEmpty())
             {
                 result = false;
-                throw new Exception("Stack is empty!");
+                return -666;
             }
-            T topValue = head.Value;
+            int topValue = head.Value;
             head = head.Next;
             return topValue;
         }

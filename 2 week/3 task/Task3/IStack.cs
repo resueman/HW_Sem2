@@ -2,11 +2,11 @@
 
 namespace Task3
 {
-    interface IStack<T>
+    interface IStack
     {
-        T Top();
-        T Pop(bool result);
+        int Top();
+        int Pop(bool result);
         bool IsEmpty();
-        void Push(T value);
+        void Push(int value);
     }
 }

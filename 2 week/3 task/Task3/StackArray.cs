@@ -2,9 +2,9 @@
 
 namespace Task3
 {
-    class StackArray<T>
+    class StackArray : IStack
     {
-        private T[] stack;
+        private int[] stack;
         private int head = -1;
 
         public StackArray(int size)
@@ -15,21 +15,21 @@ namespace Task3
         public bool IsEmpty()
             => head == -1;
 
-        public T Top()
+        public int Top()
         => stack[head - 1];
 
-        public T Pop(bool result)
+        public int Pop(bool result)
         {
             if (IsEmpty())
             {
                 result = false;
-                throw new Exception("Stack is empty!");
+                return -666;
             }
             --head;
             return stack[head];
         }
 
-        public void Push(T value)
+        public void Push(int value)
         {
             stack[head] = value;
             ++head;
