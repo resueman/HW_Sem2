@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace Task3
+﻿namespace Task3
 {
     class StackList : IStack
     {
         Node head = null;
 
-        class Node
+        private class Node
         {
             public int Value { get; set; }
             public Node Next { get; set; } = null;

@@ -6,20 +6,25 @@ namespace Task3
     {
         static void Main()
         {
-            var stackArray = new StackArray(8);//////////improve StackArray
-            var listArray = new StackList();
-            ///finish interface
-
             Console.WriteLine("Enter string  ");
             string str = Console.ReadLine();
             bool isCorrectInput = true;
-            int resultOfCalculation = Calculator.Calculation(str, isCorrectInput);
+
+            var stackArray = new StackArray();
+            var stackList = new StackList();
+            var caluclatorArray = new Calculator(stackArray);
+            var calculatorList = new Calculator(stackList);
+
+            int resultArray = caluclatorArray.Calculation(str, isCorrectInput);
+            int resultList = calculatorList.Calculation(str, isCorrectInput);            
+
             if (!isCorrectInput)
             {
                 Console.WriteLine("Incorrect input");
                 return;
             }
-            Console.WriteLine(resultOfCalculation);
+            Console.WriteLine(resultArray);
+            Console.WriteLine(resultList);
         }
     }
 }
