@@ -2,17 +2,17 @@
 
 namespace Task2
 {
-    class List<T> : IList<T>
+    class List : IList
     {
         private int length = 0;
         private Node head = null;
 
         private class Node
         {
-            public T Value { get; set; }
+            public int Value { get; set; }
             public Node Next { get; set; } = null;
 
-            public Node(T value)
+            public Node(int value)
             {
                 Value = value;
             }
@@ -49,7 +49,7 @@ namespace Task2
             previous.Next = newNode;
         }
 
-        public void AddNode(T value, int position)
+        public void AddNode(int value, int position)
         {
             if (position > length + 1 && position != 0 || position < 1)
             {
@@ -76,16 +76,16 @@ namespace Task2
             return true;
         }
 
-        public T GetValue(int position)
+        public int GetValue(int position)
         {
-            if (IsCorrectPosition(position))
+            if (!IsCorrectPosition(position))
             {
-                //return -666;
+                return -666;
             }
             return GetPreviousNodeByPosition(position + 1).Value;
         }
 
-        public void SetValue(T value, int position)
+        public void SetValue(int value, int position)
         {
             if (!IsCorrectPosition(position))
             {
@@ -130,6 +130,23 @@ namespace Task2
                 DeleteNode(1);
                 current = current.Next;
             }
+        }
+
+        public int FindNode(int value)
+        {
+            if(head == null)
+            {
+                return -1;
+            }
+            var current = head;
+            for(int i = 0; i < length; ++i)
+            {
+                if(current.Value == value)
+                {
+                    return i + 1; 
+                }
+            }
+            return -1;
         }
     }
 }
