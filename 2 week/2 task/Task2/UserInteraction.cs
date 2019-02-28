@@ -25,7 +25,7 @@ namespace Task2
                     break;
                 case 1:
                     {
-                        Console.Write("Enter key:  ");
+                        Console.Write("Enter the key to find:  ");
                         int key = int.Parse(Console.ReadLine());
                         if (set.IsExist(key))
                         {
@@ -37,16 +37,26 @@ namespace Task2
                     }
                 case 2:
                     {
-                        Console.Write("Enter key to add:  ");
+                        Console.Write("Enter the key to add:  ");
                         int key = int.Parse(Console.ReadLine());
-                        set.AddToSet(key);
+                        if (set.AddToSet(key))
+                        {
+                            Console.WriteLine("Success!\n");
+                            break;
+                        }
+                        Console.WriteLine("Such a key already exists\n");
                         break;
                     }
                 case 3:
                     {
-                        Console.Write("Enter key to delete:  ");
+                        Console.Write("Enter the key to delete:  ");
                         int key = int.Parse(Console.ReadLine());
-                        set.DeleteFromSet(key);
+                        if (set.DeleteFromSet(key))
+                        {
+                            Console.WriteLine("Success!\n");
+                            break;
+                        }
+                        Console.WriteLine("No such a key\n");
                         break;
                     }
                 case 4:

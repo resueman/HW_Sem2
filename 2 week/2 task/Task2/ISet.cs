@@ -3,8 +3,8 @@
     interface ISet
     {
         bool IsExist(int key);
-        void AddToSet(int key);
-        void DeleteFromSet(int key);
+        bool AddToSet(int key);
+        bool DeleteFromSet(int key);
         void PrintHashTable();
     }
 }
