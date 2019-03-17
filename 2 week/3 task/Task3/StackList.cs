@@ -1,15 +1,15 @@
 ﻿namespace Task3
 {
-    class StackList : IStack
+    class StackList<T> : IStack<T>
     {
         Node head = null;
 
         private class Node
         {
-            public int Value { get; set; }
+            public T Value { get; set; }
             public Node Next { get; set; }
 
-            public Node(int value)
+            public Node(T value)
             {
                 Value = value;
             }
@@ -18,10 +18,10 @@
         public bool IsEmpty()
             => head == null;
 
-        public int Top()
+        public T Top()
             => IsEmpty() ? throw new StackIsEmptyException("No top element") : head.Value;
 
-        public void Push(int value)
+        public void Push(T value)
         {
             var newNode = new Node(value)
             {
@@ -30,13 +30,13 @@
             head = newNode;
         }
 
-        public int Pop()
+        public T Pop()
         {
             if (IsEmpty())
             {
                 throw new StackIsEmptyException("Can't pop");
             }
-            int topValue = head.Value;
+            T topValue = head.Value;
             head = head.Next;
             return topValue;
         }

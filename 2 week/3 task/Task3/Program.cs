@@ -6,18 +6,15 @@ namespace Task3
     {
         static void Main()
         {
-            IStack stack = GetStackType();
-            if (stack == null)
-            {
-                return;
-            }
+            IStack<int> stack = GetStackType();
             var calculator = new Calculator(stack);
-            Console.WriteLine("Enter the postfix expression separating the numbers and signs of the operations by spaces");
+            Console.WriteLine("\nSeparate numbers and signs of operations by spaces");
+            Console.WriteLine("Enter the postfix expression, please");
             Console.Write("Expression:  ");
             string expression = Console.ReadLine();
             try
             {
-                Console.WriteLine(calculator.Calculation(expression));
+                Console.WriteLine($"Result of calculation:  {calculator.Calculation(expression)}");
             }            
             catch (StackIsEmptyException exception)
             {
@@ -31,25 +28,27 @@ namespace Task3
             {
                 Console.WriteLine(exception.Message);
             }
-            Console.ReadKey();
         }
 
-        private static IStack GetStackType()
+        private static IStack<int> GetStackType()
         {
             Console.WriteLine("Choose type of stack:");
             Console.WriteLine("1 - list");
-            Console.WriteLine("2 - array");
-            Console.Write("Your choice:  ");
-            string choice = Console.ReadLine();
-            switch (choice)
+            Console.WriteLine("2 - array\n");
+            while (true)
             {
-                case "1":
-                    return new StackList();
-                case "2":
-                    return new StackArray();
-                default:
-                    Console.WriteLine("No such option");
-                    return null;
+                Console.Write("Your choice:  ");
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        return new StackList<int>();
+                    case "2":
+                        return new StackArray<int>();
+                    default:
+                        Console.WriteLine("No such option, try again\n");
+                        break;
+                }
             }
         }
     }

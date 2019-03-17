@@ -2,9 +2,9 @@
 {
     class Calculator
     {
-        private IStack stack;
+        private IStack<int> stack;
 
-        public Calculator(IStack stack)
+        public Calculator(IStack<int> stack)
         {
             this.stack = stack;
         }

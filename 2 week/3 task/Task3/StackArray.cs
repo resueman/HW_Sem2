@@ -2,37 +2,37 @@
 
 namespace Task3
 {
-    class StackArray : IStack
+    class StackArray<T> : IStack<T>
     {
-        private int[] stack;
+        private T[] stack;
         private int head = -1;
         private const int size = 2;
 
         public StackArray()
         {
-            stack = new int[size];
+            stack = new T[size];
         }
 
         public bool IsEmpty()
             => head == -1;
 
-        public int Top()
+        public T Top()
         => IsEmpty() ? throw new StackIsEmptyException("No top element") : stack[head - 1];
 
-        public int Pop()
+        public T Pop()
         {
             if (IsEmpty())
             {
                 throw new StackIsEmptyException("Can't pop");
             }
-            int headValue = stack[head];
+            T headValue = stack[head];
             --head;
             return headValue;
         }
 
         private void Resize()
         {
-            int[] newArray = new int[2 * stack.Length];
+            var newArray = new T[2 * stack.Length];
             for (int i = 0; i < stack.Length; ++i)
             {
                 newArray[i] = stack[i];
@@ -40,7 +40,7 @@ namespace Task3
             stack = newArray;
         }
 
-        public void Push(int value)
+        public void Push(T value)
         {
             if (head == stack.Length - 1)
             {
