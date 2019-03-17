@@ -1,6 +1,6 @@
 ﻿namespace Task3
 {
-    class StackList : IStack
+    public class StackList : IStack
     {
         Node head = null;
 

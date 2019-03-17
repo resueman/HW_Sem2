@@ -1,6 +1,6 @@
 ﻿namespace Task3
 {
-    class Calculator
+    public class Calculator
     {
         private IStack stack;
 

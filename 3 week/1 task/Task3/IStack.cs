@@ -2,7 +2,7 @@
 
 namespace Task3
 {
-    interface IStack
+    public interface IStack
     {
         int Top();
         int Pop(ref bool result);

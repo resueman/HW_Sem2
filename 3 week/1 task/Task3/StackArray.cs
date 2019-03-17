@@ -1,6 +1,6 @@
 ﻿namespace Task3
 {
-    class StackArray : IStack
+    public class StackArray : IStack
     {
         private int[] stack;
         private int head = -1;
