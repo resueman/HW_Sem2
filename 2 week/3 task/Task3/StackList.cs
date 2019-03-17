@@ -7,7 +7,7 @@
         private class Node
         {
             public int Value { get; set; }
-            public Node Next { get; set; } = null;
+            public Node Next { get; set; }
 
             public Node(int value)
             {
@@ -17,23 +17,24 @@
 
         public bool IsEmpty()
             => head == null;
-       
+
         public int Top()
-            => head.Value;
+            => IsEmpty() ? throw new StackIsEmptyException("No top element") : head.Value;
 
         public void Push(int value)
         {
-            var newNode = new Node(value);
-            newNode.Next = head;
+            var newNode = new Node(value)
+            {
+                Next = head
+            };
             head = newNode;
         }
 
-        public int Pop(ref bool result)
+        public int Pop()
         {
             if (IsEmpty())
             {
-                result = false;
-                return -666;
+                throw new StackIsEmptyException("Can't pop");
             }
             int topValue = head.Value;
             head = head.Next;

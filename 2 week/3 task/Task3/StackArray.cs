@@ -1,4 +1,6 @@
-﻿namespace Task3
+﻿using System;
+
+namespace Task3
 {
     class StackArray : IStack
     {
@@ -15,14 +17,13 @@
             => head == -1;
 
         public int Top()
-        => stack[head - 1];
+        => IsEmpty() ? throw new StackIsEmptyException("No top element") : stack[head - 1];
 
-        public int Pop(ref bool result)
+        public int Pop()
         {
             if (IsEmpty())
             {
-                result = false;
-                return -666;
+                throw new StackIsEmptyException("Can't pop");
             }
             int headValue = stack[head];
             --head;

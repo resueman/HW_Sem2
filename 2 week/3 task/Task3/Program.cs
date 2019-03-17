@@ -6,26 +6,51 @@ namespace Task3
     {
         static void Main()
         {
-            Console.WriteLine("Enter the line separating the numbers and signs of the operations by spaces");
-            Console.Write("Expression:  ");
-            string expression = Console.ReadLine();
-            bool isCorrectInput = true;
-
-            var stackArray = new StackArray();
-            var stackList = new StackList();
-            var caluclatorArray = new Calculator(stackArray);
-            var calculatorList = new Calculator(stackList);
-
-            int resultArray = caluclatorArray.Calculation(expression, ref isCorrectInput);
-            int resultList = calculatorList.Calculation(expression, ref isCorrectInput);            
-
-            if (!isCorrectInput)
+            IStack stack = GetStackType();
+            if (stack == null)
             {
-                Console.WriteLine("Incorrect input");
                 return;
             }
-            Console.WriteLine(resultArray);
-            Console.WriteLine(resultList);
+            var calculator = new Calculator(stack);
+            Console.WriteLine("Enter the postfix expression separating the numbers and signs of the operations by spaces");
+            Console.Write("Expression:  ");
+            string expression = Console.ReadLine();
+            try
+            {
+                Console.WriteLine(calculator.Calculation(expression));
+            }            
+            catch (StackIsEmptyException exception)
+            {
+                Console.WriteLine(exception.Message);
+                if(exception.InnerException != null)
+                {
+                    Console.WriteLine("Inner exception: {0}", exception.InnerException.Message);
+                }
+            }
+            catch (NotPostfixFormException exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+            Console.ReadKey();
+        }
+
+        private static IStack GetStackType()
+        {
+            Console.WriteLine("Choose type of stack:");
+            Console.WriteLine("1 - list");
+            Console.WriteLine("2 - array");
+            Console.Write("Your choice:  ");
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    return new StackList();
+                case "2":
+                    return new StackArray();
+                default:
+                    Console.WriteLine("No such option");
+                    return null;
+            }
         }
     }
 }

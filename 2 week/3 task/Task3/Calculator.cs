@@ -30,32 +30,46 @@
             return result;
         }
 
-        public int Calculation(string expression, ref bool isCorrectInput)
+        public int Calculation(string expression)
         {
-            string[] expressionWithoutGaps;
-            char[] splitchar = { ' ' };
-            expressionWithoutGaps = expression.Split(splitchar);
+            try
+            {
+                string[] expressionWithoutGaps;
+                char[] splitChar = { ' ' };
+                expressionWithoutGaps = expression.Split(splitChar);
 
-            foreach(string singleString in expressionWithoutGaps)
-            {                            
-                if (singleString == "+" || singleString == "-" || singleString == "*" || singleString == "/")
+                foreach (string singleString in expressionWithoutGaps)
                 {
-                    int number1 = stack.Pop(ref isCorrectInput);
-                    int number2 = stack.Pop(ref isCorrectInput);
-                    char operation = char.Parse(singleString);
-                    int resultOfOperation = PerformingOperation(number2, number1, operation);
-                    stack.Push(resultOfOperation);
-                    continue;
-                }                
-                if (int.TryParse(singleString, out int number))
-                {
-                    stack.Push(number);
-                    continue;
+                    if (singleString == "+" || singleString == "-" || singleString == "*" || singleString == "/")
+                    {
+                        int number1 = stack.Pop();
+                        int number2 = stack.Pop();
+                        char operation = char.Parse(singleString);
+                        int resultOfOperation = PerformingOperation(number2, number1, operation);
+                        stack.Push(resultOfOperation);
+                        continue;
+                    }
+                    if (int.TryParse(singleString, out int number))
+                    {
+                        stack.Push(number);
+                        continue;
+                    }
+                    else
+                    {
+                        throw new NotPostfixFormException("Incorrect symbol");
+                    }
                 }
-                isCorrectInput = false;
-                return -666;
+                int answer = stack.Pop();
+                if (!stack.IsEmpty())
+                {
+                    throw new NotPostfixFormException("Not a postfix form");
+                }
+                return answer;
             }
-            return stack.Pop(ref isCorrectInput);
+            catch(StackIsEmptyException innerException)
+            {
+                throw new StackIsEmptyException("Stack is empty", innerException);
+            }
         }
     }
 }
