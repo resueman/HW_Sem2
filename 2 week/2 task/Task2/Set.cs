@@ -2,38 +2,45 @@
 
 namespace Task2
 {
-    class Set : ISet
+    class Set<T> : ISet<T>
     {
-        List[] buckets;
+        List<T>[] buckets;
         private int numberOfElements;
         public const int defaultSize = 2;
 
         public Set()
         {
-            buckets = new List[defaultSize];
+            buckets = new List<T>[defaultSize];
             for(int i = 0; i < defaultSize; ++i)
             {
-                buckets[i] = new List();
+                buckets[i] = new List<T>();
             }
         }
 
         public int LoadFactor()
             => numberOfElements / buckets.Length;
 
-        private int Hash(int key)
+        private int GetHash(T key)
         {
-            int hash = Math.Abs(key.GetHashCode()) % buckets.Length;
-            return hash;
+            int hash = 0;
+            int randomNumber = 11;
+            string str = key.ToString();
+            for (int i = 0; i < str.Length; ++i)
+            {
+                hash += hash * randomNumber + str[i];
+                randomNumber += randomNumber;
+            }
+            return Math.Abs(hash);
         }
 
         private void Resize()
         {
-            var newBuckets = new List[2 * buckets.Length];
+            var newBuckets = new List<T>[2 * buckets.Length];
             for(int i = 0; i < newBuckets.Length; ++i)
             {
-                newBuckets[i] = new List();
+                newBuckets[i] = new List<T>();
             }
-            int[] allNodes = new int[numberOfElements];
+            var allNodes = new T[numberOfElements];
             int currentIndex = 0;
             for(int i = 0; i < buckets.Length; ++i)
             {
@@ -45,16 +52,16 @@ namespace Task2
             }
             buckets = newBuckets;
             numberOfElements = 0;
-            foreach (int node in allNodes)
+            foreach (T node in allNodes)
             {
                 AddToSet(node);
             }
         }
 
-        public bool IsExist(int key)
-            => buckets[Hash(key)].FindNode(key) != -1;        
+        public bool IsExist(T key)
+            => buckets[GetHash(key) % buckets.Length].FindPosition(key) != -1;        
 
-        public bool AddToSet(int key)
+        public bool AddToSet(T key)
         {
             if(IsExist(key))
             {
@@ -64,16 +71,16 @@ namespace Task2
             {
                 Resize();
             }
-            int hash = Hash(key);
+            int hash = GetHash(key) % buckets.Length;
             buckets[hash].AddNode(key, 1 + buckets[hash].GetLengthOfList());
             ++numberOfElements;
             return true;
         }
 
-        public bool DeleteFromSet(int key)
+        public bool DeleteFromSet(T key)
         {
-            int hash = Hash(key);
-            int position = buckets[hash].FindNode(key);
+            int hash = GetHash(key) % buckets.Length;
+            int position = buckets[hash].FindPosition(key);
             if (position == -1)
             {
                 return false;

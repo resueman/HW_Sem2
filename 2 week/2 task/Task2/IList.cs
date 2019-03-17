@@ -1,11 +1,11 @@
 ﻿namespace Task2
 {
-    interface IList
+    interface IList<T>
     {
-        void AddNode(int value, int position);
+        void AddNode(T value, int position);
         void DeleteNode(int position);
-        int GetValue(int position);
-        void SetValue(int value, int position);
+        T GetValue(int position);
+        void SetValue(T value, int position);
         int GetLengthOfList();
         bool IsEmpty();
         void PrintList();

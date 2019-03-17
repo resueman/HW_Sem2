@@ -1,10 +1,10 @@
 ﻿namespace Task2
 {
-    interface ISet
+    interface ISet<T>
     {
-        bool IsExist(int key);
-        bool AddToSet(int key);
-        bool DeleteFromSet(int key);
+        bool IsExist(T key);
+        bool AddToSet(T key);
+        bool DeleteFromSet(T key);
         void PrintHashTable();
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Task2
 {
@@ -17,7 +15,7 @@ namespace Task2
             Console.WriteLine("5 - Clear screen\n");
         }
 
-        static private void Action(Set set, int choice)
+        static private void Action(Set<string> set, int choice)
         {
             switch (choice)
             {
@@ -26,7 +24,7 @@ namespace Task2
                 case 1:
                     {
                         Console.Write("Enter the key to find:  ");
-                        int key = int.Parse(Console.ReadLine());
+                        string key = Console.ReadLine();
                         if (set.IsExist(key))
                         {
                             Console.WriteLine("Exists\n");
@@ -38,7 +36,7 @@ namespace Task2
                 case 2:
                     {
                         Console.Write("Enter the key to add:  ");
-                        int key = int.Parse(Console.ReadLine());
+                        string key = Console.ReadLine();
                         if (set.AddToSet(key))
                         {
                             Console.WriteLine("Success!\n");
@@ -50,7 +48,7 @@ namespace Task2
                 case 3:
                     {
                         Console.Write("Enter the key to delete:  ");
-                        int key = int.Parse(Console.ReadLine());
+                        string key = Console.ReadLine();
                         if (set.DeleteFromSet(key))
                         {
                             Console.WriteLine("Success!\n");
@@ -75,12 +73,16 @@ namespace Task2
         static public void Interaction()
         {
             PrintOptions();
+            var set = new Set<string>();
             int userChoice;
-            var set = new Set();
             do
             {
-                Console.Write("Choice:  ");
-                userChoice = int.Parse(Console.ReadLine());
+                Console.Write("Choice:  ");                
+                string input = Console.ReadLine();
+                if (!int.TryParse(input, out userChoice))
+                {
+                    Console.WriteLine("Incorrect input"); 
+                }
                 Action(set, userChoice);
             }
             while (userChoice != 0);
