@@ -1,13 +1,12 @@
 ﻿using System;
-
 namespace Task2
 {
     class List<T> : IList<T>
     {
-        private int length = 0;
-        private Node head = null;
+        protected int length = 0;
+        protected Node head = null;
 
-        private class Node
+        protected class Node
         {
             public T Value { get; set; }
             public Node Next { get; set; } = null;
@@ -36,7 +35,7 @@ namespace Task2
             return GetPreviousNodeByPosition(position + 1).Value;
         }
 
-        public void SetValue(T value, int position)
+        public virtual void SetValue(T value, int position)
         {
             if (!IsCorrectPosition(position))
             {
@@ -55,11 +54,15 @@ namespace Task2
             return current;
         }
 
-        public void DeleteNode(int position)
+        public virtual void DeleteNode(T value)
+        {
+        }
+
+        public virtual void DeleteNodeByPosition(int position)
         {
             if (!IsCorrectPosition(position))
             {
-                throw new DeleteNonExistentNodeException("Can't delete node which doesn't exist");
+                throw new IncorrectPositionException("Incorrect position");
             }
             if (position == 1)
             {
@@ -86,11 +89,15 @@ namespace Task2
             previous.Next = newNode;
         }
 
-        public void AddNode(T value, int position)
+        public virtual void AddNode(T value)
+        {
+        }
+
+        public virtual void AddNode(T value, int position)
         {
             if (position > length + 1 && position != 0 || position < 1)
             {
-                throw new AddExistingNodeException("Impossible to add node which already exists");
+                throw new IncorrectPositionException("Incorrect position");
             }
             Node newNode = new Node(value);
             if (position == 1)
@@ -102,6 +109,19 @@ namespace Task2
                 InsertNotToHead(newNode, position);
             }
             ++length;
+        }
+
+        public int GetPositionByValue(T key)
+        {
+            var current = head;
+            for(int i = 0; i < length; ++i)
+            {
+                if (key.Equals(current.Value))
+                {
+                    return i + 1;
+                }
+            }
+            return -1;
         }
 
         public string GetStringOfListElements()
@@ -126,7 +146,7 @@ namespace Task2
             Node current = head;
             while (length > 0)
             {
-                DeleteNode(1);
+                DeleteNodeByPosition(1);
                 current = current.Next;
             }
         }
