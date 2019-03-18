@@ -2,14 +2,52 @@
 
 namespace Task1
 {
-    class Tree<T> : ITree<T>
+    class Tree
     {
-        Node<T> Root { get; set; }
+        private static Node Root { get; set; }
 
-        public bool IsEmpty()
+        public Tree(string expression)
+        {
+            string[] input;
+            char[] splitChar = { ' ' };
+            input = expression.Split(splitChar);
+            int index = 0;
+            Root = CreateNode(input, ref index);
+        }
+
+        public static Node CreateNode(string[] input, ref int index)
+        {
+            if (input[index] == "(")
+            {
+                Operator newNode = new Operator(input[index + 1]);
+                index += 2;
+
+                newNode.Left = CreateNode(input, ref index);
+                ++index;
+                newNode.Right = CreateNode(input, ref index);
+                ++index;
+                return newNode;
+            }
+            if (int.TryParse(input[index], out int result))
+            {
+                var newNode = new Operand()
+                {
+                    Data = result
+                };
+                return newNode;
+            }
+            if (input[index] == ")")
+            {
+                ++index;
+                return CreateNode(input, ref index);
+            }
+            throw new IncorrectInputException("Incorrect symbol");
+        }
+
+        private bool IsEmpty()
             => Root == null;
 
-        public void Print()
+        public void PrintTree()
         {
             if (IsEmpty())
             {
@@ -19,29 +57,15 @@ namespace Task1
             DoPrint(Root);
         }
 
-        private void DoPrint(Node<T> node)
-        {            
-            node.PrintNode(); // interaction depending on operator or operand (correctnes ???)
-            Console.WriteLine(" ");
-
-            Node<T> left = node.GetLeft();
-            if (left != null)
-            {
-                DoPrint(left);
-            }
-
-            Node<T> right = node.GetRight();
-            if (right != null)
-            {
-                DoPrint(right);
-                Console.WriteLine(") ");
-            }
-        }
-
-        public int Calculate()
+        public int CalculateTree()
         {
-            return 1;
+            return Root.Calculate();
         }
-        
+
+        private void DoPrint(Node node)
+        {
+            Root.Print();
+            Console.WriteLine();
+        }        
     }
 }

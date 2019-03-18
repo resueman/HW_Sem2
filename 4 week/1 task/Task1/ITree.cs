@@ -1,8 +1,7 @@
 ﻿namespace Task1
 {
-    interface ITree<T>
+    interface ITree
     {
-        void Print();
-        int Calculate();
+
     }
 }

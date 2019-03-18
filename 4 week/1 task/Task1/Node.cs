@@ -2,22 +2,49 @@
 
 namespace Task1
 {
-    class Node<T>
+    abstract class Node
     {
-        protected T Data { get; set; }
-        protected Node<T> Left { get; set; } = null;
-        protected Node<T> Right { get; set; } = null;
-        
-        public Node<T> GetLeft()
-            => Left;
-        
-        public Node<T> GetRight()
-            => Right;
+        public abstract void Print();
+        public abstract int Calculate();
+    }
 
-        public virtual void PrintNode()
+    class Operand : Node
+    {
+        internal int Data { get; set; }
+
+        public override void Print()
         {
-            Console.WriteLine(Data);
+            Console.Write(Data + " ");
         }
 
+        public override int Calculate()
+            => Data;
+    }
+
+    class Operator : Node
+    {
+        internal string data;
+        internal Node Left { get; set; } = null;
+        internal Node Right { get; set; } = null;
+
+        public Operator(string data)
+        {
+            if(!OperatorChecker.IsOperator(data))
+            {
+                throw new IncorrectInputException("Unexpected symbol");
+            }
+            this.data = data;
+        }
+
+        public override int Calculate()
+            => Calculation.PerformingOperation(data, Left, Right);
+
+        public override void Print()
+        {
+            Console.Write("( " + data + " ");
+            Left.Print();
+            Right.Print();
+            Console.Write(") ");
+        }             
     }
 }
