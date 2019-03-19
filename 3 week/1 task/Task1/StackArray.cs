@@ -4,18 +4,18 @@
     {
         private T[] stack;
         private int head = -1;
-        private const int size = 2;
+        private const int defaultSize = 2;
 
         public StackArray()
         {
-            stack = new T[size];
+            stack = new T[defaultSize];
         }
 
         public bool IsEmpty()
             => head == -1;
 
         public T Top()
-        => IsEmpty() ? throw new StackIsEmptyException("No top element") : stack[head - 1];
+        => IsEmpty() ? throw new StackIsEmptyException("No top element") : stack[head];
 
         public T Pop()
         {
