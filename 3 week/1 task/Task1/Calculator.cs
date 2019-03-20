@@ -1,6 +1,6 @@
 ﻿namespace Task1
 {
-    class Calculator
+    public class Calculator
     {
         private IStack<int> stack;
 
@@ -11,6 +11,10 @@
 
         private int PerformingOperation(int number1, int number2, char operation)
         {
+            if(operation == '/' && number2 == 0)
+            {
+                throw new DivisionByZeroException("Division by zero");
+            }
             int result = 0;
             switch (operation)
             {

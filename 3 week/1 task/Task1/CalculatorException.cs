@@ -24,6 +24,7 @@ namespace Task1
         }
     }
 
+    [Serializable]
     public class StackIsEmptyException : Exception
     {
         public StackIsEmptyException()
@@ -37,8 +38,28 @@ namespace Task1
             : base(message, inner)
         {
         }
-        // Constructor for a serialization 
         protected StackIsEmptyException(System.Runtime.Serialization.SerializationInfo info,
+            System.Runtime.Serialization.StreamingContext context)
+            : base(info, context)
+        {
+        }
+    }
+
+    [Serializable]
+    public class DivisionByZeroException : Exception
+    {
+        public DivisionByZeroException()
+        {
+        }
+        public DivisionByZeroException(string message)
+            : base(message)
+        {
+        }
+        public DivisionByZeroException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
+        protected DivisionByZeroException(System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         {
