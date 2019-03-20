@@ -56,7 +56,6 @@
                     if (int.TryParse(singleString, out int number))
                     {
                         stack.Push(number);
-                        continue;
                     }
                     else
                     {
@@ -66,13 +65,13 @@
                 int answer = stack.Pop();
                 if (!stack.IsEmpty())
                 {
-                    throw new NotPostfixFormException("Not a postfix form");
+                    throw new NotPostfixFormException("Stack isn't empty after calculation, not a postfix form");
                 }
                 return answer;
             }
             catch (StackIsEmptyException innerException)
             {
-                throw new StackIsEmptyException("Stack is empty", innerException);
+                throw new NotPostfixFormException("Incorrect expression", innerException);
             }
         }
     }

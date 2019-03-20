@@ -165,12 +165,11 @@ namespace Task1.Tests
             Assert.AreEqual(0, calculatorArray.Calculation("-9 0 *"));
         }
 
-        ///////////////////////////////////////////////////////////////////////////
         [TestMethod]
         public void MultiplyBigNumbers()
         {
-            Assert.AreEqual(67356900, calculatorList.Calculation("7676 8775 *"));
-            Assert.AreEqual(67356900, calculatorArray.Calculation("7676 8775 *"));
+            Assert.AreEqual(673612875, calculatorList.Calculation("76765 8775 *"));
+            Assert.AreEqual(673612875, calculatorArray.Calculation("76765 8775 *"));
         }
 
         [ExpectedException(typeof(DivisionByZeroException))]
@@ -197,54 +196,22 @@ namespace Task1.Tests
             calculatorArray.Calculation("5 7 + 2 * 3 + 7 3 2 * 1 + - /");
         }
 
-        /*[ExpectedException(typeof(StackIsEmptyException))]
-        public void Catch()
+        [ExpectedException(typeof(NotPostfixFormException))]
+        public void IncorrectExpressionStackIsNotEmptyAfterCalculation()
         {
-            Assert.AreEqual(, calculatorList.Calculation(""));
-            Assert.AreEqual(, calculatorArray.Calculation(""));
-        }
-
-        [ExpectedException(typeof(StackIsEmptyException))]
-        public void Catch()
-        {
-
-        }
-
-        [ExpectedException(typeof(StackIsEmptyException))]
-        public void Catch()
-        {
-
-        }
-
-        [ExpectedException(typeof(StackIsEmptyException))]
-        public void Catch()
-        {
-
+            calculatorList.Calculation("9 8 9 +");
         }
 
         [ExpectedException(typeof(NotPostfixFormException))]
-        public void Catch()
+        public void IncorrectExpressionMismatchedOperandsAndOperators()
         {
-
+            calculatorList.Calculation("8 + 9");
         }
 
         [ExpectedException(typeof(NotPostfixFormException))]
-        public void Catch()
+        public void IncorrectSymbolInExpression()
         {
-
+            calculatorList.Calculation("9 o 8 +");
         }
-
-        [ExpectedException(typeof(NotPostfixFormException))]
-        public void Catch()
-        {
-
-        }
-
-        [TestMethod]
-        public void ()
-        {
-            Assert.AreEqual(, calculatorList.Calculation(""));
-            Assert.AreEqual(, calculatorArray.Calculation(""));
-        }*/
     }
 }

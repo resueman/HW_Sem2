@@ -15,13 +15,13 @@
             => head == -1;
 
         public T Top()
-        => IsEmpty() ? throw new StackIsEmptyException("No top element") : stack[head];
+        => IsEmpty() ? throw new StackIsEmptyException("No top element, stack is empty") : stack[head];
 
         public T Pop()
         {
             if (IsEmpty())
             {
-                throw new StackIsEmptyException("Can't pop");
+                throw new StackIsEmptyException("Can't pop, stack is empty");
             }
             T headValue = stack[head];
             --head;
