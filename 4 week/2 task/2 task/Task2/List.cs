@@ -128,7 +128,7 @@ namespace Task2
             }
         }
 
-        private string GetStringOfListElements()
+        public string GetStringOfListElements()
         {
             if (length == 0)
             {
