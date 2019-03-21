@@ -107,7 +107,7 @@ namespace Task2
         protected int GetPositionByValue(T key)
         {
             var current = head;
-            for(int i = 0; i < length; ++i)
+            for (int i = 0; i < length; ++i)
             {
                 if (key.Equals(current.Value))
                 {

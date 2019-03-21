@@ -1,6 +1,6 @@
 ﻿namespace Task2
 {
-    interface IList<T> 
+    interface IList<T>
     {
         void AddNode(T value, int position);
 

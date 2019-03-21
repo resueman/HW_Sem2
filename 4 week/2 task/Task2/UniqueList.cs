@@ -15,7 +15,7 @@
         {
             var position = GetPositionByValue(value);
             if (position == -1)
-            { 
+            {
                 throw new DeleteNonExistentNodeException("No such key");
             }
             DeleteNodeByPosition(position);

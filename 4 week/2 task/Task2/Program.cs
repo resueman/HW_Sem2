@@ -8,7 +8,7 @@ namespace Task2
         {
             try
             {
-                UniqueListUI.Interaction();                               
+                UniqueListUI.Interaction();
             }
             catch (DeleteNonExistentNodeException exception)
             {

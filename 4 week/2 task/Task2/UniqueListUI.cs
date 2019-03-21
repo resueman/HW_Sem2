@@ -40,10 +40,10 @@ namespace Task2
                 case 3:
                     list.Print();
                     break;
-                case 4:                    
+                case 4:
                     list.Clear();
                     Console.WriteLine("Success!\n");
-                    break;                    
+                    break;
                 case 5:
                     Console.Clear();
                     PrintOptions();
