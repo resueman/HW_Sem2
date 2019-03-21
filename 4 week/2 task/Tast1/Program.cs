@@ -10,10 +10,6 @@ namespace Task2
             {
                 UniqueListUI.Interaction();                               
             }
-            catch (IncorrectPositionException exception)
-            {
-                Console.WriteLine(exception.Message);
-            }
             catch (DeleteNonExistentNodeException exception)
             {
                 Console.WriteLine(exception.Message);

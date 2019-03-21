@@ -1,12 +1,13 @@
 ﻿using System;
+
 namespace Task2
 {
-    class List<T> : IList<T>
+    public class List<T> : IList<T>
     {
-        protected int length = 0;
-        protected Node head = null;
+        private int length = 0;
+        private Node head = null;
 
-        protected class Node
+        private class Node
         {
             public T Value { get; set; }
             public Node Next { get; set; } = null;
@@ -35,7 +36,7 @@ namespace Task2
             return GetPreviousNodeByPosition(position + 1).Value;
         }
 
-        public virtual void SetValue(T value, int position)
+        public void SetValue(T value, int position)
         {
             if (!IsCorrectPosition(position))
             {
@@ -54,11 +55,7 @@ namespace Task2
             return current;
         }
 
-        public virtual void DeleteNode(T value)
-        {
-        }
-
-        public virtual void DeleteNodeByPosition(int position)
+        public void DeleteNodeByPosition(int position)
         {
             if (!IsCorrectPosition(position))
             {
@@ -89,11 +86,7 @@ namespace Task2
             previous.Next = newNode;
         }
 
-        public virtual void AddNode(T value)
-        {
-        }
-
-        public virtual void AddNode(T value, int position)
+        public void AddNode(T value, int position)
         {
             if (position > length + 1 && position != 0 || position < 1)
             {
@@ -111,7 +104,7 @@ namespace Task2
             ++length;
         }
 
-        public int GetPositionByValue(T key)
+        protected int GetPositionByValue(T key)
         {
             var current = head;
             for(int i = 0; i < length; ++i)
@@ -120,25 +113,9 @@ namespace Task2
                 {
                     return i + 1;
                 }
-            }
-            return -1;
-        }
-
-        public string GetStringOfListElements()
-        {
-            if (length == 0)
-            {
-                return "List is empty";
-            }
-
-            string answer = "";
-            Node current = head;
-            for (int i = 0; i < length; ++i)
-            {
-                answer += current.Value.ToString() + " ";
                 current = current.Next;
             }
-            return answer;
+            return -1;
         }
 
         public void Clear()
@@ -149,6 +126,27 @@ namespace Task2
                 DeleteNodeByPosition(1);
                 current = current.Next;
             }
+        }
+
+        private string GetStringOfListElements()
+        {
+            if (length == 0)
+            {
+                return "List is empty";
+            }
+            string answer = "";
+            Node current = head;
+            for (int i = 0; i < length; ++i)
+            {
+                answer += current.Value.ToString() + " ";
+                current = current.Next;
+            }
+            return answer;
+        }
+
+        public void Print()
+        {
+            Console.WriteLine(GetStringOfListElements() + "\n");
         }
     }
 }

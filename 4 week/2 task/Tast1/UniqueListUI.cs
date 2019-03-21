@@ -4,7 +4,7 @@ namespace Task2
 {
     class UniqueListUI
     {
-        static private void PrintOptions()
+        private static void PrintOptions()
         {
             Console.WriteLine("Please, choose option:\n");
             Console.WriteLine("0 - Exit");
@@ -15,10 +15,49 @@ namespace Task2
             Console.WriteLine("5 - Clear screen\n");
         }
 
+        private static void Action(UniqueList<string> list, int choice)
+        {
+            switch (choice)
+            {
+                case 0:
+                    break;
+                case 1:
+                    {
+                        Console.Write("Enter value of new element: ");
+                        string value = Console.ReadLine();
+                        list.AddNode(value);
+                        Console.WriteLine("Success!\n");
+                        break;
+                    }
+                case 2:
+                    {
+                        Console.Write("Enter value of element to delete: ");
+                        string value = Console.ReadLine();
+                        list.DeleteNode(value);
+                        Console.WriteLine("Success!\n");
+                        break;
+                    }
+                case 3:
+                    list.Print();
+                    break;
+                case 4:                    
+                    list.Clear();
+                    Console.WriteLine("Success!\n");
+                    break;                    
+                case 5:
+                    Console.Clear();
+                    PrintOptions();
+                    break;
+                default:
+                    Console.WriteLine("No such option");
+                    break;
+            }
+        }
+
         public static void Interaction()
         {
             PrintOptions();
-            var set = new Set<string>();
+            var uniqueList = new UniqueList<string>();
             int userChoice;
             do
             {
@@ -28,7 +67,7 @@ namespace Task2
                 {
                     Console.WriteLine("Incorrect input");
                 }
-                Action(set, userChoice);
+                Action(uniqueList, userChoice);
             }
             while (userChoice != 0);
         }
