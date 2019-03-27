@@ -1,4 +1,6 @@
-﻿namespace Task2
+﻿using System;
+
+namespace Task2
 {
     class FNVHashFunction<T> : IHashFunction<T>
     {
@@ -12,7 +14,7 @@
                 hash *= primeNumber;
                 hash ^= ((byte)key[i]);
             }
-            return hash;
+            return Math.Abs(hash);
         }    
     }
 }

@@ -20,20 +20,21 @@ namespace Task2
         protected IncorrectPositionException(System.Runtime.Serialization.SerializationInfo info,
         System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
-    public class MyException : Exception
+
+    public class ListException : Exception
     {
-        public MyException()
+        public ListException()
         {
         }
-        public MyException(string message)
+        public ListException(string message)
             : base(message)
         {
         }
-        public MyException(string message, Exception inner)
+        public ListException(string message, Exception inner)
             : base(message, inner)
         {
         }
-        protected MyException(System.Runtime.Serialization.SerializationInfo info,
+        protected ListException(System.Runtime.Serialization.SerializationInfo info,
         System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }

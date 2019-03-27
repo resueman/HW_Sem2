@@ -1,10 +1,19 @@
-﻿namespace Task2
+﻿using System;
+
+namespace Task2
 {
     class Program
     {
         static void Main()
         {
-            UserInteraction.Interaction();
+            try
+            {
+                UserInteraction.Interaction();
+            }
+            catch (IncorrectInputException exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
         }
     }
 }

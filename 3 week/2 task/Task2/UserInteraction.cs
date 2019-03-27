@@ -4,9 +4,9 @@ namespace Task2
 {
     class UserInteraction
     {
-        static private void PrintOptions()
+        static private void PrintHashTableOptions()
         {
-            Console.WriteLine("Please, choose option:\n");
+            Console.WriteLine("\nPlease, choose option:\n");
             Console.WriteLine("0 - Exit");
             Console.WriteLine("1 - Check if the key exists");
             Console.WriteLine("2 - Add key");
@@ -15,7 +15,47 @@ namespace Task2
             Console.WriteLine("5 - Clear screen\n");
         }
 
-        static private void Action(HashTable<string> set, int choice)
+        static private void PrintTypesOfHashFunction()
+        {
+            Console.WriteLine("Please, choose hash function:\n");
+            Console.WriteLine("1 - NoName hash function");
+            Console.WriteLine("2 - Jenkins hash function");
+            Console.WriteLine("3 - FNV hash function\n");
+        }
+
+        static private IHashFunction<string> ChooseHashFunction()
+        {
+            PrintTypesOfHashFunction();
+            Console.Write("Your choice: ");
+            string stringTypeOfHash = Console.ReadLine();
+            if (!int.TryParse(stringTypeOfHash, out int intTypeOfHash))
+            {
+                throw new IncorrectInputException("Incorrect input, enter number, please");
+            }
+
+            switch (intTypeOfHash)
+            {
+                case 1:
+                    {
+                        var hash = new NoNameHashFunction<string>();
+                        return hash;
+                    }
+                case 2:
+                    {
+                        var hash = new JenkinsHashFunction<string>();
+                        return hash;
+                    }
+                case 3:
+                    {
+                        var hash = new FNVHashFunction<string>();
+                        return hash;
+                    }
+                default:
+                    throw new IncorrectInputException("No such hash function");
+            }
+        }
+
+        static private void PerformUserDesire(HashTable<string> set, int choice)
         {
             switch (choice)
             {
@@ -62,7 +102,7 @@ namespace Task2
                     break;
                 case 5:
                     Console.Clear();
-                    PrintOptions();
+                    PrintHashTableOptions();
                     break;
                 default:
                     Console.WriteLine("No such option\n");
@@ -72,18 +112,18 @@ namespace Task2
 
         static public void Interaction()
         {
-            PrintOptions();
-            var hashTable = new HashTable<string>();
-            int userChoice;
+            var hashTable = new HashTable<string>(ChooseHashFunction());
+            PrintHashTableOptions();
+            int userChoice = 0;
             do
             {
-                Console.Write("Choice:  ");                
+                Console.Write("Choice:  ");
                 string input = Console.ReadLine();
                 if (!int.TryParse(input, out userChoice))
                 {
-                    Console.WriteLine("Incorrect input"); 
+                    throw new IncorrectInputException("Incorrect input, enter number, please");
                 }
-                Action(hashTable, userChoice);
+                PerformUserDesire(hashTable, userChoice);
             }
             while (userChoice != 0);
         }

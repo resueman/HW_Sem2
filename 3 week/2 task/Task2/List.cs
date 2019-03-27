@@ -82,9 +82,9 @@ namespace Task2
                 IsCorrectPosition(position);
                 return GetPreviousNodeByPosition(position + 1).Value;
             }
-            catch(IncorrectPositionException exception)
+            catch (IncorrectPositionException exception)
             {
-                throw new MyException("Can't get value", exception);
+                throw new ListException("Can't get value", exception);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Task2
             }
             catch (IncorrectPositionException exception)
             {
-                throw new MyException("Can't set value", exception);
+                throw new ListException("Can't set value", exception);
             }
         }
 
@@ -119,7 +119,7 @@ namespace Task2
             }
             catch (IncorrectPositionException exception)
             {
-                throw new MyException("Can't delete node", exception);
+                throw new ListException("Can't delete node", exception);
             }
         }
 

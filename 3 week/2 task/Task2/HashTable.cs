@@ -2,15 +2,22 @@
 
 namespace Task2
 {
-    class HashTable<T> : IHashTable<T>
+    public class HashTable<T> : IHashTable<T>
     {
         private List<T>[] buckets;
         private int numberOfElements;
         public const int defaultSize = 2;
         private IHashFunction<T> hash;
-        
+
         public HashTable()
         {
+            hash = new NoNameHashFunction<T>();
+        }
+
+        public HashTable(IHashFunction<T> hash)
+        {
+            this.hash = hash;
+
             buckets = new List<T>[defaultSize];
             for(int i = 0; i < defaultSize; ++i)
             {
@@ -59,7 +66,9 @@ namespace Task2
             {
                 Resize();
             }
-            buckets[hash.Calculate(key) % buckets.Length].AddNode(key, 1 + buckets[hash].GetLengthOfList());
+            int newElementHash = hash.Calculate(key) % buckets.Length;
+            int position = 1 + buckets[newElementHash].GetLengthOfList();
+            buckets[newElementHash].AddNode(key, position);
             ++numberOfElements;
             return true;
         }
@@ -81,7 +90,7 @@ namespace Task2
         {
             if (numberOfElements == 0)
             {
-                Console.WriteLine("Set is Empty\n");
+                Console.WriteLine("Set is empty\n");
                 return;
             }
             for (int i = 0; i < buckets.Length; ++i)
@@ -90,5 +99,15 @@ namespace Task2
             }
             Console.WriteLine("\n");
         }      
+
+        public void Clear()
+        {
+            for(int i = 0; i < buckets.Length; ++i)
+            {
+                buckets[i].Clear();
+            }
+            var newBuckets = new List<T>[defaultSize];
+            buckets = newBuckets;
+        }
     }
 }
