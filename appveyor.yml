@@ -25,4 +25,4 @@ notifications:
     on_build_failure: true
     on_build_status_changed: true 
     
-  [![Build Status](https://ci.appveyor.com/api/projects/status/github/mkpankov/hello)](https://ci.appveyor.com/api/projects/status/github/mkpankov/hello)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/mkpankov/hello)](https://ci.appveyor.com/api/projects/status/github/mkpankov/hello)
