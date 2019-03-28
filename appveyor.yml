@@ -15,3 +15,15 @@ build_script:
 
 test_script:
   - vstest.console /logger:Appveyor %solution_name%
+
+notifications:
+  - provider: Email
+    # Список адресов
+    to:
+      - tzavr@yandex.ru
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: true 
+    
+  [![Build Status](https://ci.appveyor.com/api/projects/status/github/mkpankov/hello)](https://ci.appveyor.com/api/projects/status/github/mkpankov/hello)
+
