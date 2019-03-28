@@ -1,11 +1,11 @@
 image: Visual Studio 2017
 
 environment:
-matrix:
-- solution_name: "1 week/1 task/1 task.sln"
-- solution_name: "1 week/3 task/3 task.sln"
-- solution_name: "1 week/4 task/4 task.sln"
-- solution_name: "1 week/5 task/5 task.sln"
+  matrix:
+    - solution_name: "1 week/1 task/1 task.sln"
+    - solution_name: "1 week/3 task/3 task.sln"
+    - solution_name: "1 week/4 task/4 task.sln"
+    - solution_name: "1 week/5 task/5 task.sln"
 
 before_build:
   - nuget restore %solution_name%
