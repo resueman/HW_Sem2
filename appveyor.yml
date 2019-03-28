@@ -8,11 +8,10 @@ environment:
     - solution_name: "1 week/5 task/5 task.sln"
 
 before_build:
-- nuget restore %solution_path%
+- nuget restore %solution_name%
 
 build_script:
 - msbuild %solution_name%
 
 test_script:
 - vstest.console /logger:Appveyor %solution_name%
-
