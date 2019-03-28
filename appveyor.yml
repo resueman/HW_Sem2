@@ -2,10 +2,10 @@ image: Visual Studio 2017
 
 environment:
   matrix:
-    - solution_name: 1_week/1_task/1_task.sln
-    - solution_name: 1_week/3_task/3_task.sln
-    - solution_name: 1_week/4_task/4_task.sln
-    - solution_name: 1_week/5_task/5_task.sln
+    - solution_name: 1week/1task/1task.sln
+    - solution_name: 1week/3task/3task.sln
+    - solution_name: 1week/4task/4task.sln
+    - solution_name: 1week/5task/5task.sln
 
 before_build:
   - nuget restore %solution_name%
