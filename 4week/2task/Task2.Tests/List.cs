@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Task2.Tests
 {
@@ -28,13 +27,13 @@ namespace Task2.Tests
         [TestMethod]
         public void IsEmptyOnEmptyList()
         {
-            Assert.IsTrue(emptyList.IsEmpty() && list.GetLengthOfList() == 0);
+            Assert.IsTrue(emptyList.IsEmpty() && emptyList.GetLengthOfList() == 0);
         }
 
         [TestMethod]
         public void IsEmptyAfterAddAndDelete()
         {
-            for(int i = 0; i < 100; ++i)
+            for (int i = 0; i < 100; ++i)
             {
                 emptyList.AddNode(i, 1);
             }

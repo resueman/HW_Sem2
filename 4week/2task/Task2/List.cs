@@ -4,13 +4,13 @@ namespace Task2
 {
     public class List<T> : IList<T>
     {
-        private int length = 0;
-        private Node head = null;
+        private int length;
+        private Node head;
 
         private class Node
         {
             public T Value { get; set; }
-            public Node Next { get; set; } = null;
+            public Node Next { get; set; }
 
             public Node(T value)
             {

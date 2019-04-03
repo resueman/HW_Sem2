@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EB6C2EA9-7266-4B03-AAC5-873CE0670E92}</ProjectGuid>
+    <ProjectGuid>{CC80F44C-86D1-43C2-9F2C-54770C21AAF5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Task2.Tests</RootNamespace>
@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Task2\Task2.csproj">
-      <Project>{9bba50dd-18d3-4fb7-8915-05d9b72c2e27}</Project>
+      <Project>{dd947752-cc45-4876-8483-fa7eebacfcb7}</Project>
       <Name>Task2</Name>
     </ProjectReference>
   </ItemGroup>
