@@ -1,0 +1,25 @@
+image: Visual Studio 2017
+
+environment:
+  matrix:
+    - solution_name: 1week/1task/1task.sln 
+    - solution_name: 1week/3task/3task.sln
+    - solution_name: 1week/4task/4task.sln
+    - solution_name: 1week/5task/5task.sln
+
+before_build:
+  - nuget restore %solution_name%
+
+build_script:
+  - msbuild %solution_name%
+
+test_script:
+  - vstest.console /logger:Appveyor %solution_name%
+
+notifications:
+  - provider: Email
+    to:
+      - tzawr@yandex.ru
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: true
