@@ -7,7 +7,6 @@ namespace Task2
         private static char Appearance { get; set; } = '@';
         private static int Left { get; set; } = 1;
         private static int Top { get; set; } = 1;
-
         public Hero()
         {
             Console.SetCursorPosition(Left, Top);
