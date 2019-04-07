@@ -11,7 +11,7 @@ namespace Task2
         public Set()
         {
             buckets = new List<T>[defaultSize];
-            for(int i = 0; i < defaultSize; ++i)
+            for (int i = 0; i < defaultSize; ++i)
             {
                 buckets[i] = new List<T>();
             }
@@ -36,7 +36,7 @@ namespace Task2
         private void Resize()
         {
             var newBuckets = new List<T>[2 * buckets.Length];
-            for(int i = 0; i < newBuckets.Length; ++i)
+            for (int i = 0; i < newBuckets.Length; ++i)
             {
                 newBuckets[i] = new List<T>();
             }
@@ -44,7 +44,7 @@ namespace Task2
             int currentIndex = 0;
             for(int i = 0; i < buckets.Length; ++i)
             {
-                for(int j = 1; j <= buckets[i].GetLengthOfList(); ++j)
+                for(int j = 1; j <= buckets[i].Length; ++j)
                 {
                     allNodes[currentIndex] = buckets[i].GetValue(j);
                     ++currentIndex;
@@ -72,7 +72,7 @@ namespace Task2
                 Resize();
             }
             int hash = GetHash(key) % buckets.Length;
-            buckets[hash].AddNode(key, 1 + buckets[hash].GetLengthOfList());
+            buckets[hash].AddNode(key, 1 + buckets[hash].Length);
             ++numberOfElements;
             return true;
         }

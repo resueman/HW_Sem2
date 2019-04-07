@@ -4,13 +4,13 @@ namespace Task2
 {
     class List<T> : IList<T>
     {
-        private int length = 0;
-        private Node head = null;
+        private Node head;
+        public int Length { get; set; }
 
         private class Node
         {
             public T Value { get; set; }
-            public Node Next { get; set; } = null;
+            public Node Next { get; set; }
 
             public Node(T value)
             {
@@ -19,12 +19,7 @@ namespace Task2
         }
 
         public bool IsEmpty()
-        => length == 0;
-
-        public int GetLengthOfList()
-        {
-            return length;
-        }
+            => Length == 0;
 
         private Node GetPreviousNodeByPosition(int position)
         {
@@ -51,11 +46,11 @@ namespace Task2
 
         public void AddNode(T value, int position)
         {
-            if (position > length + 1 && position != 0 || position < 1)
+            if (position > Length + 1 && position != 0 || position < 1)
             {
                 throw new IncorrectPositionException("Can't add node, incorrect position");
             }
-            Node newNode = new Node(value);
+            var newNode = new Node(value);
             if (position == 1)
             {
                 InsertToHead(newNode);
@@ -64,12 +59,12 @@ namespace Task2
             {
                 Insert(newNode, position);
             }
-            ++length;
+            ++Length;
         }
 
         private void IsCorrectPosition(int position)
         {
-            if (position > length || position < 1)
+            if (position > Length || position < 1)
             {
                 throw new IncorrectPositionException("Incorrect position");
             }
@@ -115,7 +110,7 @@ namespace Task2
                     var previousNode = GetPreviousNodeByPosition(position);
                     previousNode.Next = previousNode.Next.Next;
                 }
-                --length;
+                --Length;
             }
             catch (IncorrectPositionException exception)
             {
@@ -126,7 +121,7 @@ namespace Task2
         public void PrintList()
         {
             Node current = head;
-            for (int i = 0; i < length; ++i)
+            for (int i = 0; i < Length; ++i)
             {
                 Console.Write($"{current.Value.ToString()}  ");
                 current = current.Next;
@@ -135,12 +130,8 @@ namespace Task2
 
         public void Clear()
         {
-            Node current = head;
-            while (length > 0)
-            {
-                DeleteNode(1);
-                current = current.Next;
-            }
+            head = null;
+            Length = 0;
         }
 
         public int FindPosition(T value)
@@ -150,7 +141,7 @@ namespace Task2
                 return -1;
             }
             var current = head;
-            for(int i = 0; i < length; ++i)
+            for(int i = 0; i < Length; ++i)
             {
                 if(current.Value.Equals(value))
                 {
