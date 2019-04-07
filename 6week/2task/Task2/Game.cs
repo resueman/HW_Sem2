@@ -1,28 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task2
 {
     class Game
     {
-        public static void OnLeft(int left, int top)
+        public static void OnLeft()
         {
-            Console.SetCursorPosition(left, top);
+            Hero.ChangeHeroPosition(-1, 0);
         }
-        public static void OnRight(int left, int top)
+        public static void OnRight()
         {
-            Console.SetCursorPosition(left, top);
+            Hero.ChangeHeroPosition(1, 0);
         }
-        public static void OnTop(int left, int top)
+        public static void OnTop()
         {
-            Console.SetCursorPosition(left, top);
+            Hero.ChangeHeroPosition(0, -1);
         }
-        public static void OnDown(int left, int top)
+        public static void OnDown()
         {
-            Console.SetCursorPosition(left, top);
+            Hero.ChangeHeroPosition(0, 1);
         }
     }
 }

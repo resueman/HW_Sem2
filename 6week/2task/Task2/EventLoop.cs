@@ -1,48 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task2
 {
     class EventLoop
     {
-        public event Action<int, int> LeftHandler;
-        public event Action<int, int> RightHandler;
-        public event Action<int, int> TopHandler;
-        public event Action<int, int> DownHandler;
+        public event Action LeftHandler;
+        public event Action RightHandler;
+        public event Action TopHandler;
+        public event Action DownHandler;
         public void Run()
         {
-            Program.PrintMap();
-            int left = 1;
-            int top = 1;
-            Console.SetCursorPosition(left, top);
-            Console.Write("@");
+            Map.PrintMap();
+            var hero = new Hero();
 
-            while (true)
+            bool wantToPlay = true;
+            while (wantToPlay)
             {
                 var key = Console.ReadKey(true);
+                Console.Write("\b ");
                 switch (key.Key)
                 {
                     case ConsoleKey.LeftArrow:
-                        --left;
-                        LeftHandler?.Invoke(left, top);
+                        LeftHandler?.Invoke();
                         break;
                     case ConsoleKey.RightArrow:
-                        ++left;
-                        RightHandler?.Invoke(left, top);
+                        RightHandler?.Invoke();
                         break;
                     case ConsoleKey.UpArrow:
-                        --top;
-                        TopHandler?.Invoke(left, top);
+                        TopHandler?.Invoke();
                         break;
                     case ConsoleKey.DownArrow:
-                        ++top;
-                        DownHandler?.Invoke(left, top);
+                        DownHandler?.Invoke();
+                        break;
+                    default:
+                        wantToPlay = false;
                         break;
                 }
-                Console.Write("@");
+                hero.PrintHero();
             }
         }
     }
