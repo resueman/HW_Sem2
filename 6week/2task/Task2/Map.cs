@@ -6,33 +6,28 @@ namespace Task2
 {
     class Map
     {
-        public static Matrix<bool> IsBorder { get; private set; }
+        public static bool[,] IsBorder { get; private set; }
         public Map()
-        {
-            IsBorder = new Matrix<bool>();
+        {            
             StreamReader objectReader = new StreamReader("Map.txt");
-            int numberOfCurrentLine = -1;
+            int numberOfLines = int.Parse(objectReader.ReadLine());
+            int numberOfColumns = int.Parse(objectReader.ReadLine());
+            IsBorder = new bool[numberOfLines, numberOfColumns];
 
+            int numberOfCurrentLine = -1;
             while (true)
             {
                 string buffer = objectReader.ReadLine();
+                ++numberOfCurrentLine;
                 if (buffer == null)
                 {
                     break;
                 }
 
                 Console.WriteLine(buffer);
-                ++numberOfCurrentLine;
                 for (int i = 0; i < buffer.Length; ++i)
                 {
-                    if (buffer[i] == ' ')
-                    {
-                        IsBorder.SetValue(numberOfCurrentLine, i, false);
-                    }
-                    else
-                    {
-                        IsBorder.SetValue(numberOfCurrentLine, i, true);
-                    }
+                    IsBorder[numberOfCurrentLine, i] = buffer[i] != ' ';
                 }
             }
             objectReader.Close();

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task2
 {
-    class Matrix<T>
+    /*class Matrix<T>
     {
         private T[,] matrix;
         private static readonly int defaultSize = 2;
@@ -17,15 +14,15 @@ namespace Task2
 
         private void Resize()
         {
-            var newVector = new T[2 * matrix.GetLength(0), 2 * matrix.GetLength(1)];
+            var newMatrix = new T[2 * matrix.GetLength(0), 2 * matrix.GetLength(1)];
             for (int i = 0; i < matrix.GetLength(0); ++i)
             {
                 for (int j = 0; j < matrix.GetLength(1); ++j)
                 {
-                    newVector[i, j] = matrix[i, j];
+                    newMatrix[i, j] = matrix[i, j];
                 }
             }
-            matrix = newVector;
+            matrix = newMatrix;
         }
 
         public void SetValue(int line, int column, T value)
@@ -39,8 +36,5 @@ namespace Task2
 
         public T GetValue(int line, int column)
             => matrix[line, column];
-
-        public int GetSize()
-            => matrix.GetLength(0);
-    }
+    }*/
 }

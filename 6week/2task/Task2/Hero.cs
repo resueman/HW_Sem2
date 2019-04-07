@@ -19,8 +19,9 @@ namespace Task2
         }
         public static void ChangeHeroPosition(int diffLeft, int diffTop)
         {
-            if(Map.IsBorder.GetValue(Left + diffLeft, Top + diffTop))
+            if(Map.IsBorder[Left + diffLeft, Top + diffTop])
             {
+                Console.SetCursorPosition(Left, Top);
                 return;
             }
             Left += diffLeft;
