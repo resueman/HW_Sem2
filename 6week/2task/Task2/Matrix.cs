@@ -7,6 +7,7 @@ namespace Task2
     {
         private T[,] matrix;
         private static readonly int defaultSize = 2;
+        private static readonly int resizeIndex = 20;
         public Matrix()
         {
             matrix = new T[defaultSize, defaultSize];
@@ -14,7 +15,7 @@ namespace Task2
 
         private void Resize()
         {
-            var newMatrix = new T[2 * matrix.GetLength(0), 2 * matrix.GetLength(1)];
+            var newMatrix = new T[resizeIndex + matrix.GetLength(0), resizeIndex + matrix.GetLength(1)];
             for (int i = 0; i < matrix.GetLength(0); ++i)
             {
                 for (int j = 0; j < matrix.GetLength(1); ++j)
@@ -24,7 +25,8 @@ namespace Task2
             }
             matrix = newMatrix;
         }
-
+        public T GetValue(int line, int column)
+            => matrix[line, column];
         public void SetValue(int line, int column, T value)
         {
             if(line >= matrix.GetLength(0) || column >= matrix.GetLength(1))
@@ -33,8 +35,5 @@ namespace Task2
             }
             matrix[line, column] = value;
         }
-
-        public T GetValue(int line, int column)
-            => matrix[line, column];
     }
 }
