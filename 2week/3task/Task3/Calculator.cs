@@ -66,7 +66,7 @@
                 }
                 return answer;
             }
-            catch(StackIsEmptyException innerException)
+            catch (StackIsEmptyException innerException)
             {
                 throw new StackIsEmptyException("Stack is empty", innerException);
             }

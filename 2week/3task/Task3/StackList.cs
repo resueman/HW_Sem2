@@ -2,7 +2,7 @@
 {
     class StackList<T> : IStack<T>
     {
-        Node head = null;
+        private Node head;
 
         private class Node
         {
