@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Task2
 {
-    /*class Matrix<T>
+    class Matrix<T>
     {
         private T[,] matrix;
         private static readonly int defaultSize = 2;
@@ -36,5 +36,5 @@ namespace Task2
 
         public T GetValue(int line, int column)
             => matrix[line, column];
-    }*/
+    }
 }
