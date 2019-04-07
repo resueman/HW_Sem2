@@ -44,7 +44,7 @@ namespace Task1
                         break;
                     }
                 case 3:
-                    Console.WriteLine($"Length of list:  {list.GetLengthOfList()}\n");
+                    Console.WriteLine($"Length of list:  {list.Length}\n");
                     break;
                 case 4:
                     {

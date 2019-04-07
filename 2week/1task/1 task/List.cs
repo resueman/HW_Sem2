@@ -4,13 +4,13 @@ namespace Task1
 {
     class List : IList
     {
-        private int length = 0;
-        private Node head = null;
+        private Node head;
+        public int Length { get; set; }
 
         private class Node
         {
-            public int Value { get; set; } = 0;
-            public Node Next { get; set; } = null;
+            public int Value { get; set; }
+            public Node Next { get; set; }
 
             public Node(int value)
             {
@@ -19,12 +19,7 @@ namespace Task1
         }
 
         public bool IsEmpty()
-        => length == 0;
-
-        public int GetLengthOfList()
-        {
-            return length;
-        }
+            =>Length == 0;
 
         private Node GetPreviousNodeByPosition(int position)
         {
@@ -51,12 +46,12 @@ namespace Task1
 
         public void AddNode(int value, int position)
         {
-            if (position > length + 1 && position != 0 || position < 1)
+            if (position > Length + 1 && position != 0 || position < 1)
             {
                 Console.WriteLine("Incorrect position");
                 return;
             }
-            Node newNode = new Node(value);
+            var newNode = new Node(value);
             if (position == 1)
             {
                 InsertToHead(newNode);
@@ -65,12 +60,12 @@ namespace Task1
             {
                 Insert(newNode, position);
             }
-            ++length;
+            ++Length;
         }
 
         private bool IsCorrectPosition(int position)
         {
-            if (position > length || position < 1)
+            if (position > Length || position < 1)
             {
                 Console.WriteLine("Incorrect position");
                 return false;
@@ -111,19 +106,19 @@ namespace Task1
                 var previousNode = GetPreviousNodeByPosition(position);
                 previousNode.Next = previousNode.Next.Next;
             }
-            --length;
+            --Length;
         }
 
         public string GetStringOfListElements()
         {
-            if (length == 0)
+            if (Length == 0)
             {
                 return "List is empty";
             }
 
             string answer = "";
             Node current = head;
-            for (int i = 0; i < length; ++i)
+            for (int i = 0; i < Length; ++i)
             {
                 answer += current.Value.ToString() + " ";
                 current = current.Next;
@@ -133,12 +128,8 @@ namespace Task1
 
         public void Clear()
         {
-            Node current = head;
-            while (length > 0)
-            {
-                DeleteNode(1);
-                current = current.Next;
-            }
+            head = null;
+            Length = 0;
         }
     }
 }

@@ -8,7 +8,6 @@ namespace Task1
         void DeleteNode(int position);
         int GetValue(int position);
         void SetValue(int value, int position);
-        int GetLengthOfList();
         bool IsEmpty();
     }
 }
