@@ -19,7 +19,7 @@ namespace Task1
         }
 
         public bool IsEmpty()
-            =>Length == 0;
+            => Length == 0;
 
         private Node GetPreviousNodeByPosition(int position)
         {
