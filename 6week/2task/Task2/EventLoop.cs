@@ -4,13 +4,10 @@ namespace Task2
 {
     class EventLoop
     {
-        public event Action LeftHandler;
-        public event Action RightHandler;
-        public event Action TopHandler;
-        public event Action DownHandler;
+        public event Action LeftHandler, RightHandler, TopHandler, DownHandler;
         public void Run()
         {
-            Map.PrintMap();
+            var map = new Map(); 
             var hero = new Hero();
 
             bool wantToPlay = true;

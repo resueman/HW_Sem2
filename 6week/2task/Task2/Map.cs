@@ -1,24 +1,43 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Task2
 {
     class Map
     {
-        public static void PrintMap()
+        public static Matrix<bool> IsBorder { get; private set; }
+        public Map()
         {
+            IsBorder = new Matrix<bool>();
             StreamReader objectReader = new StreamReader("Map.txt");
-            string buffer = "";
-            while (buffer != null)
+            int numberOfCurrentLine = -1;
+
+            while (true)
             {
-                buffer = objectReader.ReadLine();
-                if (buffer != null)
+                string buffer = objectReader.ReadLine();
+                if (buffer == null)
                 {
-                    Console.WriteLine(buffer);
+                    break;
+                }
+
+                Console.WriteLine(buffer);
+                ++numberOfCurrentLine;
+                for (int i = 0; i < buffer.Length; ++i)
+                {
+                    if (buffer[i] == ' ')
+                    {
+                        IsBorder.SetValue(numberOfCurrentLine, i, false);
+                    }
+                    else
+                    {
+                        IsBorder.SetValue(numberOfCurrentLine, i, true);
+                    }
                 }
             }
             objectReader.Close();
-            Console.WriteLine("\nPress any key except arrows to exit the game...");
+            Console.WriteLine("\nUse arrows to control the hero");
+            Console.WriteLine("Press any other key to exit the game...");
         }
     }
 }

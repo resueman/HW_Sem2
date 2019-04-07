@@ -10,22 +10,22 @@ namespace Task2
 
         public Hero()
         {
-            SetInitialHeroPosition();
-        }
-        public void SetInitialHeroPosition()
-        {
             Console.SetCursorPosition(Left, Top);
             PrintHero();
-        }
-        public static void ChangeHeroPosition(int diffLeft, int diffTop)
-        {
-            Left += diffLeft;
-            Top += diffTop;
-            Console.SetCursorPosition(Left, Top);
         }
         public void PrintHero()
         {
             Console.Write(Appearance);
+        }
+        public static void ChangeHeroPosition(int diffLeft, int diffTop)
+        {
+            if(Map.IsBorder.GetValue(Left + diffLeft, Top + diffTop))
+            {
+                return;
+            }
+            Left += diffLeft;
+            Top += diffTop;
+            Console.SetCursorPosition(Left, Top);
         }
     }
 }
