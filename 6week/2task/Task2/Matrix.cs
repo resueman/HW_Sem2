@@ -8,6 +8,12 @@ namespace Task2
         private static T[,] matrix;
         private static readonly int defaultSize = 2;
         private static readonly int resizeIndex = 20;
+
+        public const int leftBorder = 0;
+        public const int topBorder = 0;
+        public static int MaxRightBorder { get; private set; } = defaultSize - 1;
+        public static int MaxDownBorder { get; private set; } = defaultSize - 1;
+
         public Matrix()
         {
             matrix = new T[defaultSize, defaultSize];
@@ -18,16 +24,27 @@ namespace Task2
         {
             if (line >= matrix.GetLength(0))
             {
-                AddLines();
+                Resize(true);
             }
             if (column >= matrix.GetLength(1))
             {
-                AddColumns();
+                Resize(false);
             }
             matrix[line, column] = value;
         }
-        public void CopyValuesToNewMatrix(T[,] newMatrix)
+        public void Resize(bool addLines)
         {
+            T[,] newMatrix;
+            if (addLines)
+            {
+                newMatrix = new T[resizeIndex + matrix.GetLength(0), matrix.GetLength(1)];
+                MaxDownBorder = newMatrix.GetLength(0);
+            }
+            else
+            {
+                newMatrix = new T[matrix.GetLength(0), resizeIndex + matrix.GetLength(1)];
+                MaxRightBorder = newMatrix.GetLength(1);
+            }
             for (int i = 0; i < matrix.GetLength(0); ++i)
             {
                 for (int j = 0; j < matrix.GetLength(1); ++j)
@@ -36,16 +53,6 @@ namespace Task2
                 }
             }
             matrix = newMatrix;
-        }
-        private void AddLines()
-        {
-            var newMatrix = new T[resizeIndex + matrix.GetLength(0), matrix.GetLength(1)];
-            CopyValuesToNewMatrix(newMatrix);
-        }
-        private void AddColumns()
-        {
-            var newMatrix = new T[matrix.GetLength(0), resizeIndex + matrix.GetLength(1)];
-            CopyValuesToNewMatrix(newMatrix);
         }
     }
 }
