@@ -11,7 +11,18 @@ namespace Task2
             eventLoop.RightHandler += Game.OnRight;
             eventLoop.TopHandler += Game.OnTop;
             eventLoop.DownHandler += Game.OnDown;
-            eventLoop.Run();
+            try
+            {
+                eventLoop.Run();
+            }
+            catch(MapNotFoundException exception)
+            {
+                Console.WriteLine(exception.Message);
+                if(exception.InnerException != null)
+                {
+                    Console.WriteLine(exception.InnerException.Message);
+                }
+            }
         }
     }
 }

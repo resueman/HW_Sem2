@@ -8,24 +8,31 @@ namespace Task2
         public static Matrix<bool> IsBorder { get; private set; }
         public Map()
         {
-            StreamReader objectReader = new StreamReader("Map.txt");
-            IsBorder = new Matrix<bool>();
-            int currentLine = -1;
-            while (true)
+            try
             {
-                string buffer = objectReader.ReadLine();
-                ++currentLine;
-                if (buffer == null)
+                StreamReader objectReader = new StreamReader("Map.txt");
+                IsBorder = new Matrix<bool>();
+                int currentLine = -1;
+                while (true)
                 {
-                    break;
+                    string buffer = objectReader.ReadLine();
+                    ++currentLine;
+                    if (buffer == null)
+                    {
+                        break;
+                    }
+                    for (int i = 0; i < buffer.Length; ++i)
+                    {
+                        IsBorder.SetValue(currentLine, i, buffer[i] != ' ');
+                    }
+                    Console.WriteLine(buffer);
                 }
-                for (int i = 0; i < buffer.Length; ++i)
-                {
-                    IsBorder.SetValue(currentLine, i, buffer[i] != ' ');
-                }
-                Console.WriteLine(buffer);
+                objectReader.Close();
             }
-            objectReader.Close();
+            catch (FileNotFoundException inner)
+            {
+                throw new MapNotFoundException("File with map not found", inner);
+            }
         }
     }
 }
