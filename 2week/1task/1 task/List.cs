@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Text;
 
 namespace Task1
 {
     class List : IList
     {
         private Node head;
-        public int Length { get; set; }
+        public int Length { get; private set; }
 
         private class Node
         {
@@ -116,14 +117,14 @@ namespace Task1
                 return "List is empty";
             }
 
-            string answer = "";
+            var bld = new StringBuilder();
             Node current = head;
             for (int i = 0; i < Length; ++i)
             {
-                answer += current.Value.ToString() + " ";
+                bld.Append(current.Value.ToString() + " ");
                 current = current.Next;
             }
-            return answer;
+            return bld.ToString();
         }
 
         public void Clear()

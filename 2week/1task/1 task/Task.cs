@@ -2,7 +2,7 @@
 
 namespace Task1
 {
-    class Task
+    static class Task
     {
         public static bool Test()
         {

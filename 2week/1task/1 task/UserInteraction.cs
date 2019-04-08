@@ -2,7 +2,7 @@
 
 namespace Task1
 {
-    class UserInteraction
+    static class UserInteraction
     {
         static private void PrintOptions()
         {
@@ -21,7 +21,7 @@ namespace Task1
 
         static private void Action(List list, int choice)
         {
-            switch(choice)
+            switch (choice)
             {
                 case 0:
                         break;
