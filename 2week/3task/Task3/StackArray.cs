@@ -17,7 +17,7 @@ namespace Task3
             => head == -1;
 
         public T Top()
-        => IsEmpty() ? throw new StackIsEmptyException("No top element") : stack[head - 1];
+            => IsEmpty() ? throw new StackIsEmptyException("No top element") : stack[head - 1];
 
         public T Pop()
         {
