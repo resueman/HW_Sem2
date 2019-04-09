@@ -2,29 +2,29 @@
 {
     class Calculator
     {
-        private IStack<int> stack;
+        private readonly IStack<int> stack;
 
         public Calculator(IStack<int> stack)
         {
             this.stack = stack;
         }
 
-        private int PerformingOperation(int number1, int number2, char operation)
+        private static int PerformingOperation(int number2, int number1,char operation)
         {
             int result = 0;
             switch (operation)
             {
                 case '+':
-                    result = number1 + number2;
+                    result = number2 + number1;
                     break;
                 case '-':
-                    result = number1 - number2;
+                    result = number2 - number1;
                     break;
                 case '*':
-                    result = number1 * number2;
+                    result = number2 * number1;
                     break;
                 case '/':
-                    result = number1 / number2;
+                    result = number2 / number1;
                     break;
             }
             return result;

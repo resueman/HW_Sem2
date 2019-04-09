@@ -26,6 +26,7 @@ namespace Task3
                 throw new StackIsEmptyException("Can't pop");
             }
             T headValue = stack[head];
+            stack[head] = default;
             --head;
             return headValue;
         }
