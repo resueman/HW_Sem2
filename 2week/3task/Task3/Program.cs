@@ -2,7 +2,7 @@
 
 namespace Task3
 {
-    class Program
+    static class Program
     {
         static void Main()
         {
