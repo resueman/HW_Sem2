@@ -77,7 +77,7 @@ namespace Task2
                 IsCorrectPosition(position);
                 return GetPreviousNodeByPosition(position + 1).Value;
             }
-            catch(IncorrectPositionException exception)
+            catch (IncorrectPositionException exception)
             {
                 throw new MyException("Can't get value", exception);
             }
@@ -141,7 +141,7 @@ namespace Task2
                 return -1;
             }
             var current = head;
-            for(int i = 0; i < Length; ++i)
+            for (int i = 0; i < Length; ++i)
             {
                 if(current.Value.Equals(value))
                 {

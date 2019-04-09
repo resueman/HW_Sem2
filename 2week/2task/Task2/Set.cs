@@ -20,7 +20,7 @@ namespace Task2
         public int LoadFactor()
             => numberOfElements / buckets.Length;
 
-        private int GetHash(T key)
+        private static int GetHash(T key)
         {
             int hash = 0;
             int randomNumber = 11;
