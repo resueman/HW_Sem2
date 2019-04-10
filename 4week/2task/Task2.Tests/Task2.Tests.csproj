@@ -5,12 +5,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CC80F44C-86D1-43C2-9F2C-54770C21AAF5}</ProjectGuid>
+    <ProjectGuid>{B456DD0D-733D-4D72-9C6B-C6094E208EF3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Task2.Tests</RootNamespace>
     <AssemblyName>Task2.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -49,16 +49,16 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UniqueList.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="List.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UniqueList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Task2\Task2.csproj">
-      <Project>{dd947752-cc45-4876-8483-fa7eebacfcb7}</Project>
+      <Project>{d628e8dc-5e20-4421-95df-a405b7a3c397}</Project>
       <Name>Task2</Name>
     </ProjectReference>
   </ItemGroup>

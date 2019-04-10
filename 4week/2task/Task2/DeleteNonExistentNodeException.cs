@@ -8,14 +8,17 @@ namespace Task2
         public DeleteNonExistentNodeException()
         {
         }
+
         public DeleteNonExistentNodeException(string message)
             : base(message)
         {
         }
+
         public DeleteNonExistentNodeException(string message, Exception inner)
             : base(message, inner)
         {
         }
+
         protected DeleteNonExistentNodeException(System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context)
             : base(info, context)

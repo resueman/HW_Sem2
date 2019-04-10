@@ -5,8 +5,8 @@ namespace Task2.Tests
     [TestClass]
     public class List
     {
-        List<int> emptyList;
-        List<int> list;
+        private List<int> emptyList;
+        private List<int> list;
 
         [TestInitialize]
         public void Initialization()
@@ -27,7 +27,7 @@ namespace Task2.Tests
         [TestMethod]
         public void IsEmptyOnEmptyList()
         {
-            Assert.IsTrue(emptyList.IsEmpty() && emptyList.GetLengthOfList() == 0);
+            Assert.IsTrue(emptyList.IsEmpty() && emptyList.Length == 0);
         }
 
         [TestMethod]
@@ -41,7 +41,7 @@ namespace Task2.Tests
             {
                 emptyList.DeleteNodeByPosition(1);
             }
-            Assert.IsFalse(emptyList.IsEmpty() && emptyList.GetLengthOfList() == 1);
+            Assert.IsFalse(emptyList.IsEmpty() && emptyList.Length == 1);
         }
 
         [TestMethod]
@@ -77,21 +77,22 @@ namespace Task2.Tests
         [TestMethod]
         public void CorrectDeleteTest4()
         {
-            list.DeleteNodeByPosition(1);
-            list.DeleteNodeByPosition(7);
-            list.DeleteNodeByPosition(3);
-            list.DeleteNodeByPosition(3);
+            int[] positions = new int[4] { 1, 7, 3, 3 };
+            for(int i = 0; i < 4; ++i)
+            {
+                list.DeleteNodeByPosition(positions[i]);
+            }
             Assert.AreEqual("105 267 657 987 ", list.GetStringOfListElements());
         }
 
         [TestMethod]
         public void CorrectDeleteTest5()
         {
-            list.DeleteNodeByPosition(1);
-            list.DeleteNodeByPosition(7);
-            list.DeleteNodeByPosition(3);
-            list.DeleteNodeByPosition(3);
-            list.DeleteNodeByPosition(4);
+            int[] positions = new int[5] { 1, 7, 3, 3, 4 };
+            for (int i = 0; i < 5; ++i)
+            {
+                list.DeleteNodeByPosition(positions[i]);
+            }
             Assert.AreEqual("105 267 657 ", list.GetStringOfListElements());
         }
 
@@ -99,51 +100,44 @@ namespace Task2.Tests
         [ExpectedException(typeof(IncorrectPositionException))]
         public void IncorrectDelete()
         {
-            list.DeleteNodeByPosition(1);
-            list.DeleteNodeByPosition(7);
-            list.DeleteNodeByPosition(3);
-            list.DeleteNodeByPosition(3);
-            list.DeleteNodeByPosition(4);
-            list.DeleteNodeByPosition(4);
+            int[] positions = new int[6] { 1, 7, 3, 3, 4, 4 };
+            for (int i = 0; i < 6; ++i)
+            {
+                list.DeleteNodeByPosition(positions[i]);
+            }
             Assert.AreEqual("105 267 657 ", list.GetStringOfListElements());
         }
 
         [TestMethod]
         public void CorrectDeleteTest7()
         {
-            list.DeleteNodeByPosition(1);
-            list.DeleteNodeByPosition(7);
-            list.DeleteNodeByPosition(3);
-            list.DeleteNodeByPosition(3);
-            list.DeleteNodeByPosition(4);
-            list.DeleteNodeByPosition(1);
+            int[] positions = new int[6] { 1, 7, 3, 3, 4, 1 };
+            for (int i = 0; i < 6; ++i)
+            {
+                list.DeleteNodeByPosition(positions[i]);
+            }
             Assert.AreEqual("267 657 ", list.GetStringOfListElements());
         }
 
         [TestMethod]
         public void CorrectDeleteTest8()
         {
-            list.DeleteNodeByPosition(1);
-            list.DeleteNodeByPosition(7);
-            list.DeleteNodeByPosition(3);
-            list.DeleteNodeByPosition(3);
-            list.DeleteNodeByPosition(4);
-            list.DeleteNodeByPosition(1);
-            list.DeleteNodeByPosition(2);
+            int[] positions = new int[7] { 1, 7, 3, 3, 4, 1, 2 };
+            for (int i = 0; i < 7; ++i)
+            {
+                list.DeleteNodeByPosition(positions[i]);
+            }
             Assert.AreEqual("267 ", list.GetStringOfListElements());
         }
 
         [TestMethod]
         public void CorrectDeleteTest9()
         {
-            list.DeleteNodeByPosition(1);
-            list.DeleteNodeByPosition(7);
-            list.DeleteNodeByPosition(3);
-            list.DeleteNodeByPosition(3);
-            list.DeleteNodeByPosition(4);
-            list.DeleteNodeByPosition(1);
-            list.DeleteNodeByPosition(2);
-            list.DeleteNodeByPosition(1);
+            int[] positions = new int[8] { 1, 7, 3, 3, 4, 1, 2, 1 };
+            for (int i = 0; i < 8; ++i)
+            {
+                list.DeleteNodeByPosition(positions[i]);
+            }
             Assert.AreEqual("List is empty", list.GetStringOfListElements());
         }
 
