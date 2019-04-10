@@ -10,8 +10,6 @@
 
         void SetValue(T value, int position);
 
-        int GetLengthOfList();
-
         bool IsEmpty();
 
         void Print();

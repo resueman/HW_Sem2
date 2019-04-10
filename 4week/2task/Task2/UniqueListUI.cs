@@ -2,7 +2,7 @@
 
 namespace Task2
 {
-    class UniqueListUI
+    static class UniqueListUI
     {
         private static void PrintOptions()
         {

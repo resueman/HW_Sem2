@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Text;
 
 namespace Task2
 {
     public class List<T> : IList<T>
     {
-        private int length;
+        public int Length { get; private set; }
         private Node head;
 
         private class Node
@@ -19,13 +20,10 @@ namespace Task2
         }
 
         public bool IsEmpty()
-            => length == 0;
-
-        public int GetLengthOfList()
-            => length;
+            => Length == 0;
 
         private bool IsCorrectPosition(int position)
-            => !(position > length || position < 1);
+            => !(position > Length || position < 1);
 
         public T GetValue(int position)
         {
@@ -70,7 +68,7 @@ namespace Task2
                 var previousNode = GetPreviousNodeByPosition(position);
                 previousNode.Next = previousNode.Next.Next;
             }
-            --length;
+            --Length;
         }
 
         private void InsertToHead(Node newNode)
@@ -88,11 +86,11 @@ namespace Task2
 
         public void AddNode(T value, int position)
         {
-            if (position > length + 1 && position != 0 || position < 1)
+            if (position > Length + 1 && position != 0 || position < 1)
             {
                 throw new IncorrectPositionException("Incorrect position");
             }
-            Node newNode = new Node(value);
+            var newNode = new Node(value);
             if (position == 1)
             {
                 InsertToHead(newNode);
@@ -101,13 +99,13 @@ namespace Task2
             {
                 InsertNotToHead(newNode, position);
             }
-            ++length;
+            ++Length;
         }
 
         protected int GetPositionByValue(T key)
         {
             var current = head;
-            for (int i = 0; i < length; ++i)
+            for (int i = 0; i < Length; ++i)
             {
                 if (key.Equals(current.Value))
                 {
@@ -120,28 +118,24 @@ namespace Task2
 
         public void Clear()
         {
-            Node current = head;
-            while (length > 0)
-            {
-                DeleteNodeByPosition(1);
-                current = current.Next;
-            }
+            head = null;
+            Length = 0;
         }
 
         public string GetStringOfListElements()
         {
-            if (length == 0)
+            if (Length == 0)
             {
                 return "List is empty";
             }
-            string answer = "";
+            var stringBuilder = new StringBuilder();
             Node current = head;
-            for (int i = 0; i < length; ++i)
+            for (int i = 0; i < Length; ++i)
             {
-                answer += current.Value.ToString() + " ";
+                stringBuilder.Append(current.Value.ToString() + " ");
                 current = current.Next;
             }
-            return answer;
+            return stringBuilder.ToString();
         }
 
         public void Print()
