@@ -25,7 +25,7 @@ namespace Task2
                     {
                         Console.Write("Enter the key to find:  ");
                         string key = Console.ReadLine();
-                        if (set.IsExist(key))
+                        if (set.IsExists(key))
                         {
                             Console.WriteLine("Exists\n");
                             break;

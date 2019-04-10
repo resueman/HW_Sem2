@@ -62,7 +62,7 @@ namespace Task2
             ++Length;
         }
 
-        private void IsCorrectPosition(int position)
+        private void ThrowIfPositionIsIncorrect(int position)
         {
             if (position > Length || position < 1)
             {
@@ -74,7 +74,7 @@ namespace Task2
         {
             try
             {
-                IsCorrectPosition(position);
+                ThrowIfPositionIsIncorrect(position);
                 return GetPreviousNodeByPosition(position + 1).Value;
             }
             catch (IncorrectPositionException exception)
@@ -87,7 +87,7 @@ namespace Task2
         {
             try
             {
-                IsCorrectPosition(position);
+                ThrowIfPositionIsIncorrect(position);
                 GetPreviousNodeByPosition(position + 1).Value = value;
             }
             catch (IncorrectPositionException exception)
@@ -100,7 +100,7 @@ namespace Task2
         {
             try
             {
-                IsCorrectPosition(position);
+                ThrowIfPositionIsIncorrect(position);
                 if (position == 1)
                 {
                     head = head.Next;
@@ -136,14 +136,14 @@ namespace Task2
 
         public int FindPosition(T value)
         {
-            if(head == null)
+            if (head == null)
             {
                 return -1;
             }
             var current = head;
             for (int i = 0; i < Length; ++i)
             {
-                if(current.Value.Equals(value))
+                if (current.Value.Equals(value))
                 {
                     return i + 1; 
                 }

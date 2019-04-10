@@ -4,9 +4,9 @@ namespace Task2
 {
     class Set<T> : ISet<T>
     {
-        List<T>[] buckets;
+        private List<T>[] buckets;
         private int numberOfElements;
-        public const int defaultSize = 2;
+        private const int defaultSize = 2;
 
         public Set()
         {
@@ -58,16 +58,16 @@ namespace Task2
             }
         }
 
-        public bool IsExist(T key)
+        public bool IsExists(T key)
             => buckets[GetHash(key) % buckets.Length].FindPosition(key) != -1;        
 
         public bool AddToSet(T key)
         {
-            if(IsExist(key))
+            if (IsExists(key))
             {
                 return false;
             }
-            if(LoadFactor() > 1.0)
+            if (LoadFactor() > 1.0)
             {
                 Resize();
             }
