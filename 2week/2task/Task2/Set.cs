@@ -42,9 +42,9 @@ namespace Task2
             }
             var allNodes = new T[numberOfElements];
             int currentIndex = 0;
-            for(int i = 0; i < buckets.Length; ++i)
+            for (int i = 0; i < buckets.Length; ++i)
             {
-                for(int j = 1; j <= buckets[i].Length; ++j)
+                for (int j = 1; j <= buckets[i].Length; ++j)
                 {
                     allNodes[currentIndex] = buckets[i].GetValue(j);
                     ++currentIndex;
