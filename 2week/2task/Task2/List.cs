@@ -5,7 +5,7 @@ namespace Task2
     class List<T> : IList<T>
     {
         private Node head;
-        public int Length { get; set; }
+        public int Length { get; private set; }
 
         private class Node
         {
@@ -62,60 +62,49 @@ namespace Task2
             ++Length;
         }
 
-        private void ThrowIfPositionIsIncorrect(int position)
+        private bool IsCorrectPosition(int position)
         {
             if (position > Length || position < 1)
             {
-                throw new IncorrectPositionException("Incorrect position");
+                return false;
             }
+            return true;
         }
 
         public T GetValue(int position)
         {
-            try
+            if (!IsCorrectPosition(position))
             {
-                ThrowIfPositionIsIncorrect(position);
-                return GetPreviousNodeByPosition(position + 1).Value;
+                throw new IncorrectPositionException("Can't get value, incorrect position");
             }
-            catch (IncorrectPositionException exception)
-            {
-                throw new MyException("Can't get value", exception);
-            }
+            return GetPreviousNodeByPosition(position + 1).Value;
         }
 
         public void SetValue(T value, int position)
         {
-            try
+            if (!IsCorrectPosition(position))
             {
-                ThrowIfPositionIsIncorrect(position);
-                GetPreviousNodeByPosition(position + 1).Value = value;
+                throw new IncorrectPositionException("Can't set value, incorrect position");
             }
-            catch (IncorrectPositionException exception)
-            {
-                throw new MyException("Can't set value", exception);
-            }
+            GetPreviousNodeByPosition(position + 1).Value = value;
         }
 
         public void DeleteNode(int position)
         {
-            try
+            if (!IsCorrectPosition(position))
             {
-                ThrowIfPositionIsIncorrect(position);
-                if (position == 1)
-                {
-                    head = head.Next;
-                }
-                else
-                {
-                    var previousNode = GetPreviousNodeByPosition(position);
-                    previousNode.Next = previousNode.Next.Next;
-                }
-                --Length;
+                throw new IncorrectPositionException("Can't delete node, incorrect position");
             }
-            catch (IncorrectPositionException exception)
+            if (position == 1)
             {
-                throw new MyException("Can't delete node", exception);
+                head = head.Next;
             }
+            else
+            {
+                var previousNode = GetPreviousNodeByPosition(position);
+                previousNode.Next = previousNode.Next.Next;
+            }
+            --Length;
         }
 
         public void PrintList()
