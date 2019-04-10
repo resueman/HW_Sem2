@@ -132,7 +132,7 @@ namespace Task2
             Node current = head;
             for (int i = 0; i < Length; ++i)
             {
-                stringBuilder.Append(current.Value.ToString() + " ");
+                stringBuilder.Append(current.Value + " ");
                 current = current.Next;
             }
             return stringBuilder.ToString();
