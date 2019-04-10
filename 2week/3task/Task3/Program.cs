@@ -19,7 +19,7 @@ namespace Task3
             catch (StackIsEmptyException exception)
             {
                 Console.WriteLine(exception.Message);
-                if(exception.InnerException != null)
+                if (exception.InnerException != null)
                 {
                     Console.WriteLine("Inner exception: {0}", exception.InnerException.Message);
                 }
