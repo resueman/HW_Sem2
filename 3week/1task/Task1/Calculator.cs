@@ -1,15 +1,15 @@
 ﻿namespace Task1
 {
-    public class Calculator
+    public class Calculator : ICalculator
     {
-        private IStack<int> stack;
+        private readonly IStack<int> stack;
 
         public Calculator(IStack<int> stack)
         {
             this.stack = stack;
         }
 
-        private int PerformingOperation(int number1, int number2, char operation)
+        private static int PerformingOperation(int number1, int number2, char operation)
         {
             if(operation == '/' && number2 == 0)
             {

@@ -6,8 +6,8 @@ namespace Task1.Tests
     [TestClass]
     public class Calculator
     {
-        public StackList<int> stackList;
-        public StackArray<int> stackArray;
+        private StackList<int> stackList;
+        private StackArray<int> stackArray;
         private Task1.Calculator calculatorList;
         private Task1.Calculator calculatorArray;
 
