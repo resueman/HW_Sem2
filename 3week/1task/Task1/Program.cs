@@ -1,36 +1,33 @@
 ﻿using System;
 
-namespace Task1
+namespace Task3
 {
     static class Program
     {
-        private static void Main(string[] args)
+        static void Main()
         {
             IStack<int> stack = GetStackType();
             var calculator = new Calculator(stack);
-            Console.WriteLine("\nSeparating numbers and signs of operations by spaces");
-            Console.WriteLine("Enter the postfix expression, please\n");
+            Console.WriteLine("\nSeparate numbers and signs of operations by spaces");
+            Console.WriteLine("Enter the postfix expression, please");
             Console.Write("Expression:  ");
             string expression = Console.ReadLine();
-            Console.WriteLine();
-
             try
             {
                 Console.WriteLine($"Result of calculation:  {calculator.Calculation(expression)}");
-            }
-            catch (NotPostfixFormException exception)
+            }            
+            catch (StackIsEmptyException exception)
             {
                 Console.WriteLine(exception.Message);
                 if (exception.InnerException != null)
                 {
-                    Console.WriteLine("Inner exception: {0}", exception.InnerException.Message);
+                    Console.WriteLine($"Inner exception: {exception.InnerException.Message}");
                 }
             }
-            catch (DivisionByZeroException exception)
+            catch (NotPostfixFormException exception)
             {
                 Console.WriteLine(exception.Message);
             }
-            Console.ReadKey();
         }
 
         private static IStack<int> GetStackType()

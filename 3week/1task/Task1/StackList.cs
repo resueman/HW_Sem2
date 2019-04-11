@@ -1,6 +1,6 @@
-﻿namespace Task1
+﻿namespace Task3
 {
-    public class StackList<T> : IStack<T>
+    class StackList<T> : IStack<T>
     {
         private Node head;
 
@@ -19,7 +19,7 @@
             => head == null;
 
         public T Top()
-            => IsEmpty() ? throw new StackIsEmptyException("No top element, stack is empty") : head.Value;
+            => IsEmpty() ? throw new StackIsEmptyException("No top element") : head.Value;
 
         public void Push(T value)
         {
@@ -34,7 +34,7 @@
         {
             if (IsEmpty())
             {
-                throw new StackIsEmptyException("Can't pop, stack is empty");
+                throw new StackIsEmptyException("Can't pop");
             }
             T topValue = head.Value;
             head = head.Next;

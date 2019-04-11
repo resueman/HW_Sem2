@@ -1,6 +1,8 @@
-﻿namespace Task1
+﻿using System;
+
+namespace Task3
 {
-    public interface IStack<T>
+    interface IStack<T>
     {
         T Top();
         T Pop();

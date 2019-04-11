@@ -47,9 +47,11 @@
     <Compile Include="CalculatorException.cs" />
     <Compile Include="ICalculator.cs" />
     <Compile Include="IStack.cs" />
+    <Compile Include="NotPostfixFormException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StackArray.cs" />
+    <Compile Include="StackIsEmptyException.cs" />
     <Compile Include="StackList.cs" />
   </ItemGroup>
   <ItemGroup>
