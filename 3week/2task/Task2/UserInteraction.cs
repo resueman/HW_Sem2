@@ -2,7 +2,7 @@
 
 namespace Task2
 {
-    class UserInteraction
+    static class UserInteraction
     {
         static private void PrintHashTableOptions()
         {

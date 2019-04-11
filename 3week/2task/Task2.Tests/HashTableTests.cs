@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace Task2
 {    
-    public class Tests
+    public class HashTableTests
     {
         private HashTable<int> set;
         private HashTable<int> emptySet;
