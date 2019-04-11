@@ -63,13 +63,7 @@ namespace Task2
         }
 
         private bool IsCorrectPosition(int position)
-        {
-            if (position > Length || position < 1)
-            {
-                return false;
-            }
-            return true;
-        }
+            => !(position > Length || position < 1);
 
         public T GetValue(int position)
         {
