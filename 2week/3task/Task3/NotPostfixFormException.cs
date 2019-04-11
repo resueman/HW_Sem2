@@ -8,14 +8,17 @@ namespace Task3
         public NotPostfixFormException()
         {
         }
+
         public NotPostfixFormException(string message)
             : base(message)
         {
         }
+
         public NotPostfixFormException(string message, Exception inner)
             : base(message, inner)
         {
         }
+
         // Constructor for a serialization 
         protected NotPostfixFormException(System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context) 

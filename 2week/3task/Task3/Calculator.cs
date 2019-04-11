@@ -9,7 +9,7 @@
             this.stack = stack;
         }
 
-        private static int PerformingOperation(int number2, int number1,char operation)
+        private static int PerformingOperation(int number2, int number1, char operation)
         {
             int result = 0;
             switch (operation)
@@ -32,44 +32,37 @@
 
         public int Calculation(string expression)
         {
-            try
-            {
-                string[] expressionWithoutGaps;
-                char[] splitChar = { ' ' };
-                expressionWithoutGaps = expression.Split(splitChar);
+            string[] expressionWithoutGaps;
+            char[] splitChar = { ' ' };
+            expressionWithoutGaps = expression.Split(splitChar);
 
-                foreach (string singleString in expressionWithoutGaps)
-                {
-                    if (singleString == "+" || singleString == "-" || singleString == "*" || singleString == "/")
-                    {
-                        int number1 = stack.Pop();
-                        int number2 = stack.Pop();
-                        char operation = char.Parse(singleString);
-                        int resultOfOperation = PerformingOperation(number2, number1, operation);
-                        stack.Push(resultOfOperation);
-                        continue;
-                    }
-                    if (int.TryParse(singleString, out int number))
-                    {
-                        stack.Push(number);
-                        continue;
-                    }
-                    else
-                    {
-                        throw new NotPostfixFormException("Incorrect symbol");
-                    }
-                }
-                int answer = stack.Pop();
-                if (!stack.IsEmpty())
-                {
-                    throw new NotPostfixFormException("Not a postfix form");
-                }
-                return answer;
-            }
-            catch (StackIsEmptyException innerException)
+            foreach (string singleString in expressionWithoutGaps)
             {
-                throw new StackIsEmptyException("Stack is empty", innerException);
+                if (singleString == "+" || singleString == "-" || singleString == "*" || singleString == "/")
+                {
+                    int number1 = stack.Pop();
+                    int number2 = stack.Pop();
+                    char operation = char.Parse(singleString);
+                    int resultOfOperation = PerformingOperation(number2, number1, operation);
+                    stack.Push(resultOfOperation);
+                    continue;
+                }
+                if (int.TryParse(singleString, out int number))
+                {
+                    stack.Push(number);
+                    continue;
+                }
+                else
+                {
+                    throw new NotPostfixFormException("Incorrect symbol");
+                }
             }
+            int answer = stack.Pop();
+            if (!stack.IsEmpty())
+            {
+                throw new NotPostfixFormException("Not a postfix form");
+            }
+            return answer;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Task3
                 Console.WriteLine(exception.Message);
                 if (exception.InnerException != null)
                 {
-                    Console.WriteLine("Inner exception: {0}", exception.InnerException.Message);
+                    Console.WriteLine($"Inner exception: {exception.InnerException.Message}");
                 }
             }
             catch (NotPostfixFormException exception)
