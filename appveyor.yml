@@ -7,7 +7,7 @@ environment:
     - solution_name: 1week/4task/4task.sln
     - solution_name: 1week/5task/5task.sln
     - solution_name: 3week/2task/2task.sln
-
+    
 before_build:
   - nuget restore %solution_name%
 
@@ -20,7 +20,7 @@ test_script:
 notifications:
   - provider: Email
     to:
-      - tzavr@yandex.ru
+      - tzawr@yandex.ru
     on_build_success: false
     on_build_failure: true
     on_build_status_changed: true
