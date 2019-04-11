@@ -117,14 +117,14 @@ namespace Task1
                 return "List is empty";
             }
 
-            var bld = new StringBuilder();
+            var stringBuilder = new StringBuilder();
             Node current = head;
             for (int i = 0; i < Length; ++i)
             {
-                bld.Append(current.Value.ToString() + " ");
+                stringBuilder.Append(current.Value.ToString() + " ");
                 current = current.Next;
             }
-            return bld.ToString();
+            return stringBuilder.ToString();
         }
 
         public void Clear()
