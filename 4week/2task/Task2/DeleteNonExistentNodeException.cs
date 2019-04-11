@@ -2,6 +2,9 @@
 
 namespace Task2
 {
+    /// <summary>
+    /// Throws when user try to delete value, which doesn't exist
+    /// </summary>
     [Serializable]
     public class DeleteNonExistentNodeException : Exception
     {

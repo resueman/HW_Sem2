@@ -34,7 +34,7 @@ namespace Task2
             return GetPreviousNodeByPosition(position + 1).Value;
         }
 
-        public void SetValue(T value, int position)
+        public virtual void SetValue(T value, int position)
         {
             if (!IsCorrectPosition(position))
             {

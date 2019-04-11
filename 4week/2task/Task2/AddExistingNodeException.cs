@@ -2,6 +2,9 @@
 
 namespace Task2
 {
+    /// <summary>
+    /// Throws when user try to add to list existing value
+    /// </summary>
     [Serializable]
     public class AddExistingNodeException : Exception
     {

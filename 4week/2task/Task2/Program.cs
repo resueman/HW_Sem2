@@ -18,6 +18,10 @@ namespace Task2
             {
                 Console.WriteLine(exception.Message);
             }
+            catch (ImpossibleSetException exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
         }
     }
 }

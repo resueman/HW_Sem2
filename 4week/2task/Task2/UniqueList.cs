@@ -1,6 +1,6 @@
 ﻿namespace Task2
 {
-    public class UniqueList<T> : List<T>, IUniqueList<T>
+    public class UniqueList<T> : List<T>
     {
         public void AddNode(T value)
         {
@@ -19,6 +19,15 @@
                 throw new DeleteNonExistentNodeException("No such key");
             }
             DeleteNodeByPosition(position);
+        }
+
+        public override void SetValue(T value, int position)
+        {
+            if (GetPositionByValue(value) != -1)
+            {
+                throw new ImpossibleSetException("Such key already exists");
+            }
+            base.SetValue(value, position);
         }
     }
 }
