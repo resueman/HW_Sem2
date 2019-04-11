@@ -88,7 +88,7 @@ namespace Task2
         [Test]
         public void CorrectDeleteTest4()
         {
-            int[] positions = new int[] { 1, 7, 3, 3 };
+            var positions = new int[] { 1, 7, 3, 3 };
             for (int i = 0; i < 4; ++i)
             {
                 list.DeleteNode(positions[i]);
@@ -99,7 +99,7 @@ namespace Task2
         [Test]
         public void CorrectDeleteTest5()
         {
-            int[] positions = new int[] { 1, 7, 3, 3, 4 };
+            var positions = new int[] { 1, 7, 3, 3, 4 };
             for (int i = 0; i < 5; ++i)
             {
                 list.DeleteNode(positions[i]);
@@ -110,7 +110,7 @@ namespace Task2
         [Test]
         public void CorrectDeleteTest7()
         {
-            int[] positions = new int[] { 1, 7, 3, 3, 4, 1 };
+            var positions = new int[] { 1, 7, 3, 3, 4, 1 };
             for (int i = 0; i < 6; ++i)
             {
                 list.DeleteNode(positions[i]);
@@ -121,7 +121,7 @@ namespace Task2
         [Test]
         public void CorrectDeleteTest8()
         {
-            int[] positions = new int[] { 1, 7, 3, 3, 4, 1, 2 };
+            var positions = new int[] { 1, 7, 3, 3, 4, 1, 2 };
             for (int i = 0; i < 7; ++i)
             {
                 list.DeleteNode(positions[i]);
@@ -132,7 +132,7 @@ namespace Task2
         [Test]
         public void CorrectDeleteTest9()
         {
-            int[] positions = new int[] { 1, 7, 3, 3, 4, 1, 2, 1 };
+            var positions = new int[] { 1, 7, 3, 3, 4, 1, 2, 1 };
             for (int i = 0; i < 8; ++i)
             {
                 list.DeleteNode(positions[i]);
