@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Task3
+namespace Task1
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace Task3
             {
                 Console.WriteLine($"Result of calculation:  {calculator.Calculation(expression)}");
             }            
-            catch (StackIsEmptyException exception)
+            catch (NotPostfixFormException exception)
             {
                 Console.WriteLine(exception.Message);
                 if (exception.InnerException != null)
@@ -24,7 +24,7 @@ namespace Task3
                     Console.WriteLine($"Inner exception: {exception.InnerException.Message}");
                 }
             }
-            catch (NotPostfixFormException exception)
+            catch (DivisionByZeroException exception)
             {
                 Console.WriteLine(exception.Message);
             }

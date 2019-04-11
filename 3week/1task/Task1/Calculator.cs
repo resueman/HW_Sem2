@@ -1,29 +1,33 @@
-﻿namespace Task3
+﻿namespace Task1
 {
-    class Calculator
+    public class Calculator
     {
-        private readonly IStack<int> stack;
+        private IStack<int> stack;
 
         public Calculator(IStack<int> stack)
         {
             this.stack = stack;
         }
 
-        private static int PerformingOperation(int number2, int number1, char operation)
-        {
+        private static int PerformingOperation(int number2, int number1, string operation)
+        { 
+            if (operation == "/" && number1 == 0)
+            {
+                throw new DivisionByZeroException("Division by zero");
+            }
             int result = 0;
             switch (operation)
             {
-                case '+':
+                case "+":
                     result = number2 + number1;
                     break;
-                case '-':
+                case "-":
                     result = number2 - number1;
                     break;
-                case '*':
+                case "*":
                     result = number2 * number1;
                     break;
-                case '/':
+                case "/":
                     result = number2 / number1;
                     break;
             }
@@ -32,37 +36,43 @@
 
         public int Calculation(string expression)
         {
-            string[] expressionWithoutGaps;
-            char[] splitChar = { ' ' };
-            expressionWithoutGaps = expression.Split(splitChar);
+            try
+            {
+                string[] expressionWithoutGaps;
+                char[] splitChar = { ' ' };
+                expressionWithoutGaps = expression.Split(splitChar);
 
-            foreach (string singleString in expressionWithoutGaps)
-            {
-                if (singleString == "+" || singleString == "-" || singleString == "*" || singleString == "/")
+                foreach (string symbol in expressionWithoutGaps)
                 {
-                    int number1 = stack.Pop();
-                    int number2 = stack.Pop();
-                    char operation = char.Parse(singleString);
-                    int resultOfOperation = PerformingOperation(number2, number1, operation);
-                    stack.Push(resultOfOperation);
-                    continue;
+                    if (symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/")
+                    {
+                        int number1 = stack.Pop();
+                        int number2 = stack.Pop();
+                        int resultOfOperation = PerformingOperation(number2, number1, symbol);
+                        stack.Push(resultOfOperation);
+                        continue;
+                    }
+                    if (int.TryParse(symbol, out int number))
+                    {
+                        stack.Push(number);
+                        continue;
+                    }
+                    else
+                    {
+                        throw new NotPostfixFormException("Incorrect symbol");
+                    }
                 }
-                if (int.TryParse(singleString, out int number))
+                int answer = stack.Pop();
+                if (!stack.IsEmpty())
                 {
-                    stack.Push(number);
-                    continue;
+                    throw new NotPostfixFormException("Not a postfix form");
                 }
-                else
-                {
-                    throw new NotPostfixFormException("Incorrect symbol");
-                }
+                return answer;
             }
-            int answer = stack.Pop();
-            if (!stack.IsEmpty())
+            catch (StackIsEmptyException innerException)
             {
-                throw new NotPostfixFormException("Not a postfix form");
+                throw new NotPostfixFormException("Incorrect expression", innerException);
             }
-            return answer;
         }
     }
 }

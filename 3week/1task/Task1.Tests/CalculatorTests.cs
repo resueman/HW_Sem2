@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Task1.Tests
+namespace Task1
 {
     [TestClass]
     public class CalculatorTests
@@ -61,6 +60,9 @@ namespace Task1.Tests
         [DataRow("9 8 9 +")]
         [DataRow("8 + 9")]
         [DataRow("9 o 8 +")]
+        [DataRow("   9")]
+        [DataRow("")]
+        [DataRow("       ")]
         [ExpectedException(typeof(NotPostfixFormException))]
         public void IncorrectExpression(string expression)
         {

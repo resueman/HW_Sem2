@@ -1,29 +1,27 @@
-﻿using System;
-
-namespace Task3
+﻿namespace Task1
 {
-    class StackArray<T> : IStack<T>
+    public class StackArray<T> : IStack<T>
     {
         private T[] stack;
         private int head = -1;
-        private const int size = 2;
+        private const int defaultSize = 2;
 
         public StackArray()
         {
-            stack = new T[size];
+            stack = new T[defaultSize];
         }
 
         public bool IsEmpty()
             => head == -1;
 
         public T Top()
-            => IsEmpty() ? throw new StackIsEmptyException("No top element") : stack[head - 1];
+            => IsEmpty() ? throw new StackIsEmptyException("No top element, stack is empty") : stack[head];
 
         public T Pop()
         {
             if (IsEmpty())
             {
-                throw new StackIsEmptyException("Can't pop");
+                throw new StackIsEmptyException("Can't pop, stack is empty");
             }
             T headValue = stack[head];
             stack[head] = default;

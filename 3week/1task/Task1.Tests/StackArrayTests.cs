@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Task1.Tests
+namespace Task1
 {
     [TestClass]
     public class StackArrayTests
     {
-        StackArray<int> stack;
+        private StackArray<int> stack;
 
         [TestInitialize]
         public void Initialization()

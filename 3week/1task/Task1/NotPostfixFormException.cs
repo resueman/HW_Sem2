@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Task3
+namespace Task1
 {
     [Serializable]
     public class NotPostfixFormException : Exception
@@ -19,7 +19,6 @@ namespace Task3
         {
         }
 
-        // Constructor for a serialization 
         protected NotPostfixFormException(System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context) 
             : base(info, context)

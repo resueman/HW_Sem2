@@ -3,23 +3,23 @@
 namespace Task1
 {
     [Serializable]
-    public class StackIsEmptyException : Exception
+    public class DivisionByZeroException : Exception
     {
-        public StackIsEmptyException()
+        public DivisionByZeroException()
         {
         }
 
-        public StackIsEmptyException(string message)
+        public DivisionByZeroException(string message)
             : base(message)
         {
         }
 
-        public StackIsEmptyException(string message, Exception inner)
+        public DivisionByZeroException(string message, Exception inner)
             : base(message, inner)
         {
         }
 
-        protected StackIsEmptyException(System.Runtime.Serialization.SerializationInfo info,
+        protected DivisionByZeroException(System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         {
