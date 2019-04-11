@@ -36,20 +36,11 @@ namespace Task2
             switch (intTypeOfHash)
             {
                 case 1:
-                    {
-                        var hash = new NoNameHashFunction<string>();
-                        return hash;
-                    }
+                    return new NoNameHashFunction<string>();
                 case 2:
-                    {
-                        var hash = new JenkinsHashFunction<string>();
-                        return hash;
-                    }
+                    return new JenkinsHashFunction<string>();
                 case 3:
-                    {
-                        var hash = new FNVHashFunction<string>();
-                        return hash;
-                    }
+                    return new FNVHashFunction<string>();
                 default:
                     throw new IncorrectInputException("No such hash function");
             }

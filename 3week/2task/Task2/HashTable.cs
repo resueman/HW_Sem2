@@ -6,8 +6,8 @@ namespace Task2
     {
         private List<T>[] buckets;
         private int numberOfElements;
-        public const int defaultSize = 2;
-        private IHashFunction<T> hash;
+        private const int defaultSize = 2;
+        private readonly IHashFunction<T> hash;
 
         public HashTable()
         {
@@ -31,15 +31,15 @@ namespace Task2
         private void Resize()
         {
             var newBuckets = new List<T>[2 * buckets.Length];
-            for(int i = 0; i < newBuckets.Length; ++i)
+            for (int i = 0; i < newBuckets.Length; ++i)
             {
                 newBuckets[i] = new List<T>();
             }
             var allNodes = new T[numberOfElements];
             int currentIndex = 0;
-            for(int i = 0; i < buckets.Length; ++i)
+            for (int i = 0; i < buckets.Length; ++i)
             {
-                for(int j = 1; j <= buckets[i].GetLengthOfList(); ++j)
+                for(int j = 1; j <= buckets[i].Length; ++j)
                 {
                     allNodes[currentIndex] = buckets[i].GetValue(j);
                     ++currentIndex;
@@ -58,16 +58,16 @@ namespace Task2
 
         public bool AddToSet(T key)
         {
-            if(IsExist(key))
+            if (IsExist(key))
             {
                 return false;
             }
-            if(LoadFactor() > 1.0)
+            if (LoadFactor() > 1.0)
             {
                 Resize();
             }
             int newElementHash = hash.Calculate(key) % buckets.Length;
-            int position = 1 + buckets[newElementHash].GetLengthOfList();
+            int position = 1 + buckets[newElementHash].Length;
             buckets[newElementHash].AddNode(key, position);
             ++numberOfElements;
             return true;
@@ -102,7 +102,7 @@ namespace Task2
 
         public void Clear()
         {
-            for(int i = 0; i < buckets.Length; ++i)
+            for (int i = 0; i < buckets.Length; ++i)
             {
                 buckets[i].Clear();
             }
