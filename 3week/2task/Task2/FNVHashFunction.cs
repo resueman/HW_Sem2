@@ -1,9 +1,12 @@
-﻿using System;
-
-namespace Task2
+﻿namespace Task2
 {
     class FNVHashFunction<T> : IHashFunction<T>
     {
+        /// <summary>
+        /// Calculates key hash
+        /// </summary>
+        /// <param name="input">Key</param>
+        /// <returns>Returns the value of key hash</returns>
         public int Calculate(T input)
         {
             string key = input.ToString();
@@ -14,7 +17,7 @@ namespace Task2
                 hash *= primeNumber;
                 hash ^= ((byte)key[i]);
             }
-            return Math.Abs(hash);
+            return hash;
         }    
     }
 }

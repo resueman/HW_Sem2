@@ -1,8 +1,7 @@
 using NUnit.Framework;
 
 namespace Task2
-{
-    
+{    
     public class Tests
     {
         private HashTable<int> set;

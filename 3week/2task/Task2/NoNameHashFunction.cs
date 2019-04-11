@@ -1,9 +1,12 @@
-﻿using System;
-
-namespace Task2
+﻿namespace Task2
 {
     public class NoNameHashFunction<T> : IHashFunction<T>
     {
+        /// <summary>
+        /// Calculates key hash
+        /// </summary>
+        /// <param name="input">Key</param>
+        /// <returns>Returns the value of key hash</returns>
         public int Calculate(T key)
         {
             int hash = 0;
@@ -14,7 +17,7 @@ namespace Task2
                 hash += hash * randomNumber + str[i];
                 randomNumber += randomNumber;
             }
-            return Math.Abs(hash);
+            return hash;
         }
     }    
 }

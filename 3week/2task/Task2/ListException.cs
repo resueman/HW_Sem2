@@ -3,6 +3,11 @@
 
 namespace Task2
 {
+    /// <summary>
+    /// Kind of extenal exception
+    /// to specify that problems occured in list 
+    /// </summary>
+    [Serializable]
     public class ListException : Exception
     {
         public ListException()

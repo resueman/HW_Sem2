@@ -14,9 +14,9 @@ namespace Task2
             hash = new NoNameHashFunction<T>();
         }
 
-        public HashTable(IHashFunction<T> hash)
+        public HashTable(IHashFunction<T> hashFunction)
         {
-            this.hash = hash;
+            hash = hashFunction;
 
             buckets = new List<T>[defaultSize];
             for(int i = 0; i < defaultSize; ++i)
@@ -30,31 +30,31 @@ namespace Task2
 
         private void Resize()
         {
-            var newBuckets = new List<T>[2 * buckets.Length];
-            for (int i = 0; i < newBuckets.Length; ++i)
-            {
-                newBuckets[i] = new List<T>();
-            }
-            var allNodes = new T[numberOfElements];
+            var allKeys = new T[numberOfElements];
             int currentIndex = 0;
             for (int i = 0; i < buckets.Length; ++i)
             {
                 for(int j = 1; j <= buckets[i].Length; ++j)
                 {
-                    allNodes[currentIndex] = buckets[i].GetValue(j);
+                    allKeys[currentIndex] = buckets[i].GetValue(j);
                     ++currentIndex;
                 }
             }
-            buckets = newBuckets;
+            buckets = new List<T>[2 * buckets.Length];
+            for (int i = 0; i < buckets.Length; ++i)
+            {
+                buckets[i] = new List<T>();
+            }
+
             numberOfElements = 0;
-            foreach (T node in allNodes)
+            foreach (T node in allKeys)
             {
                 AddToSet(node);
             }
         }
 
         public bool IsExist(T key)
-            => buckets[hash.Calculate(key) % buckets.Length].FindPosition(key) != -1;        
+            => buckets[Math.Abs(hash.Calculate(key)) % buckets.Length].FindPosition(key) != -1;        
 
         public bool AddToSet(T key)
         {
@@ -66,7 +66,7 @@ namespace Task2
             {
                 Resize();
             }
-            int newElementHash = hash.Calculate(key) % buckets.Length;
+            int newElementHash = Math.Abs(hash.Calculate(key)) % buckets.Length;
             int position = 1 + buckets[newElementHash].Length;
             buckets[newElementHash].AddNode(key, position);
             ++numberOfElements;
@@ -75,7 +75,7 @@ namespace Task2
 
         public bool DeleteFromSet(T key)
         {
-            int hashResult = hash.Calculate(key) % buckets.Length;
+            int hashResult = Math.Abs(hash.Calculate(key)) % buckets.Length;
             int position = buckets[hashResult].FindPosition(key);
             if (position == -1)
             {

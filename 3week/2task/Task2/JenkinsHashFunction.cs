@@ -1,9 +1,12 @@
-﻿using System;
-
-namespace Task2
+﻿namespace Task2
 {
     class JenkinsHashFunction<T> : IHashFunction<T>
     {
+        /// <summary>
+        /// Calculates key hash
+        /// </summary>
+        /// <param name="input">Key</param>
+        /// <returns>Returns the value of key hash</returns>
         public int Calculate(T input)
         {
             string key = input.ToString();
@@ -17,7 +20,7 @@ namespace Task2
             hash += (hash << 3);
             hash ^= (hash >> 11);
             hash += (hash << 15);
-            return Math.Abs(hash);
+            return hash;
         }
     }
 }

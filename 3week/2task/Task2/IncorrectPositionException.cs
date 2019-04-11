@@ -3,6 +3,11 @@
 
 namespace Task2
 {
+    /// <summary>
+    /// Throws when position of value in list 
+    /// user want to delete, add, get or change 
+    /// is incorrect
+    /// </summary>
     [Serializable]
     public class IncorrectPositionException : Exception
     {
