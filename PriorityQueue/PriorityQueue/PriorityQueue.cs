@@ -55,7 +55,7 @@ namespace PriorityQueue
                 return;
             }
             var current = head;
-            while (priority <= current.Priority && current.Next != tail)
+            while (current.Next != tail && priority <= current.Next.Priority)
             {
                 current = current.Next;
             }
