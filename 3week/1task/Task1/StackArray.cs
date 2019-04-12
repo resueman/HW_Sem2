@@ -47,6 +47,6 @@
             }
             ++head;
             stack[head] = value;
-        }            
+        }
     }
 }

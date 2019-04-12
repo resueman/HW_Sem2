@@ -4,30 +4,33 @@ namespace Task1
 {
     static class Program
     {
-        static void Main()
+        private static void Main(string[] args)
         {
             IStack<int> stack = GetStackType();
             var calculator = new Calculator(stack);
-            Console.WriteLine("\nSeparate numbers and signs of operations by spaces");
-            Console.WriteLine("Enter the postfix expression, please");
+            Console.WriteLine("\nSeparating numbers and signs of operations by spaces");
+            Console.WriteLine("Enter the postfix expression, please\n");
             Console.Write("Expression:  ");
             string expression = Console.ReadLine();
+            Console.WriteLine();
+
             try
             {
                 Console.WriteLine($"Result of calculation:  {calculator.Calculation(expression)}");
-            }            
+            }
             catch (NotPostfixFormException exception)
             {
                 Console.WriteLine(exception.Message);
                 if (exception.InnerException != null)
                 {
-                    Console.WriteLine($"Inner exception: {exception.InnerException.Message}");
+                    Console.WriteLine("Inner exception: {0}", exception.InnerException.Message);
                 }
             }
             catch (DivisionByZeroException exception)
             {
                 Console.WriteLine(exception.Message);
             }
+            Console.ReadKey();
         }
 
         private static IStack<int> GetStackType()

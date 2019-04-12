@@ -1,34 +1,34 @@
 ﻿namespace Task1
 {
-    public class Calculator
+    public class Calculator : ICalculator
     {
-        private IStack<int> stack;
+        private readonly IStack<int> stack;
 
         public Calculator(IStack<int> stack)
         {
             this.stack = stack;
         }
 
-        private static int PerformingOperation(int number2, int number1, string operation)
-        { 
-            if (operation == "/" && number1 == 0)
+        private static int PerformingOperation(int number1, int number2, char operation)
+        {
+            if(operation == '/' && number2 == 0)
             {
                 throw new DivisionByZeroException("Division by zero");
             }
             int result = 0;
             switch (operation)
             {
-                case "+":
-                    result = number2 + number1;
+                case '+':
+                    result = number1 + number2;
                     break;
-                case "-":
-                    result = number2 - number1;
+                case '-':
+                    result = number1 - number2;
                     break;
-                case "*":
-                    result = number2 * number1;
+                case '*':
+                    result = number1 * number2;
                     break;
-                case "/":
-                    result = number2 / number1;
+                case '/':
+                    result = number1 / number2;
                     break;
             }
             return result;
@@ -42,20 +42,20 @@
                 char[] splitChar = { ' ' };
                 expressionWithoutGaps = expression.Split(splitChar);
 
-                foreach (string symbol in expressionWithoutGaps)
+                foreach (string singleString in expressionWithoutGaps)
                 {
-                    if (symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/")
+                    if (singleString == "+" || singleString == "-" || singleString == "*" || singleString == "/")
                     {
                         int number1 = stack.Pop();
                         int number2 = stack.Pop();
-                        int resultOfOperation = PerformingOperation(number2, number1, symbol);
+                        char operation = char.Parse(singleString);
+                        int resultOfOperation = PerformingOperation(number2, number1, operation);
                         stack.Push(resultOfOperation);
                         continue;
                     }
-                    if (int.TryParse(symbol, out int number))
+                    if (int.TryParse(singleString, out int number))
                     {
                         stack.Push(number);
-                        continue;
                     }
                     else
                     {
@@ -65,7 +65,7 @@
                 int answer = stack.Pop();
                 if (!stack.IsEmpty())
                 {
-                    throw new NotPostfixFormException("Not a postfix form");
+                    throw new NotPostfixFormException("Stack isn't empty after calculation, not a postfix form");
                 }
                 return answer;
             }

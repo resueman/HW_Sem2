@@ -1,18 +1,22 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Task1
+namespace Task1.Tests
 {
     [TestClass]
     public class CalculatorTests
     {
+        private StackList<int> stackList;
+        private StackArray<int> stackArray;
         private Calculator calculatorList;
         private Calculator calculatorArray;
 
         [TestInitialize]
         public void Initialization()
         {
-            calculatorList = new Calculator(new StackList<int>());
-            calculatorArray = new Calculator(new StackArray<int>());
+            stackList = new StackList<int>();
+            stackArray = new StackArray<int>();
+            calculatorList = new Calculator(stackList);
+            calculatorArray = new Calculator(stackArray);
         }
 
         [DataRow(-8, "-8 0 -")]
@@ -46,28 +50,46 @@ namespace Task1
             Assert.AreEqual(result, calculatorArray.Calculation(input));
         }
 
-        [DataTestMethod]
-        [DataRow("8 9 + 0 /")]
-        [DataRow("5 7 + 2 * 3 + 7 3 2 * 1 + - /")]
         [ExpectedException(typeof(DivisionByZeroException))]
-        public void DevideByZeroStackArrayTest1(string expression)
+        public void DevideByZeroStackArrayTest1()
         {
-            calculatorArray.Calculation(expression);
-            calculatorList.Calculation(expression);
+            calculatorArray.Calculation("8 9 + 0 /");
         }
 
-        [DataTestMethod]
-        [DataRow("9 8 9 +")]
-        [DataRow("8 + 9")]
-        [DataRow("9 o 8 +")]
-        [DataRow("   9")]
-        [DataRow("")]
-        [DataRow("       ")]
-        [ExpectedException(typeof(NotPostfixFormException))]
-        public void IncorrectExpression(string expression)
+        [ExpectedException(typeof(DivisionByZeroException))]
+        public void DevideByZeroStackArrayTest2()
         {
-            calculatorList.Calculation(expression);
-            calculatorArray.Calculation(expression);
+            calculatorArray.Calculation("5 7 + 2 * 3 + 7 3 2 * 1 + - /");
+        }
+
+        [ExpectedException(typeof(DivisionByZeroException))]
+        public void DevideByZeroStackListTest1()
+        {
+            calculatorList.Calculation("8 9 + 0 /");
+        }
+
+        [ExpectedException(typeof(DivisionByZeroException))]
+        public void DevideByZeroStackListTest2()
+        {
+            calculatorList.Calculation("5 7 + 2 * 3 + 7 3 2 * 1 + - /");
+        }
+
+        [ExpectedException(typeof(NotPostfixFormException))]
+        public void IncorrectExpressionStackIsNotEmptyAfterCalculation()
+        {
+            calculatorList.Calculation("9 8 9 +");
+        }
+
+        [ExpectedException(typeof(NotPostfixFormException))]
+        public void IncorrectExpressionMismatchedOperandsAndOperators()
+        {
+            calculatorList.Calculation("8 + 9");
+        }
+
+        [ExpectedException(typeof(NotPostfixFormException))]
+        public void IncorrectSymbolInExpression()
+        {
+            calculatorList.Calculation("9 o 8 +");
         }
     }
 }

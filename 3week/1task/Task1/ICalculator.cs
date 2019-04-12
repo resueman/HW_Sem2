@@ -1,12 +1,13 @@
-﻿namespace Task1
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Task1
 {
     public interface ICalculator
     {
-        /// <summary>
-        /// Calculate the value of expression
-        /// </summary>
-        /// <param name="expression">Expression in postfix form</param>
-        /// <returns>Expression value</returns>
         int Calculation(string expression);
     }
 }

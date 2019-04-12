@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Task1
+namespace Task1.Tests
 {
     [TestClass]
     public class StackListTests
     {
-        private StackList<int> stack;
+        StackList<int> stack;
 
         [TestInitialize]
         public void Initialization()
