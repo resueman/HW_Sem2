@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B456DD0D-733D-4D72-9C6B-C6094E208EF3}</ProjectGuid>
+    <ProjectGuid>{3DAAAAAE-2976-4EE0-BE23-16DA4658847E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Task2.Tests</RootNamespace>
@@ -50,15 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ListTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UniqueListTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Task2\Task2.csproj">
-      <Project>{d628e8dc-5e20-4421-95df-a405b7a3c397}</Project>
+      <Project>{9196aa36-d473-4ee3-a2d1-307c48eff383}</Project>
       <Name>Task2</Name>
     </ProjectReference>
   </ItemGroup>

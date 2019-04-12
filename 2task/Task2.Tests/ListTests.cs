@@ -77,7 +77,7 @@ namespace Task2.Tests
         [TestMethod]
         public void CorrectDeleteTest4()
         {
-            int[] positions = new int[] { 1, 7, 3, 3 };
+            var positions = new int[] { 1, 7, 3, 3 };
             for(int i = 0; i < 4; ++i)
             {
                 list.DeleteNodeByPosition(positions[i]);
@@ -88,7 +88,7 @@ namespace Task2.Tests
         [TestMethod]
         public void CorrectDeleteTest5()
         {
-            int[] positions = new int[] { 1, 7, 3, 3, 4 };
+            var positions = new int[] { 1, 7, 3, 3, 4 };
             for (int i = 0; i < 5; ++i)
             {
                 list.DeleteNodeByPosition(positions[i]);
@@ -100,7 +100,7 @@ namespace Task2.Tests
         [ExpectedException(typeof(IncorrectPositionException))]
         public void IncorrectDelete()
         {
-            int[] positions = new int[] { 1, 7, 3, 3, 4, 4 };
+            var positions = new int[] { 1, 7, 3, 3, 4, 4 };
             for (int i = 0; i < 6; ++i)
             {
                 list.DeleteNodeByPosition(positions[i]);
@@ -111,7 +111,7 @@ namespace Task2.Tests
         [TestMethod]
         public void CorrectDeleteTest7()
         {
-            int[] positions = new int[] { 1, 7, 3, 3, 4, 1 };
+            var positions = new int[] { 1, 7, 3, 3, 4, 1 };
             for (int i = 0; i < 6; ++i)
             {
                 list.DeleteNodeByPosition(positions[i]);
@@ -122,7 +122,7 @@ namespace Task2.Tests
         [TestMethod]
         public void CorrectDeleteTest8()
         {
-            int[] positions = new int[] { 1, 7, 3, 3, 4, 1, 2 };
+            var positions = new int[] { 1, 7, 3, 3, 4, 1, 2 };
             for (int i = 0; i < 7; ++i)
             {
                 list.DeleteNodeByPosition(positions[i]);
@@ -133,7 +133,7 @@ namespace Task2.Tests
         [TestMethod]
         public void CorrectDeleteTest9()
         {
-            int[] positions = new int[] { 1, 7, 3, 3, 4, 1, 2, 1 };
+            var positions = new int[] { 1, 7, 3, 3, 4, 1, 2, 1 };
             for (int i = 0; i < 8; ++i)
             {
                 list.DeleteNodeByPosition(positions[i]);
