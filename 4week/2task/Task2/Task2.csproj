@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D628E8DC-5E20-4421-95DF-A405B7A3C397}</ProjectGuid>
+    <ProjectGuid>{9196AA36-D473-4EE3-A2D1-307C48EFF383}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Task2</RootNamespace>
     <AssemblyName>Task2</AssemblyName>
@@ -46,11 +46,11 @@
     <Compile Include="AddExistingNodeException.cs" />
     <Compile Include="DeleteNonExistentNodeException.cs" />
     <Compile Include="IList.cs" />
+    <Compile Include="ImpossibleSetException.cs" />
     <Compile Include="IncorrectPositionException.cs" />
     <Compile Include="List.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ImpossibleSetException.cs" />
     <Compile Include="UniqueList.cs" />
     <Compile Include="UniqueListUI.cs" />
   </ItemGroup>
