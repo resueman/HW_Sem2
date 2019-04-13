@@ -2,6 +2,9 @@
 
 namespace Task2
 {
+    /// <summary>
+    /// Throws if file with map wasn't found
+    /// </summary>
     [Serializable]
     public class MapNotFoundException : Exception
     {
