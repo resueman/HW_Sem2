@@ -5,3 +5,4 @@
 **/Properties
 **/TestResults
 *.config
+*.csproj.user
