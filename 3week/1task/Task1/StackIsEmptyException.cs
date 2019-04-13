@@ -2,6 +2,9 @@
 
 namespace Task1
 {
+    /// <summary>
+    /// Throws after attempt to delete an element from empty stack
+    /// </summary>
     [Serializable]
     public class StackIsEmptyException : Exception
     {

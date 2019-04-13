@@ -1,6 +1,6 @@
 ﻿namespace Task1
 {
-    public class Calculator : ICalculator
+    public class Calculator
     {
         private readonly IStack<int> stack;
 
@@ -9,29 +9,26 @@
             this.stack = stack;
         }
 
-        private static int PerformingOperation(int number1, int number2, char operation)
+        private static int PerformingOperation(int number1, int number2, string operation)
         {
-            if(operation == '/' && number2 == 0)
+            if (operation == "/" && number2 == 0)
             {
                 throw new DivisionByZeroException("Division by zero");
             }
-            int result = 0;
+
             switch (operation)
             {
-                case '+':
-                    result = number1 + number2;
-                    break;
-                case '-':
-                    result = number1 - number2;
-                    break;
-                case '*':
-                    result = number1 * number2;
-                    break;
-                case '/':
-                    result = number1 / number2;
-                    break;
+                case "+":
+                    return number1 + number2;
+                case "-":
+                    return number1 - number2;
+                case "*":
+                    return number1 * number2;
+                case "/":
+                    return number1 / number2;
+                default:
+                    return 0;
             }
-            return result;
         }
 
         public int Calculation(string expression)
@@ -48,9 +45,7 @@
                     {
                         int number1 = stack.Pop();
                         int number2 = stack.Pop();
-                        char operation = char.Parse(singleString);
-                        int resultOfOperation = PerformingOperation(number2, number1, operation);
-                        stack.Push(resultOfOperation);
+                        stack.Push(PerformingOperation(number2, number1, singleString));
                         continue;
                     }
                     if (int.TryParse(singleString, out int number))

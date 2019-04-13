@@ -1,26 +1,24 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Task1.Tests
 {
-    [TestClass]
-    public class StackListTests
+    public class StackArrayTests
     {
-        StackList<int> stack;
+        StackArray<int> stack;
 
-        [TestInitialize]
+        [SetUp]
         public void Initialization()
         {
-            stack = new StackList<int>();
+            stack = new StackArray<int>();
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(StackIsEmptyException))]
+        [Test]
         public void PopFromEmptyStack()
         {
-            stack.Pop();
+            Assert.Throws<StackIsEmptyException>(() => { stack.Pop(); });
         }
 
-        [TestMethod]
+        [Test]
         public void PopTestWithTwoElemets()
         {
             stack.Push(666);
@@ -29,7 +27,7 @@ namespace Task1.Tests
             Assert.AreEqual(666, stack.Pop());
         }
 
-        [TestMethod]
+        [Test]
         public void PushAndPopTestsWithManyElements()
         {
             for (int i = -1000000; i < 1000001; ++i)
@@ -42,14 +40,13 @@ namespace Task1.Tests
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(StackIsEmptyException))]
+        [Test]
         public void GetTopOfEmptyStack()
         {
-            stack.Top();
+            Assert.Throws<StackIsEmptyException>(() => { stack.Top(); });
         }
 
-        [TestMethod]
+        [Test]
         public void GetTopOfNotEmptyStack()
         {
             stack.Push(100);
@@ -57,7 +54,7 @@ namespace Task1.Tests
             Assert.AreEqual(222, stack.Top());
         }
 
-        [TestMethod]
+        [Test]
         public void CheckThatTopDoesNotPop()
         {
             stack.Push(111);
@@ -68,7 +65,7 @@ namespace Task1.Tests
             Assert.AreEqual(222, stack.Top());
         }
 
-        [TestMethod]
+        [Test]
         public void CheckIsEmptyMethodStack()
         {
             Assert.IsTrue(stack.IsEmpty());

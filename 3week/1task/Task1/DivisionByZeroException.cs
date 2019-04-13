@@ -2,6 +2,10 @@
 
 namespace Task1
 {
+    /// <summary>
+    /// Throws when one of the actions 
+    /// to evaluate an expression is division by zero
+    /// </summary>
     [Serializable]
     public class DivisionByZeroException : Exception
     {

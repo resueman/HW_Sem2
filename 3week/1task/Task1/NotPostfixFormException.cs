@@ -2,6 +2,9 @@
 
 namespace Task1
 {
+    /// <summary>
+    /// Throws when user entered a non-postfix expression
+    /// </summary>
     [Serializable]
     public class NotPostfixFormException : Exception
     {
