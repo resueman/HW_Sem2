@@ -2,6 +2,9 @@
 
 namespace Task2.Tests
 {
+    /// <summary>
+    /// Class that tests the correctness of list functions
+    /// </summary>
     [TestClass]
     public class ListTests
     {

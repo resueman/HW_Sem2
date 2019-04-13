@@ -2,6 +2,9 @@
 
 namespace Task2
 {
+    /// <summary>
+    /// Class which gets user choice and processes it
+    /// </summary>
     static class UniqueListUI
     {
         private static void PrintOptions()

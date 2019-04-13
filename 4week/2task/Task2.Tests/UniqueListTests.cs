@@ -2,6 +2,9 @@
 
 namespace Task2.Tests
 {
+    /// <summary>
+    /// Class which tests the correctness of unique list functions
+    /// </summary>
     [TestClass]
     public class UniqueListTests
     {

@@ -3,6 +3,10 @@ using System.Text;
 
 namespace Task2
 {
+    /// <summary>
+    /// Structure to store and work with data
+    /// </summary>
+    /// <typeparam name="T">Type of stored data</typeparam>
     public class List<T> : IList<T>
     {
         public int Length { get; private set; }

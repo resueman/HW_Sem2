@@ -1,5 +1,9 @@
 ﻿namespace Task2
 {
+    /// <summary>
+    /// Structure that stores unique values
+    /// </summary>
+    /// <typeparam name="T">Type of stored data</typeparam>
     public class UniqueList<T> : List<T>
     {
         public void AddNode(T value)
