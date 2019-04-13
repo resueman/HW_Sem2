@@ -1,24 +1,22 @@
-﻿using System;
+using NUnit.Framework;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Task1;
 
-namespace Task1
+namespace Tests
 {
-    [TestClass]
     public class Tests
     {
         public bool IsOperator(char symbol)
             => symbol == '+' || symbol == '-' || symbol == '*' || symbol == '/';
 
         List<char> listOfChars;
+        List<int> listOfNumbers;
 
         List<string> Slogans = new List<string> { "Freedom", "Equality", "Brotherhood",
             "Cuba - yes", "Yankee - no", "Proletarians of all countries", "Unite",
             "Wir", "Sind", "Das", "Volk" };
 
-        List<int> listOfNumbers;
-
-        [TestInitialize]
+        [Test]
         public void Initialization()
         {
             listOfNumbers = new List<int>
@@ -32,24 +30,38 @@ namespace Task1
                 1000000,
                 -43000000
             };
-            
+
+            listOfChars = new List<char>()
+            {
+                'a',
+                'b',
+                'c',
+                'f',
+                'm',
+                'n',
+                'o',
+                'k',
+                'y',
+                'z'
+            };
+
         }
 
-        [TestMethod]
+        [Test]
         public void MapForStringType()
         {
             List<string> result = new List<string> { "Freedom!", "Equality!", "Brotherhood!",
             "Cuba - yes!", "Yankee - no!", "Proletarians of all countries!", "Unite!",
             "Wir!", "Sind!", "Das!", "Volk!" };
             Slogans = Functions.Map(Slogans, word => word + "!");
-            for(int i = 0; i < Slogans.Count; ++i)
+            for (int i = 0; i < Slogans.Count; ++i)
             {
                 Assert.AreEqual(result[i], Slogans[i]);
             }
 
         }
 
-        [TestMethod]
+        [Test]
         public void MapForIntType()
         {
             List<int> result = new List<int> { 2, 6, 14, -4, 0, 30, 2000000, -86000000 };
@@ -60,7 +72,7 @@ namespace Task1
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethod()
         {
 

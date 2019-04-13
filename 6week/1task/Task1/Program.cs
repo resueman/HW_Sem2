@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+
 namespace Task1
 {
-    static class Program
+    class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
+            Console.WriteLine("Hello World!");
         }
     }
 }
