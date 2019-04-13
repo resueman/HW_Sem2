@@ -83,13 +83,13 @@ namespace Task2
 
         public bool DeleteFromSet(T key)
         {
-            int hash = IndexByHash(key);
-            int position = buckets[hash].FindPosition(key);
+            int hashInSet = IndexByHash(key);
+            int position = buckets[hashInSet].FindPosition(key);
             if (position == -1)
             {
                 return false;
             }
-            buckets[hash].DeleteNode(position);
+            buckets[hashInSet].DeleteNode(position);
             --numberOfElements;
             return true;
         }
