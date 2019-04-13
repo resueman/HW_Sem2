@@ -1,6 +1,10 @@
 ﻿namespace Task2
 {
-    class JenkinsHashFunction<T> : IHashFunction<T>
+    /// <summary>
+    /// The Jenkins hash function is suitable for multi-byte keys 
+    /// </summary>
+    /// <typeparam name="T">Type of data stored in hash table</typeparam>
+    public class JenkinsHashFunction<T> : IHashFunction<T>
     {
         /// <summary>
         /// Calculates key hash

@@ -3,9 +3,9 @@
 namespace Task2
 {
     /// <summary>
-    /// Throws if user enter incorrect data
-    /// Doesn't enter number, where it required
-    /// Demands hash function, which doesn't exist
+    /// Throws if user enters incorrect data or
+    /// doesn't enter number, where it required or
+    /// demands hash function, which doesn't exist
     /// </summary>
     [Serializable]
     public class IncorrectInputException : Exception

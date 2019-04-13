@@ -1,17 +1,23 @@
 using NUnit.Framework;
 
 namespace Task2
-{    
-    public class HashTableTests
+{
+    /// <summary>
+    /// Class that checks the correctness of the hash table functions
+    /// </summary>
+    [TestFixture(typeof(NoNameHashFunction<int>))]
+    [TestFixture(typeof(JenkinsHashFunction<int>))]
+    [TestFixture(typeof(FNVHashFunction<int>))]
+    public class HashTableTests<THashFunction> where THashFunction : IHashFunction<int>, new()
     {
         private HashTable<int> set;
         private HashTable<int> emptySet;
 
         [SetUp]
-        public void Setup()
+        public void Initialization()
         {
-            emptySet = new HashTable<int>(new NoNameHashFunction<int>());
-            set = new HashTable<int>(new NoNameHashFunction<int>());
+            emptySet = new HashTable<int>(new THashFunction());
+            set = new HashTable<int>(new THashFunction());
             for (int i = -50; i < 51; ++i)
             {
                 set.AddToSet(i);

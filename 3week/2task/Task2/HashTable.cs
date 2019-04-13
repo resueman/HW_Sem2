@@ -2,6 +2,11 @@
 
 namespace Task2
 {
+    /// <summary>
+    /// Data structure that implements an associative array abstract data type
+    /// Can map keys to values using a hash function 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class HashTable<T> : IHashTable<T>
     {
         private List<T>[] buckets;
@@ -12,18 +17,21 @@ namespace Task2
         public HashTable()
         {
             hash = new NoNameHashFunction<T>();
-        }
+        }        
 
         public HashTable(IHashFunction<T> hashFunction)
         {
             hash = hashFunction;
 
             buckets = new List<T>[defaultSize];
-            for(int i = 0; i < defaultSize; ++i)
+            for (int i = 0; i < defaultSize; ++i)
             {
                 buckets[i] = new List<T>();
             }
         }
+
+        private int IndexByHash(T key)
+            => Math.Abs(hash.Calculate(key)) % buckets.Length;
 
         public int LoadFactor()
             => numberOfElements / buckets.Length;
@@ -34,7 +42,7 @@ namespace Task2
             int currentIndex = 0;
             for (int i = 0; i < buckets.Length; ++i)
             {
-                for(int j = 1; j <= buckets[i].Length; ++j)
+                for (int j = 1; j <= buckets[i].Length; ++j)
                 {
                     allKeys[currentIndex] = buckets[i].GetValue(j);
                     ++currentIndex;
@@ -54,7 +62,7 @@ namespace Task2
         }
 
         public bool IsExist(T key)
-            => buckets[Math.Abs(hash.Calculate(key)) % buckets.Length].FindPosition(key) != -1;        
+            => buckets[IndexByHash(key)].FindPosition(key) != -1;        
 
         public bool AddToSet(T key)
         {
@@ -66,7 +74,7 @@ namespace Task2
             {
                 Resize();
             }
-            int newElementHash = Math.Abs(hash.Calculate(key)) % buckets.Length;
+            int newElementHash = IndexByHash(key);
             int position = 1 + buckets[newElementHash].Length;
             buckets[newElementHash].AddNode(key, position);
             ++numberOfElements;
@@ -75,13 +83,13 @@ namespace Task2
 
         public bool DeleteFromSet(T key)
         {
-            int hashResult = Math.Abs(hash.Calculate(key)) % buckets.Length;
-            int position = buckets[hashResult].FindPosition(key);
+            int hash = IndexByHash(key);
+            int position = buckets[hash].FindPosition(key);
             if (position == -1)
             {
                 return false;
             }
-            buckets[hashResult].DeleteNode(position);
+            buckets[hash].DeleteNode(position);
             --numberOfElements;
             return true;
         }
@@ -106,8 +114,7 @@ namespace Task2
             {
                 buckets[i].Clear();
             }
-            var newBuckets = new List<T>[defaultSize];
-            buckets = newBuckets;
+            buckets = new List<T>[defaultSize];
         }
     }
 }

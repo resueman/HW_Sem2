@@ -1,5 +1,9 @@
 ﻿namespace Task2
 {
+    /// <summary>
+    /// NoName hash function, suitable for strings
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class NoNameHashFunction<T> : IHashFunction<T>
     {
         /// <summary>

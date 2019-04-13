@@ -2,6 +2,9 @@ using NUnit.Framework;
 
 namespace Task2
 {
+    /// <summary>
+    /// Class that checks the correctness of the list functions
+    /// </summary>
     public class ListTests
     {
         private List<int> list;

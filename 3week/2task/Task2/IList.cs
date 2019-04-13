@@ -1,5 +1,9 @@
 ﻿namespace Task2
 {
+    /// <summary>
+    /// List interface. Functions to work with list.
+    /// </summary>
+    /// <typeparam name="T">The type of data stored in list</typeparam>
     interface IList<T>
     {
         /// <summary>

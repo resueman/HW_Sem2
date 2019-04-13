@@ -2,8 +2,15 @@
 
 namespace Task2
 {
+    /// <summary>
+    /// Static class with functions to work with user
+    /// Functions, which print options, wait for user choice, react for it
+    /// </summary>
     static class UserInteraction
     {
+        /// <summary>
+        /// Prints hash table options
+        /// </summary>
         static private void PrintHashTableOptions()
         {
             Console.WriteLine("\nPlease, choose option:\n");
@@ -15,6 +22,9 @@ namespace Task2
             Console.WriteLine("5 - Clear screen\n");
         }
 
+        /// <summary>
+        /// Prints types of hash functions
+        /// </summary>
         static private void PrintTypesOfHashFunction()
         {
             Console.WriteLine("Please, choose hash function:\n");
@@ -23,6 +33,11 @@ namespace Task2
             Console.WriteLine("3 - FNV hash function\n");
         }
 
+        /// <summary>
+        /// Function which processes the received data(user choice) 
+        /// And creates instance of desired hash function
+        /// </summary>
+        /// <returns>Type of data stored in set</returns>
         static private IHashFunction<string> ChooseHashFunction()
         {
             PrintTypesOfHashFunction();
@@ -46,6 +61,11 @@ namespace Task2
             }
         }
 
+        /// <summary>
+        /// Processes user choice
+        /// </summary>
+        /// <param name="set">Hash table</param>
+        /// <param name="choice">User choice</param>
         static private void PerformUserDesire(HashTable<string> set, int choice)
         {
             switch (choice)
@@ -101,6 +121,9 @@ namespace Task2
             }
         }
 
+        /// <summary>
+        /// Gets and processes user choice
+        /// </summary>
         static public void Interaction()
         {
             var hashTable = new HashTable<string>(ChooseHashFunction());

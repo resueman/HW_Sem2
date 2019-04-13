@@ -1,5 +1,9 @@
 ﻿namespace Task2
 {
+    /// <summary>
+    /// Hash table interface. Functions to work with set.
+    /// </summary>
+    /// <typeparam name="T">The type of data stored in hash table</typeparam>
     interface IHashTable<T>
     {
         /// <summary>
