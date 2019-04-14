@@ -14,9 +14,31 @@ namespace Task2
             DownHandler += Game.OnDown;
         }
 
-        public void Run()
+        public bool ProcessKey(ConsoleKey key)
         {
-            Map.CreateMap("Map.txt");
+            switch (key)
+            {
+                case ConsoleKey.LeftArrow:
+                    LeftHandler?.Invoke();
+                    break;
+                case ConsoleKey.RightArrow:
+                    RightHandler?.Invoke();
+                    break;
+                case ConsoleKey.UpArrow:
+                    TopHandler?.Invoke();
+                    break;
+                case ConsoleKey.DownArrow:
+                    DownHandler?.Invoke();
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+        }
+
+        public void Run(string fileName)
+        {
+            Map.CreateMap(fileName);
             var hero = new Hero(Map.HeroStartPointLeft, Map.HeroStartPointTop);
 
             bool wantToPlay = true;
@@ -24,24 +46,7 @@ namespace Task2
             {
                 var key = Console.ReadKey(true);
                 Console.Write("\b ");
-                switch (key.Key)
-                {
-                    case ConsoleKey.LeftArrow:
-                        LeftHandler?.Invoke();
-                        break;
-                    case ConsoleKey.RightArrow:
-                        RightHandler?.Invoke();
-                        break;
-                    case ConsoleKey.UpArrow:
-                        TopHandler?.Invoke();
-                        break;
-                    case ConsoleKey.DownArrow:
-                        DownHandler?.Invoke();
-                        break;
-                    default:
-                        wantToPlay = false;
-                        break;
-                }
+                wantToPlay = ProcessKey(key.Key);
                 hero.PrintHero();
             }
         }

@@ -2,7 +2,7 @@
 
 namespace Task2
 {
-    class Hero
+    public class Hero
     {
         public static char Appearance { get; private set; } = '@';
         public static int LeftPosition { get; private set; }
