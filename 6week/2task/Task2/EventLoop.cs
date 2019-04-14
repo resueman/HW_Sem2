@@ -2,13 +2,22 @@
 
 namespace Task2
 {
-    class EventLoop
+    public class EventLoop
     {
         public event Action LeftHandler, RightHandler, TopHandler, DownHandler;
+
+        public EventLoop()
+        {
+            LeftHandler += Game.OnLeft;
+            RightHandler += Game.OnRight;
+            TopHandler += Game.OnTop;
+            DownHandler += Game.OnDown;
+        }
+
         public void Run()
         {
-            var map = new Map(); 
-            var hero = new Hero();
+            Map.CreateMap("Map.txt");
+            var hero = new Hero(Map.HeroStartPointLeft, Map.HeroStartPointTop);
 
             bool wantToPlay = true;
             while (wantToPlay)

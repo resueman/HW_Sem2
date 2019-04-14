@@ -1,27 +1,31 @@
 ﻿using System;
+using System.IO;
 
 namespace Task2
 {
     class Program
     {
+        public static void GameSettings()
+        {
+            Console.CursorVisible = false;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+        }
+
         static void Main()
         {
+            GameSettings();
             var eventLoop = new EventLoop();
-            eventLoop.LeftHandler += Game.OnLeft;
-            eventLoop.RightHandler += Game.OnRight;
-            eventLoop.TopHandler += Game.OnTop;
-            eventLoop.DownHandler += Game.OnDown;
             try
             {
                 eventLoop.Run();
             }
-            catch(MapNotFoundException exception)
+            catch (FileNotFoundException exception)
             {
                 Console.WriteLine(exception.Message);
-                if(exception.InnerException != null)
-                {
-                    Console.WriteLine(exception.InnerException.Message);
-                }
+            }
+            catch (IncorrectMapException exception)
+            {
+                Console.WriteLine(exception.Message);
             }
         }
     }

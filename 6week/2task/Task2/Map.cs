@@ -3,35 +3,79 @@ using System.IO;
 
 namespace Task2
 {
-    class Map
+    public class Map
     {
-        public static Matrix<bool> IsBorder { get; private set; }
-        public Map()
+        private const int resizeMapIndex = 10;
+        public static int HeroStartPointLeft { get; private set; }
+        public static int HeroStartPointTop { get; private set; }
+        public static bool[,] IsBorder { get; private set; }
+
+        private static void ResizeMap(bool addLines)
         {
-            try
+            bool[,] newMatrix;
+            if (addLines)
             {
-                StreamReader objectReader = new StreamReader("Map.txt");
-                IsBorder = new Matrix<bool>();
-                int currentLine = -1;
-                while (true)
-                {
-                    string buffer = objectReader.ReadLine();
-                    ++currentLine;
-                    if (buffer == null)
-                    {
-                        break;
-                    }
-                    for (int i = 0; i < buffer.Length; ++i)
-                    {
-                        IsBorder.SetValue(currentLine, i, buffer[i] != ' ');
-                    }
-                    Console.WriteLine(buffer);
-                }
-                objectReader.Close();
+                newMatrix = new bool[resizeMapIndex + IsBorder.GetLength(0), IsBorder.GetLength(1)];
             }
-            catch (FileNotFoundException inner)
+            else
             {
-                throw new MapNotFoundException("File with map not found", inner);
+                newMatrix = new bool[IsBorder.GetLength(0), resizeMapIndex + IsBorder.GetLength(1)];
+            }
+            for (int i = 0; i < IsBorder.GetLength(0); ++i)
+            {
+                for (int j = 0; j < IsBorder.GetLength(1); ++j)
+                {
+                    newMatrix[i, j] = IsBorder[i, j];
+                }
+            }
+            IsBorder = newMatrix;
+        }
+
+        public static void CreateMap(string fileName)
+        {
+            StreamReader objectReader = new StreamReader(fileName);
+
+            IsBorder = new bool[,] { };
+            int currentLine = -1;
+            bool heroFound = false;
+            while (true)
+            {
+                string buffer = objectReader.ReadLine();
+                ++currentLine;
+                if (buffer == null)
+                {
+                    break;
+                }
+                if (currentLine >= IsBorder.GetLength(0))
+                {
+                    ResizeMap(true);
+                }
+                for (int i = 0; i < buffer.Length; ++i)
+                {
+                    if (i >= IsBorder.GetLength(1))
+                    {
+                        ResizeMap(false);
+                    }
+                    if (buffer[i] == Hero.Appearance)
+                    {
+                        if (heroFound)
+                        {
+                            throw new IncorrectMapException("Borders look like hero");
+                        }
+                        heroFound = true;
+                        HeroStartPointLeft = i;
+                        HeroStartPointTop = currentLine;
+                        IsBorder[currentLine, i] = false;
+                        continue;
+                    }
+                    IsBorder[currentLine, i] = buffer[i] != ' ';
+                }
+                Console.WriteLine(buffer);
+            }
+            objectReader.Close();
+            if (!heroFound)
+            {
+                throw new IncorrectMapException("Incorrect map, there is no hero start position");
             }
         }
     }

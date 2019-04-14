@@ -1,40 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Task2
 {
     class Hero
     {
-        private static char Appearance { get; set; } = '@';
-        private static int LeftPosition { get; set; } = 1;
-        private static int TopPosition { get; set; } = 1;
+        public static char Appearance { get; private set; } = '@';
+        public static int LeftPosition { get; private set; }
+        public static int TopPosition { get; private set; }
 
-        public Hero()
+        public Hero(int leftPosition, int topPosition)
         {
+            LeftPosition = leftPosition;
+            TopPosition = topPosition;
             Console.SetCursorPosition(LeftPosition, TopPosition);
             PrintHero();
-        }
+        } 
+
         public void PrintHero()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(Appearance);
         }
 
         private static bool IsCorrectPosition(int left, int top)
         {
-            if (top < Matrix<bool>.topBorder || left < Matrix<bool>.leftBorder)
+            if (top < 0 || left < 0)
             {
                 return false;
             }
-            if (top >= Matrix<bool>.MaxDownBorder || left >= Matrix<bool>.MaxRightBorder)
+            if (top >=  Map.IsBorder.GetLength(0)|| left >= Map.IsBorder.GetLength(1))
             {
                 return false;
             }
-            if (Map.IsBorder.GetValue(top, left))
+            if (Map.IsBorder[top, left])
             {
                 return false;
             }
             return true;
         }
+
         public static void ChangeHeroPosition(int deltaLeft, int deltaTop)
         {
             if (!IsCorrectPosition(LeftPosition + deltaLeft, TopPosition + deltaTop))
