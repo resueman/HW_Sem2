@@ -25,7 +25,7 @@ namespace Tests
 
         }
 
-        private bool CheckEquality<T>(List<T> initialList, List<T> resultList)
+        private static bool CheckEquality<T>(List<T> initialList, List<T> resultList)
         {
             for (int i = 0; i < initialList.Count; ++i)
             {
@@ -80,14 +80,14 @@ namespace Tests
         }
 
         [Test]
-        public void FoldForInt()
+        public static void FoldForInt()
         {
             var list = new List<int> { 2, 6, 8, 10 };
             Assert.AreEqual(6720, Functions.Functions.Fold(list, 7, ((x, val) => x * val)));
         }
 
         [Test]
-        public void FoldForString()
+        public static void FoldForString()
         {
             var list = new List<string> { "a", "b", "c", "l", "q", "z" };
             Assert.AreEqual("zqlcbap", Functions.Functions.Fold(list, "p", ((x, val) => x + val)));
