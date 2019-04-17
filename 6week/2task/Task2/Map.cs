@@ -5,7 +5,7 @@ namespace Task2
 {
     public class Map
     {
-        private const int resizeMapIndex = 10;
+        public const int resizeMapIndex = 10;
         public static int HeroStartPointLeft { get; private set; }
         public static int HeroStartPointTop { get; private set; }
         public static bool[,] IsBorder { get; private set; }

@@ -38,8 +38,10 @@ namespace Task2
 
         public void Run(string fileName)
         {
+            Game.Settings();
             Map.CreateMap(fileName);
             var hero = new Hero(Map.HeroStartPointLeft, Map.HeroStartPointTop);
+            hero.MoveHeroOnTheMap();
 
             bool wantToPlay = true;
             while (wantToPlay)
@@ -47,7 +49,7 @@ namespace Task2
                 var key = Console.ReadKey(true);
                 Console.Write("\b ");
                 wantToPlay = ProcessKey(key.Key);
-                hero.PrintHero();
+                hero.MoveHeroOnTheMap();
             }
         }
     }

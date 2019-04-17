@@ -12,14 +12,23 @@ namespace Task2
         {
             LeftPosition = leftPosition;
             TopPosition = topPosition;
-            Console.SetCursorPosition(LeftPosition, TopPosition);
-            PrintHero();
         } 
 
-        public void PrintHero()
+        public void MoveHeroOnTheMap()
         {
+            Console.SetCursorPosition(LeftPosition, TopPosition);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(Appearance);
+        }
+
+        public static void ChangeHeroCoordinates(int deltaLeft, int deltaTop)
+        {
+            if (!IsCorrectPosition(LeftPosition + deltaLeft, TopPosition + deltaTop))
+            {
+                return;
+            }            
+            LeftPosition += deltaLeft;
+            TopPosition += deltaTop;
         }
 
         private static bool IsCorrectPosition(int left, int top)
@@ -37,18 +46,6 @@ namespace Task2
                 return false;
             }
             return true;
-        }
-
-        public static void ChangeHeroPosition(int deltaLeft, int deltaTop)
-        {
-            if (!IsCorrectPosition(LeftPosition + deltaLeft, TopPosition + deltaTop))
-            {
-                Console.SetCursorPosition(LeftPosition, TopPosition);
-                return;
-            }            
-            LeftPosition += deltaLeft;
-            TopPosition += deltaTop;
-            Console.SetCursorPosition(LeftPosition, TopPosition);
         }
     }
 }

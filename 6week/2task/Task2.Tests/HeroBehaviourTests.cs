@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using System.IO;
 using Task2;
 using System;
 
@@ -8,14 +7,13 @@ namespace Tests
     public class HeroBehaviourTests
     {
         private EventLoop eventLoop;
-        Hero hero;
 
         [SetUp]
         public void Initialization()
         {
             eventLoop = new EventLoop();
-            eventLoop.Run("TestMap1.txt");
-            hero = new Hero(Map.HeroStartPointLeft, Map.HeroStartPointTop);
+            Map.CreateMap("TestMap1.txt");
+            _ = new Hero(Map.HeroStartPointLeft, Map.HeroStartPointTop);
         }
 
         [Test]
@@ -25,21 +23,20 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.DownArrow);
             }
-            Assert.AreEqual(Hero.LeftPosition, 2);
-            Assert.AreEqual(Hero.TopPosition, 1);
+            Assert.AreEqual(2, Hero.LeftPosition);
+            Assert.AreEqual(2, Hero.TopPosition);
         }
 
         [Test]
         public void RecognizeRightBorder()
         {
-            eventLoop.Run("TestMap1.txt");
             eventLoop.ProcessKey(ConsoleKey.DownArrow);
             for (int i = 0; i < 10; ++i)
             {
                 eventLoop.ProcessKey(ConsoleKey.RightArrow);
             }
-            Assert.AreEqual(Hero.LeftPosition, 9);
-            Assert.AreEqual(Hero.TopPosition, 2);
+            Assert.AreEqual(9, Hero.LeftPosition);
+            Assert.AreEqual(2, Hero.TopPosition);
         }
 
         [Test]
@@ -49,14 +46,14 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.UpArrow);
             }
-            Assert.AreEqual(Hero.LeftPosition, 2);
-            Assert.AreEqual(Hero.TopPosition, 1);
+            Assert.AreEqual(2, Hero.LeftPosition);
+            Assert.AreEqual(1, Hero.TopPosition);
         }
 
         [Test]
         public void RecognizeLeftBorder()
         {
-            for (int i = 0; i < 11; ++i)
+            for (int i = 0; i < 12; ++i)
             {
                 eventLoop.ProcessKey(ConsoleKey.RightArrow);
             }
@@ -65,8 +62,57 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.LeftArrow);
             }
-            Assert.AreEqual(Hero.LeftPosition, 13);
-            Assert.AreEqual(Hero.TopPosition, 0);
+            Assert.AreEqual(14, Hero.LeftPosition);
+            Assert.AreEqual(0, Hero.TopPosition);
+        }
+
+        [Test]
+        public void GoBeyondTheLeftConsoleBorder()
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                eventLoop.ProcessKey(ConsoleKey.LeftArrow);
+            }
+            Assert.AreEqual(0, Hero.LeftPosition);
+            Assert.AreEqual(1, Hero.TopPosition);
+        }
+
+        [Test]
+        public void GoBeyondTheTopConsoleBorder()
+        {
+            eventLoop.ProcessKey(ConsoleKey.LeftArrow);
+            for (int i = 0; i < 10; ++i)
+            {
+                eventLoop.ProcessKey(ConsoleKey.UpArrow);
+            }
+            Assert.AreEqual(1, Hero.LeftPosition);
+            Assert.AreEqual(0, Hero.TopPosition);
+        }
+
+        [Test]
+        public void GoBeyondTheRightConsoleBorder()
+        {
+            for (int i = 0; i < Map.IsBorder.GetLength(0) + Map.resizeMapIndex; ++i)
+            {
+                eventLoop.ProcessKey(ConsoleKey.RightArrow);
+            }
+            Assert.AreEqual(Map.IsBorder.GetLength(0) + Map.resizeMapIndex - 1, Hero.LeftPosition);
+            Assert.AreEqual(1, Hero.TopPosition);
+        }
+
+        [Test]
+        public void GoBeyondTheDownConsoleBorder()
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                eventLoop.ProcessKey(ConsoleKey.RightArrow);
+            }
+            for (int i = 0; i < 100; ++i)
+            {
+                eventLoop.ProcessKey(ConsoleKey.DownArrow);
+            }
+            Assert.AreEqual(6, Hero.LeftPosition);
+            Assert.AreEqual(Map.resizeMapIndex - 1, Hero.TopPosition);
         }
     }
 }
