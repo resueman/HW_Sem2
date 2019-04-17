@@ -2,6 +2,9 @@ using NUnit.Framework;
 using Task2;
 using System;
 
+/// <summary>
+/// Tests hero behavior, its reaction on walls and borders of area possible to play on
+/// </summary>
 namespace Tests
 {
     public class HeroBehaviourTests
@@ -92,7 +95,7 @@ namespace Tests
         [Test]
         public void GoBeyondTheRightConsoleBorder()
         {
-            for (int i = 0; i < Map.IsBorder.GetLength(0) + Map.resizeMapIndex; ++i)
+            for (int i = 0; i < 10 + Map.IsBorder.GetLength(0) + Map.resizeMapIndex; ++i)
             {
                 eventLoop.ProcessKey(ConsoleKey.RightArrow);
             }
@@ -107,12 +110,25 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.RightArrow);
             }
-            for (int i = 0; i < 100; ++i)
+            for (int i = 0; i < 10 + Map.IsBorder.GetLength(1); ++i)
             {
                 eventLoop.ProcessKey(ConsoleKey.DownArrow);
             }
             Assert.AreEqual(6, Hero.LeftPosition);
             Assert.AreEqual(Map.resizeMapIndex - 1, Hero.TopPosition);
+        }
+
+        [Test]
+        public void IsPossibleToNavigateAnEmptyMap()
+        {
+            Map.CreateMap("EmptyMap.txt");
+            for (int i = 0; i < Map.resizeMapIndex; ++i)
+            {
+                eventLoop.ProcessKey(ConsoleKey.RightArrow);
+                eventLoop.ProcessKey(ConsoleKey.DownArrow);
+            }
+            Assert.AreEqual(Map.resizeMapIndex - 1, Hero.TopPosition);
+            Assert.AreEqual(Map.resizeMapIndex - 1, Hero.LeftPosition);
         }
     }
 }

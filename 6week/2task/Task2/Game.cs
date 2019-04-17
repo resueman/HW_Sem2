@@ -2,6 +2,10 @@
 
 namespace Task2
 {
+    /// <summary>
+    /// Describes actions performed by the hero in game
+    /// Contains game settings(Cursor visibility, walls color)
+    /// </summary>
     class Game
     {
         public static void OnLeft()

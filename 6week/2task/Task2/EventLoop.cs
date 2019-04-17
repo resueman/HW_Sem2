@@ -2,6 +2,11 @@
 
 namespace Task2
 {
+    /// <summary>
+    /// Class responsible for starting the game,
+    /// for subscribing methods on events
+    /// for invoking methods after an event occurs
+    /// </summary>
     public class EventLoop
     {
         public event Action LeftHandler, RightHandler, TopHandler, DownHandler;

@@ -4,6 +4,10 @@ using Task2;
 
 namespace Tests
 {
+    /// <summary>
+    /// Tests the response to the absence of a file and incorrect maps
+    /// Checks the correctness of walls and initial hero position recognition 
+    /// </summary>
     public class MapTests
     {
         private bool[,] TestIsBorder;
@@ -57,7 +61,7 @@ namespace Tests
             Map.CreateMap("TestMap1.txt");
             for (int i = 0; i < TestIsBorder.GetLength(0); ++i)
             {
-                for(int j = 0; j < TestIsBorder.GetLength(1); ++j)
+                for (int j = 0; j < TestIsBorder.GetLength(1); ++j)
                 {
                     Assert.AreEqual(TestIsBorder[i, j], Map.IsBorder[i, j]);
                 }

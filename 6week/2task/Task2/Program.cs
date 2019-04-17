@@ -3,14 +3,17 @@ using System.IO;
 
 namespace Task2
 {
-    class Program
+    /// <summary>
+    /// Class responsible for starting the game and catching exceptions
+    /// </summary>
+    static class Program
     {
         static void Main()
         {
             var eventLoop = new EventLoop();
             try
             {
-                eventLoop.Run("Map.txt");
+                eventLoop.Run("Map1.txt");
             }
             catch (FileNotFoundException exception)
             {

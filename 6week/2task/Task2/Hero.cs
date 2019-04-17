@@ -2,6 +2,11 @@
 
 namespace Task2
 {
+    /// <summary>
+    /// Class responsible for creating hero, 
+    /// for changing its coordinates, 
+    /// for moving the hero on the console screen 
+    /// </summary>
     public class Hero
     {
         public static char Appearance { get; private set; } = '@';
@@ -37,7 +42,7 @@ namespace Task2
             {
                 return false;
             }
-            if (top >=  Map.IsBorder.GetLength(0)|| left >= Map.IsBorder.GetLength(1))
+            if (top >=  Map.IsBorder.GetLength(0) || left >= Map.IsBorder.GetLength(1))
             {
                 return false;
             }

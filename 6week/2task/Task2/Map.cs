@@ -3,6 +3,13 @@ using System.IO;
 
 namespace Task2
 {
+    /// <summary>
+    /// Class responsible for reading map from a file
+    /// for determining original hero coordinates, 
+    /// for determining and saving coordinates of the walls 
+    /// for keeping size of area, possible to play on 
+    /// and changing it depending on number and location of walls
+    /// </summary>
     public class Map
     {
         public const int resizeMapIndex = 10;

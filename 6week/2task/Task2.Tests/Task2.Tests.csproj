@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="EmptyMap.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="IncorrectMap1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
