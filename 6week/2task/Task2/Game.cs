@@ -6,7 +6,7 @@ namespace Task2
     /// Describes actions performed by the hero in game
     /// Contains game settings(Cursor visibility, walls color)
     /// </summary>
-    class Game
+    static class Game
     {
         public static void OnLeft()
             => Hero.ChangeHeroCoordinates(-1, 0);

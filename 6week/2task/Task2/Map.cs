@@ -10,9 +10,9 @@ namespace Task2
     /// for keeping size of area, possible to play on 
     /// and changing it depending on number and location of walls
     /// </summary>
-    public class Map
+    public static class Map
     {
-        public const int resizeMapIndex = 10;
+        public static readonly int resizeMapIndex = 10;
         public static int HeroStartPointLeft { get; private set; }
         public static int HeroStartPointTop { get; private set; }
         public static bool[,] IsBorder { get; private set; }

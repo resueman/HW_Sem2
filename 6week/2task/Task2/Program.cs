@@ -13,7 +13,7 @@ namespace Task2
             var eventLoop = new EventLoop();
             try
             {
-                eventLoop.Run("Map1.txt");
+                eventLoop.Run("Map.txt");
             }
             catch (FileNotFoundException exception)
             {

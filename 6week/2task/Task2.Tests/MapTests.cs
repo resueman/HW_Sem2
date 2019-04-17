@@ -13,7 +13,7 @@ namespace Tests
         private bool[,] TestIsBorder;
 
         [Test]
-        public void FileWithMapNotFoundException()
+        public static void FileWithMapNotFoundException()
         {
             Assert.Throws<FileNotFoundException>(() => Map.CreateMap("IAmNotExist.txt"));
         }
@@ -21,7 +21,7 @@ namespace Tests
         [Test]
         [TestCase("IncorrectMap1.txt")]
         [TestCase("IncorrectMap2.txt")]
-        public void IncorrectMapTest(string fileName)
+        public static void IncorrectMapTest(string fileName)
         {
             Assert.Throws<IncorrectMapException>(() => Map.CreateMap(fileName));
         }
@@ -72,7 +72,7 @@ namespace Tests
         [TestCase("TestMap1.txt", 1, 2)]
         [TestCase("TestMap2.txt", 4, 6)]
         [TestCase("TestMap3.txt", 21, 43)]
-        public void IsCorrectHeroPosition(string fileName, int topPoint, int leftPoint)
+        public static void IsCorrectHeroPosition(string fileName, int topPoint, int leftPoint)
         {
             Map.CreateMap(fileName);
             Assert.AreEqual(Map.HeroStartPointTop, topPoint);
