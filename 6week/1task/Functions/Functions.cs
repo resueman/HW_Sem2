@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Task1
+namespace Functions
 {
     /// <summary>
     /// Functions that accept list and function, which works with list element
