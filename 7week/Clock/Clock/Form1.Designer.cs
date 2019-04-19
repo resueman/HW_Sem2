@@ -57,16 +57,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(264, 66);
+            this.ClientSize = new System.Drawing.Size(264, 61);
             this.Controls.Add(this.TimeLabel);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(280, 105);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(280, 0);
+            this.MinimumSize = new System.Drawing.Size(280, 100);
             this.Name = "ClockForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Clock";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.ClockForm_Load);
+            this.SizeChanged += new System.EventHandler(this.ClockForm_SizeChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 
