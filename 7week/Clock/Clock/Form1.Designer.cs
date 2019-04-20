@@ -28,54 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.TimeLabel = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.TimerLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.TimerLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // TimeLabel
             // 
+            this.TimeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TimeLabel.AutoEllipsis = true;
             this.TimeLabel.AutoSize = true;
-            this.TimeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TimeLabel.Font = new System.Drawing.Font("Verdana", 38F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TimeLabel.Location = new System.Drawing.Point(0, 0);
+            this.TimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TimeLabel.Location = new System.Drawing.Point(3, 0);
+            this.TimeLabel.MinimumSize = new System.Drawing.Size(242, 65);
             this.TimeLabel.Name = "TimeLabel";
-            this.TimeLabel.Size = new System.Drawing.Size(265, 61);
+            this.TimeLabel.Size = new System.Drawing.Size(242, 65);
             this.TimeLabel.TabIndex = 0;
             this.TimeLabel.Text = "00:00:00";
             this.TimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // timer1
+            // TimerLayoutPanel
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            this.TimerLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TimerLayoutPanel.ColumnCount = 1;
+            this.TimerLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38F));
+            this.TimerLayoutPanel.Controls.Add(this.TimeLabel, 0, 0);
+            this.TimerLayoutPanel.Location = new System.Drawing.Point(2, 2);
+            this.TimerLayoutPanel.Name = "TimerLayoutPanel";
+            this.TimerLayoutPanel.RowCount = 1;
+            this.TimerLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TimerLayoutPanel.Size = new System.Drawing.Size(242, 65);
+            this.TimerLayoutPanel.TabIndex = 1;
             // 
             // ClockForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(264, 61);
-            this.Controls.Add(this.TimeLabel);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(280, 100);
+            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.ClientSize = new System.Drawing.Size(248, 69);
+            this.Controls.Add(this.TimerLayoutPanel);
+            this.MinimumSize = new System.Drawing.Size(264, 108);
             this.Name = "ClockForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Clock";
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.ClockForm_Load);
-            this.SizeChanged += new System.EventHandler(this.ClockForm_SizeChanged);
+            this.TimerLayoutPanel.ResumeLayout(false);
+            this.TimerLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Timer timer1;
-        public System.Windows.Forms.Label TimeLabel;
+
+        private System.Windows.Forms.Label TimeLabel;
+        private System.Windows.Forms.TableLayoutPanel TimerLayoutPanel;
     }
 }
 

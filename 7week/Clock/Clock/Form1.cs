@@ -16,15 +16,5 @@ namespace Clock
         {
             InitializeComponent();
         }
-
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            TimeLabel.Text = DateTime.Now.ToLongTimeString();                
-        }
-
-        private void ClockForm_Load(object sender, EventArgs e)
-        {
-            timer1.Start();
-        }
     }
 }
