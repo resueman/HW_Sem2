@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.TimeLabel = new System.Windows.Forms.Label();
             this.TimerLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.TimerLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +66,10 @@
             this.TimerLayoutPanel.Size = new System.Drawing.Size(242, 65);
             this.TimerLayoutPanel.TabIndex = 1;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
             // ClockForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -71,10 +77,12 @@
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(248, 69);
             this.Controls.Add(this.TimerLayoutPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MinimumSize = new System.Drawing.Size(264, 108);
             this.Name = "ClockForm";
             this.Text = "Clock";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.ClockForm_Load);
             this.TimerLayoutPanel.ResumeLayout(false);
             this.TimerLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -85,6 +93,7 @@
 
         private System.Windows.Forms.Label TimeLabel;
         private System.Windows.Forms.TableLayoutPanel TimerLayoutPanel;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
