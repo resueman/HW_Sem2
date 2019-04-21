@@ -2,7 +2,10 @@
 
 namespace Task1
 {
-    class IncorrectInputException : Exception
+    /// <summary>
+    /// Throws when user enter incorrect expression
+    /// </summary>
+    public class IncorrectInputException : Exception
     {
         public IncorrectInputException() 
             : base()

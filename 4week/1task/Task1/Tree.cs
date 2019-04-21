@@ -2,7 +2,11 @@
 
 namespace Task1
 {
-    class Tree
+    /// <summary>
+    /// Tree implementation
+    /// Class contains method for tree building, printing and evaluating tree
+    /// </summary>
+    public class Tree
     {
         private static Node Root { get; set; }
 
@@ -15,7 +19,7 @@ namespace Task1
             Root = CreateNode(input, ref index);
         }
 
-        public static Node CreateNode(string[] input, ref int index)
+        private static Node CreateNode(string[] input, ref int index)
         {
             if (input[index] == "(")
             {
@@ -26,14 +30,15 @@ namespace Task1
                 ++index;
                 newNode.Right = CreateNode(input, ref index);
                 ++index;
+                if (input[index] != ")")
+                {
+                    throw new IncorrectInputException("No closing bracket");
+                }
                 return newNode;
             }
             if (int.TryParse(input[index], out int result))
             {
-                var newNode = new Operand()
-                {
-                    Data = result
-                };
+                var newNode = new Operand(result);
                 return newNode;
             }
             if (input[index] == ")")
@@ -44,17 +49,14 @@ namespace Task1
             throw new IncorrectInputException("Incorrect symbol");
         }
 
-        private bool IsEmpty()
-            => Root == null;
-
         public void PrintTree()
         {
-            if (IsEmpty())
+            if (Root == null)
             {
                 Console.WriteLine("Tree is empty");
                 return;
             }
-            DoPrint(Root);
+            DoPrint();
         }
 
         public int CalculateTree()
@@ -62,7 +64,7 @@ namespace Task1
             return Root.Calculate();
         }
 
-        private void DoPrint(Node node)
+        private void DoPrint()
         {
             Root.Print();
             Console.WriteLine();
