@@ -11,6 +11,7 @@ namespace Tests
         private Tree tree;
 
         [Test]
+        [TestCase(9, "9")]
         [TestCase(9, "( - 9 0 )")]
         [TestCase(-9, "( - 0 9 )")]
         [TestCase(0, "( + 0 0 )")]
