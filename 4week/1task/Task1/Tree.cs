@@ -64,7 +64,7 @@ namespace Task1
             return Root.Calculate();
         }
 
-        private void DoPrint()
+        private static void DoPrint()
         {
             Root.Print();
             Console.WriteLine();

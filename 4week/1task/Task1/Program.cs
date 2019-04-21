@@ -5,7 +5,7 @@ namespace Task1
     /// <summary>
     /// Class to interact with user
     /// </summary>
-    class Program
+    static class Program
     {
         static void Main()
         {

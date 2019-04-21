@@ -7,7 +7,7 @@ namespace Task1
     /// </summary>
     class Operand : Node
     {
-        private int data;
+        private readonly int data;
 
         public Operand(int data)
         {

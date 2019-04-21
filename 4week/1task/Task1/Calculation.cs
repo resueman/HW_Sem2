@@ -3,7 +3,7 @@
     /// <summary>
     /// Performs calculation of expression
     /// </summary>
-    class Calculation
+    static class Calculation
     {
         internal static int PerformingOperation(string operation, Node left, Node right)
         {

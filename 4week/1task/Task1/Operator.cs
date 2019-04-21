@@ -7,7 +7,7 @@ namespace Task1
     /// </summary>
     class Operator : Node
     {
-        private string data;
+        private readonly string data;
         public Node Left { get; set; }
         public Node Right { get; set; }
 

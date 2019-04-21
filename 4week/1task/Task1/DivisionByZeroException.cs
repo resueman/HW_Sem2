@@ -8,7 +8,7 @@ namespace Task1
     public class DivisionByZeroException : Exception
     {
         public DivisionByZeroException()
-            : base()
+            :base()
         {
         }
 
