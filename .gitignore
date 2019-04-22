@@ -2,8 +2,6 @@
 **/obj
 **/bin
 **/packages
-**/Properties
 **/TestResults
-*.config
 *.csproj.user
 
