@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Task1
 {
-    class List : IList
+    class List<> : IList
     {
         private Node head;
         public int Length { get; private set; }
