@@ -13,9 +13,9 @@ namespace Retest
     /// <summary>
     /// Class which realizes what happens in case of mouse movement and pressing on button
     /// </summary>
-    public partial class window : System.Windows.Forms.Form
+    public partial class Window : System.Windows.Forms.Form
     {
-        public window()
+        public Window()
         {
             InitializeComponent();
         }
