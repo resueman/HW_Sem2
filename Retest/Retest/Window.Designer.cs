@@ -1,6 +1,6 @@
 ﻿namespace Retest
 {
-    partial class Window
+    partial class window
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -42,14 +42,14 @@
             this.button.Click += new System.EventHandler(this.Button_Click);
             this.button.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Button_MouseMove);
             // 
-            // Window
+            // window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(666, 305);
             this.Controls.Add(this.button);
             this.MinimumSize = new System.Drawing.Size(600, 300);
-            this.Name = "Window";
+            this.Name = "window";
             this.Text = "Catch button game";
             this.ResumeLayout(false);
 
