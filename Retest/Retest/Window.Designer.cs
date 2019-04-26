@@ -1,6 +1,6 @@
 ﻿namespace Retest
 {
-    partial class Form1
+    partial class Window
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -28,20 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Form1
+            // button
+            // 
+            this.button.Location = new System.Drawing.Point(80, 61);
+            this.button.Name = "button";
+            this.button.Size = new System.Drawing.Size(75, 23);
+            this.button.TabIndex = 0;
+            this.button.Text = "Click me!";
+            this.button.UseVisualStyleBackColor = true;
+            this.button.Click += new System.EventHandler(this.Button_Click);
+            this.button.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Button_MouseMove);
+            // 
+            // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 174);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(666, 305);
+            this.Controls.Add(this.button);
+            this.MinimumSize = new System.Drawing.Size(600, 300);
+            this.Name = "Window";
+            this.Text = "Catch button game";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Button button;
     }
 }
 
