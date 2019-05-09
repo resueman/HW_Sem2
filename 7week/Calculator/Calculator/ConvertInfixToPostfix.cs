@@ -28,6 +28,7 @@ namespace Calculator
 
         public List<string> InfixToPostfix(List<string> infixExpression)
         {
+            //check bracket balance here
             var stack = new Stack<string>();
             var postfixExpression = new List<string>();
 
@@ -60,14 +61,7 @@ namespace Calculator
             }
             while (stack.Count != 0)
             {
-                if (stack.Peek() == "(" || stack.Peek() == ")")
-                {
-                    throw new IncorrectInfixExpressionException("Incorrect infix form");///
-                }
-                else
-                {
-                    postfixExpression.Add(stack.Pop());
-                }
+                postfixExpression.Add(stack.Pop());
             }
             return postfixExpression;
         }

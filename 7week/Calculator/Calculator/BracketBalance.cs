@@ -8,16 +8,16 @@ namespace Calculator
 {
     static class BracketBalance
     {
-        public static bool Check(string input)
+        public static bool Check(List<string> input)
         {
-            Stack<char> stack = new Stack<char>();
-            for (int i = 0; i < input.Length; ++i)
+            var stack = new Stack<string>();
+            foreach (var symbol in input)
             {
-                if (input[i] == '(')
+                if (symbol == "(")
                 {
-                    stack.Push(input[i]);
+                    stack.Push(symbol);
                 }
-                if (input[i] == ')')
+                if (symbol == ")")
                 {
                     if (stack.Count == 0)
                     {

@@ -1,26 +1,31 @@
 ﻿using System.Collections.Generic;
 
-namespace Task3
+namespace Calculator
 {
     class Calculator
     {
         private readonly Stack<int> stack;
 
-        private static int PerformingOperation(int number2, int number1, char operation)
+        private static int PerformingOperation(int number2, int number1, string operation)
         {
-            //division by zero
-            switch (operation)
+            if (operation == "/" && number1 == 0)
             {
-                case '+':
-                    return number2 + number1;
-                case '-':
-                    return number2 - number1;
-                case '*':
-                    return number2 * number1;
-                case '/':
-                    return number2 / number1;
+                throw new DivisionByZeroException("Expression contains division by zero");
             }
-            return 0;
+
+            if (operation == "+")
+            {
+                return number2 + number1;
+            }
+            else if (operation == "-")
+            {
+                return number2 - number1;
+            }
+            else if (operation == "*")
+            {
+                return number2 * number1;
+            }
+            return number2 / number1;
         }
 
         public int Calculation(List<string> expression)
@@ -31,8 +36,7 @@ namespace Task3
                 {
                     int number1 = stack.Pop();
                     int number2 = stack.Pop();
-                    char operation = char.Parse(singleString);
-                    int resultOfOperation = PerformingOperation(number2, number1, operation);
+                    int resultOfOperation = PerformingOperation(number2, number1, singleString);
                     stack.Push(resultOfOperation);
                     continue;
                 }
@@ -45,7 +49,7 @@ namespace Task3
             int answer = stack.Pop();
             if (stack.Count != 0)
             {
-                throw new NotPostfixFormException("Not a postfix form");
+                throw new IncorrectInfixExpressionException("Incorrect input");
             }
             return answer;
         }
