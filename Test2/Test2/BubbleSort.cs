@@ -17,6 +17,10 @@ namespace Test2
         /// <param name="comparer">Object for comparison</param>
         public static void Sort<T>(List<T> list, IComparer<T> comparer)
         {
+            if (comparer == null)
+            {
+                throw new ArgumentNullException("Comparer can't be null!");
+            }
             for (int i = 1; i < list.Count; ++i)
             {
                 for (int j = 1; j < list.Count; ++j)
