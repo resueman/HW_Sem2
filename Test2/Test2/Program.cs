@@ -6,7 +6,7 @@ namespace Test2
     {
         static void Main()
         {
-            
+            Console.WriteLine("Program for sorting lists");  
         }
     }
 }
