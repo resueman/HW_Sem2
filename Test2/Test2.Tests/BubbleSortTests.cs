@@ -15,7 +15,7 @@ namespace Test2
         /// <typeparam name="T">Type of list elements</typeparam>
         /// <param name="list1">First list to sort</param>
         /// <param name="list2">Second list to sort</param>
-        private void Compare<T>(List<T> list1, List<T> list2)
+        private static void Compare<T>(List<T> list1, List<T> list2)
         {
             for (int i = 0; i < list1.Count; ++i)
             {
