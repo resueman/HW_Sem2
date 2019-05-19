@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Text;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace Task1
 {
@@ -7,10 +8,10 @@ namespace Task1
     /// Structure to store and work with data
     /// </summary>
     /// <typeparam name="T">Type of stored data</typeparam>
-    public class List<T> : IList<T>
+    public partial class List<T> : IList<T>
     {
         private Node head;
-        public int Length { get; private set; }
+        public int Count { get; private set; }
 
         private class Node
         {
@@ -21,30 +22,45 @@ namespace Task1
             {
                 Value = value;
             }
+        } 
+        
+        public IEnumerator<T> GetEnumerator() => new ListEnumerator(head);
+
+        IEnumerator IEnumerable.GetEnumerator() => new ListEnumerator(head);
+
+        public T this[int index]
+        {
+            get
+            {
+                if (!IsCorrectPosition(index))
+                {
+                    throw new IncorrectPositionException("Can't get value of item, because index is incorrect");
+                }
+                return GetPreviousNodeByPosition(index + 1).Value;
+            }
+            set
+            {
+                if (!IsCorrectPosition(index))
+                {
+                    throw new IncorrectPositionException("Can't set item value, because index is incorrect");
+                }
+                GetPreviousNodeByPosition(index + 1).Value = value;
+            }
         }
 
-        public bool IsEmpty()
-            => Length == 0;
+        public bool IsReadOnly => false;
 
-        private bool IsCorrectPosition(int position)
-            => !(position > Length || position < 1);
-
-        public T GetValue(int position)
+        public bool Contains(T value)
         {
-            if (!IsCorrectPosition(position))
+            var current = head;
+            for (int i = 0; i < Count; ++i)
             {
-                throw new IncorrectPositionException("Can't get value of item, because position is incorrect");
+                if (current.Value.Equals(value))
+                {
+                    return true;
+                }
             }
-            return GetPreviousNodeByPosition(position + 1).Value;
-        }
-
-        public virtual void SetValue(T value, int position)
-        {
-            if (!IsCorrectPosition(position))
-            {
-                throw new IncorrectPositionException("Can't set item value, because position is incorrect");
-            }
-            GetPreviousNodeByPosition(position + 1).Value = value;
+            return false;
         }
 
         private Node GetPreviousNodeByPosition(int position)
@@ -57,7 +73,10 @@ namespace Task1
             return current;
         }
 
-        public void DeleteNode(int position)
+        private bool IsCorrectPosition(int position)
+            => !(position > Count || position < 1);
+
+        public void RemoveAt(int position)
         {
             if (!IsCorrectPosition(position))
             {
@@ -72,7 +91,32 @@ namespace Task1
                 var previousNode = GetPreviousNodeByPosition(position);
                 previousNode.Next = previousNode.Next.Next;
             }
-            --Length;
+            --Count;
+        }
+
+        public bool Remove(T value)
+        {
+            int deletedPosition = IndexOf(value);
+            if (deletedPosition == -1)
+            {
+                return false;
+            }
+            RemoveAt(deletedPosition);
+            return true;
+        }
+
+        public int IndexOf(T key)
+        {
+            var current = head;
+            for (int i = 0; i < Count; ++i)
+            {
+                if (key.Equals(current.Value))
+                {
+                    return i + 1;
+                }
+                current = current.Next;
+            }
+            return -1;
         }
 
         private void InsertToHead(Node newNode)
@@ -88,9 +132,9 @@ namespace Task1
             previous.Next = newNode;
         }
 
-        public void AddNode(T value, int position)
+        public void Insert(int position, T value)
         {
-            if (position > Length + 1 && position != 0 || position < 1)
+            if (position > Count + 1 && position != 0 || position < 1)
             {
                 throw new IncorrectPositionException("Incorrect position");
             }
@@ -103,48 +147,42 @@ namespace Task1
             {
                 InsertNotToHead(newNode, position);
             }
-            ++Length;
+            ++Count;
         }
 
-        private int GetPositionByValue(T key)
+        public void Add(T value)
         {
             var current = head;
-            for (int i = 0; i < Length; ++i)
+            while (current.Next != null)
             {
-                if (key.Equals(current.Value))
-                {
-                    return i + 1;
-                }
                 current = current.Next;
             }
-            return -1;
+            current.Next = new Node(value);
+            ++Count;
         }
 
         public void Clear()
         {
             head = null;
-            Length = 0;
+            Count = 0;
         }
 
-        public string GetStringOfListElements()
+        public void CopyTo(T[] array, int arrayIndex)
         {
-            if (Length == 0)
+            if (arrayIndex < 0)
             {
-                return "List is empty";
+                throw new IndexOutOfRangeException("Array index must be positive");
             }
-            var stringBuilder = new StringBuilder();
-            Node current = head;
-            for (int i = 0; i < Length; ++i)
-            {
-                stringBuilder.Append(current.Value + " ");
-                current = current.Next;
-            }
-            return stringBuilder.ToString();
-        }
 
-        public void Print()
-        {
-            Console.WriteLine(GetStringOfListElements() + "\n");
+            if (array.Length < Count + arrayIndex)
+            {
+                throw new ArgumentException("Too short array");
+            }
+
+            for (int i = 0; i < Count; ++i)
+            {
+                array[i + arrayIndex] = this[i];
+            }
         }
     }
 }
