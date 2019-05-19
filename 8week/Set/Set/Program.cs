@@ -9,7 +9,7 @@ namespace Set1
         private void m()
         {
             var set = new SortedSet<int>();
-            set.un
+            set.sy
         }
 
     }
