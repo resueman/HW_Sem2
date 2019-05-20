@@ -98,13 +98,18 @@ namespace Set
         [Test]
         public void Overlaps()
         {
-            
+            Assert.IsTrue(set8.Overlaps(set11));
+            Assert.IsTrue(set5.Overlaps(set8));
+            Assert.IsFalse(set11.Overlaps(set0));
+            Assert.IsFalse(set1.Overlaps(set3));
+            Assert.IsFalse(set4.Overlaps(set1));
         }
 
         [Test]
-        public void IntersectWith()
+        public void IntersectWith()           //////////////
         {
-            
+            set11.IntersectWith(set8);
+            var result = new int[] { 170, 150, 90, 18 };
         }
 
         [Test]

@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace Set
 {
+    /// <summary>
+    /// Contains a non-repeating collection of items as a binary tree
+    /// </summary>
+    /// <typeparam name="T">Type of elements contained in Set</typeparam>
     public class Set<T> : ISet<T> where T : IComparable<T>
     {
         public int Count { get; private set; }
@@ -14,7 +18,7 @@ namespace Set
 
         private class Node
         {
-            public T Key { get; private set; }
+            public T Key { get; set; }
             public Node Left { get; set; }
             public Node Right { get; set; }
 
@@ -143,9 +147,50 @@ namespace Set
             Add(item);
         }
 
-        private void DoRemove(Node node, T key)
+        private T FindLeftSubTreeMaximum(Node node)
         {
-            
+            var temp = node;
+            temp = temp.Left;
+            while (temp.Right != null)
+            {
+                temp = temp.Right;
+            }
+            return temp.Key;
+        }
+
+        private void FindToRemove(ref Node node, T key)
+        {
+            if (key.CompareTo(node.Key) > 0)
+            {
+                var rightChild = node.Right;
+                FindToRemove(ref rightChild, key);
+            }
+            else if (key.CompareTo(node.Key) < 0)
+            {
+                var leftChild = node.Left;
+                FindToRemove(ref leftChild, key);
+            }
+            else
+            {
+                if (node.Left == null && node.Right == null)
+                {
+                    node = null;
+                }
+                else if (node.Left == null && node.Right != null)
+                {
+                    node = node.Right;
+                }
+                else if (node.Left != null && node.Right == null)
+                {
+                    node = node.Left;
+                }
+                else
+                {
+                    node.Key = FindLeftSubTreeMaximum(node);
+                    var leftChild = node.Left;
+                    FindToRemove(ref leftChild, node.Key);
+                }
+            }
         }
 
         /// <summary>
@@ -164,7 +209,7 @@ namespace Set
             {
                 return false;
             }
-            DoRemove(root, key);
+            FindToRemove(ref root, key);
             --Count;
             return true;
         }
