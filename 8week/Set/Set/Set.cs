@@ -10,7 +10,7 @@ namespace Set
 
         private Node root;
 
-        public class Node
+        private class Node
         {
             public T Key { get; private set; }
             public Node Left { get; set; }
@@ -22,31 +22,38 @@ namespace Set
             }
         }
 
-        private IEnumerator<T> Traversal(Node node)
-        {
+        private void AscendingOrder(Node node, Queue<T> queue)
+        { 
+            if (node == null)
+            {
+                return;
+            }
             if (node.Left != null)
             {
-                Traversal(node.Left);
+                AscendingOrder(node.Left, queue);
             }
-            yield return node.Key;
+            queue.Enqueue(node.Key);
             if (node.Right != null)
             {
-                Traversal(node.Right);
+                AscendingOrder(node.Right, queue);
             }
-            Console.WriteLine(node.Key);
-        }
+        } 
 
-        public IEnumerator<T> GetEnumerator()
+        private IEnumerator<T> Traversal()
         {
-            return Traversal(root);
+            var queue = new Queue<T>();
+            AscendingOrder(root, queue);
+            for (int i = 0; i < Count; ++i)
+            {
+                yield return queue.Dequeue();
+            }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        public IEnumerator<T> GetEnumerator() => Traversal();
 
-        public bool IsReadOnly => false;
+        IEnumerator IEnumerable.GetEnumerator() => Traversal();
+
+        public bool IsReadOnly { get; private set; }
 
         private Node GetNodeByKey(Node node, T key)
         {
@@ -56,7 +63,7 @@ namespace Set
                 {
                     return null;
                 }
-                GetNodeByKey(node.Right, key);
+                return GetNodeByKey(node.Right, key);
             }
             else if (key.CompareTo(node.Key) < 0)
             {
@@ -64,7 +71,7 @@ namespace Set
                 {
                     return null;
                 }
-                GetNodeByKey(node.Left, key);
+                return GetNodeByKey(node.Left, key);
             }
             return node;
         }
@@ -96,7 +103,7 @@ namespace Set
                     node.Left = new Node(key);
                     return;
                 }
-                DoAdd(node.Right, key);
+                DoAdd(node.Left, key);
             }
         }
 
