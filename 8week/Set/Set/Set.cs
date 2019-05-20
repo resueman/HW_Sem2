@@ -8,6 +8,8 @@ namespace Set
     {
         public int Count { get; private set; }
 
+        public bool IsReadOnly { get; private set; }
+
         private Node root;
 
         private class Node
@@ -53,8 +55,6 @@ namespace Set
 
         IEnumerator IEnumerable.GetEnumerator() => Traversal();
 
-        public bool IsReadOnly { get; private set; }
-
         private Node GetNodeByKey(Node node, T key)
         {
             if (key.CompareTo(node.Key) > 0)
@@ -76,6 +76,11 @@ namespace Set
             return node;
         }
 
+        /// <summary>
+        /// Determines whether a Set<T> object contains the specified element
+        /// </summary>
+        /// <param name="key">The element to locate in the Set<T> object</param>
+        /// <returns>true if the Set<T> object contains the specified element; otherwise, false</returns>
         public bool Contains(T key)
         {
             if (Count == 0)
@@ -107,6 +112,11 @@ namespace Set
             }
         }
 
+        /// <summary>
+        /// Adds the specified element to a set
+        /// </summary>
+        /// <param name="key">The element to add to the set</param>
+        /// <returns>true if the element is added to the hSet<T> object; false if the element is already present</returns>
         public bool Add(T key)
         {
             if (Count == 0)
@@ -124,6 +134,10 @@ namespace Set
             return true;
         }
 
+        /// <summary>
+        /// Adds the specified element to a set
+        /// </summary>
+        /// <param name="key">The element to add to the set</param>
         void ICollection<T>.Add(T item)
         {
             Add(item);
@@ -134,6 +148,12 @@ namespace Set
             
         }
 
+        /// <summary>
+        /// Removes the specified element from a Set<T> object.
+        /// </summary>
+        /// <param name="key">The element to remove</param>
+        /// <returns>true if the element is successfully found and removed;
+        /// false if item is not found in the Set<T> object</returns>
         public bool Remove(T key)
         {
             if (Count == 0)
@@ -149,12 +169,20 @@ namespace Set
             return true;
         }
 
+        /// <summary>
+        /// Removes all elements from a Set<T> object
+        /// </summary>
         public void Clear()
         {
             root = null;
             Count = 0;
         }
 
+        /// <summary>
+        /// Determines whether the current Set<T> object and a specified collection share common elements
+        /// </summary>
+        /// <param name="other">The collection to compare to the current Set<T> object</param>
+        /// <returns>true if the Set<T> object and other share at least one common element; otherwise, false</returns>
         public bool Overlaps(IEnumerable<T> other)
         {
             foreach (var key in other)
@@ -167,6 +195,11 @@ namespace Set
             return false;
         }
 
+        /// <summary>
+        /// Modifies the current Set<T> object to contain only elements
+        /// that are present in that object and in the specified collection
+        /// </summary>
+        /// <param name="other">The collection to compare to the current</param>
         public void IntersectWith(IEnumerable<T> other)
         {
             var intersection = new List<T>();
@@ -184,6 +217,10 @@ namespace Set
             }
         }
 
+        /// <summary>
+        /// Removes all elements in the specified collection from the current 
+        /// </summary>
+        /// <param name="other">The collection of items to remove from the current set</param>
         public void ExceptWith(IEnumerable<T> other)
         {
             foreach (var key in other)
@@ -192,6 +229,11 @@ namespace Set
             }
         }
 
+        /// <summary>
+        /// Modifies the current Set<T> object to contain only elements that are present 
+        /// either in that object or in the specified collection, but not both
+        /// </summary>
+        /// <param name="other">The collection to compare to the current Set<T> object</param>
         public void SymmetricExceptWith(IEnumerable<T> other)
         {
             var intersection = new List<T>();
@@ -209,6 +251,11 @@ namespace Set
             }
         }
 
+        /// <summary>
+        /// Modifies the current Set<T> object to contain all elements 
+        /// that are present in itself, the specified collection, or both.
+        /// </summary>
+        /// <param name="other">The collection to compare to the current Set<T> object</param>
         public void UnionWith(IEnumerable<T> other)
         {
             foreach (var key in other)
@@ -217,6 +264,11 @@ namespace Set
             }
         }
 
+        /// <summary>
+        /// Determines whether a Set<T> object and the specified collection contain the same elements
+        /// </summary>
+        /// <param name="other">The collection to compare to the current Set<T> object</param>
+        /// <returns>true if the Set<T> object is equal to other; otherwise, false</returns>
         public bool SetEquals(IEnumerable<T> other)
         {
             var otherSize = 0;
@@ -249,6 +301,12 @@ namespace Set
             }
         }
 
+        /// <summary>
+        /// Copies the elements of a Set<T> object to an array, starting at the specified array index
+        /// </summary>
+        /// <param name="array">The one-dimensional array that is the destination of the elements copied 
+        /// from the Set<T> object. The array must have zero-based indexing.</param>
+        /// <param name="arrayIndex">The zero-based index in array at which copying begins</param>
         public void CopyTo(T[] array, int arrayIndex)
         {
             if (array.Rank > 1)
@@ -297,6 +355,11 @@ namespace Set
             return -1; // clear intersection
         }
 
+        /// <summary>
+        /// Determines whether a Set<T> object is a subset of the specified collection
+        /// </summary>
+        /// <param name="other">The collection to compare to the current Set<T> object</param>
+        /// <returns>true if the Set<T> object is a subset of other; otherwise, false.</returns>
         public bool IsSubsetOf(IEnumerable<T> other)
         {
             if (SizeOfIntersection(other) == 3)
@@ -306,6 +369,12 @@ namespace Set
             return false;
         }
 
+        /// <summary>
+        /// Determines whether a Set<T> object 
+        /// is a proper subset of the specified collection
+        /// </summary>
+        /// <param name="other">The collection to compare to the current</param>
+        /// <returns>true if the Set<T> object is a proper subset of other; otherwise, false</returns>
         public bool IsProperSubsetOf(IEnumerable<T> other)
         {
             if (SizeOfIntersection(other) == 1)
@@ -315,6 +384,11 @@ namespace Set
             return false;
         }
 
+        /// <summary>
+        /// Determines whether a Set<T> object is a superset of the specified collection
+        /// </summary>
+        /// <param name="other">The collection to compare to the current Set<T> object</param>
+        /// <returns>true if the Set<T> object is a superset of other; otherwise, false</returns>
         public bool IsSupersetOf(IEnumerable<T> other)
         {
             if (SizeOfIntersection(other) == 4)
@@ -324,6 +398,12 @@ namespace Set
             return false;
         }
 
+        /// <summary>
+        /// Determines whether a Set<T> object is a proper superset of the specified collection.
+        /// </summary>
+        /// <param name="other">The collection to compare to the current Set<T> object</param>
+        /// <returns>true if the Set<T> object is a proper superset of other; 
+        /// otherwise, false.</returns>
         public bool IsProperSupersetOf(IEnumerable<T> other)
         {
             if (SizeOfIntersection(other) == 2)
