@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Collections;
-using System;
 
-namespace Task1
+namespace GenericList
 {
     public partial class List<T>
     {
         class ListEnumerator : IEnumerator<T>
         {
             private readonly Node head;
-            private Node current;
+            private Node current = new Node();
 
             public ListEnumerator(Node head)
             {
@@ -33,10 +32,7 @@ namespace Task1
 
             object IEnumerator.Current => current;
 
-            public void Dispose()
-            {
-                throw new Exception();
-            }
+            public void Dispose() { }
         }
     }
 }

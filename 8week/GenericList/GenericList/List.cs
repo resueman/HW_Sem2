@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 
-namespace Task1
+namespace GenericList
 {
     /// <summary>
     /// Structure to store and work with data
@@ -11,7 +11,6 @@ namespace Task1
     public partial class List<T> : IList<T>
     {
         private Node head;
-        public int Count { get; private set; }
 
         private class Node
         {
@@ -22,12 +21,38 @@ namespace Task1
             {
                 Value = value;
             }
-        } 
-        
+
+            public Node() { }
+        }
+
+        /// <summary>
+        /// Gets the number of elements contained in the List<T>
+        /// </summary>
+        public int Count { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the ICollection<T> is read-only
+        /// </summary>
+        public bool IsReadOnly { get; private set; }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the List<T>
+        /// </summary>
+        /// <returns>Enumerator</returns>
         public IEnumerator<T> GetEnumerator() => new ListEnumerator(head);
 
+        /// <summary>
+        /// Returns an enumerator that iterates through the List<T>
+        /// </summary>
+        /// <returns>Enumerator</returns>
         IEnumerator IEnumerable.GetEnumerator() => new ListEnumerator(head);
 
+        /// <summary>
+        /// Searches for an element that matches the conditions defined by a specified predicate
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>Returns the zero-based index of the first occurrence within the List<T> or a portion of it. 
+        /// Returns -1 if an item that matches the conditions is not found</returns>
         public T this[int index]
         {
             get
@@ -36,7 +61,7 @@ namespace Task1
                 {
                     throw new IncorrectPositionException("Can't get value of item, because index is incorrect");
                 }
-                return GetPreviousNodeByPosition(index + 1).Value;
+                return GetPreviousNodeByPosition(index + 2).Value;
             }
             set
             {
@@ -44,12 +69,15 @@ namespace Task1
                 {
                     throw new IncorrectPositionException("Can't set item value, because index is incorrect");
                 }
-                GetPreviousNodeByPosition(index + 1).Value = value;
+                GetPreviousNodeByPosition(index + 2).Value = value;
             }
         }
 
-        public bool IsReadOnly => false;
-
+        /// <summary>
+        /// Determines whether an element is in the List<T>
+        /// </summary>
+        /// <param name="value">The object to locate in the List<T></param>
+        /// <returns>True if item is found in the List<T>; otherwise, fals</returns>
         public bool Contains(T value)
         {
             var current = head;
@@ -59,6 +87,7 @@ namespace Task1
                 {
                     return true;
                 }
+                current = current.Next;
             }
             return false;
         }
@@ -66,7 +95,7 @@ namespace Task1
         private Node GetPreviousNodeByPosition(int position)
         {
             Node current = head;
-            for (int i = 0; i < position - 2; ++i)
+            for (int i = 0; i < position - 1; ++i)
             {
                 current = current.Next;
             }
@@ -74,15 +103,19 @@ namespace Task1
         }
 
         private bool IsCorrectPosition(int position)
-            => !(position > Count || position < 1);
+            => !(position >= Count || position < 0);
 
+        /// <summary>
+        /// Removes the element at the specified index of the List<T>
+        /// </summary>
+        /// <param name="position">The zero-based index of the element to remove</param>
         public void RemoveAt(int position)
         {
             if (!IsCorrectPosition(position))
             {
                 throw new IncorrectPositionException("Incorrect position");
             }
-            if (position == 1)
+            if (position == 0)
             {
                 head = head.Next;
             }
@@ -94,6 +127,11 @@ namespace Task1
             --Count;
         }
 
+        /// <summary>
+        /// Delete value from a list
+        /// </summary>
+        /// <param name="value">Value to delete</param>
+        /// <returns>Returns false, if value doesn't exist, otherwise returns true</returns>
         public bool Remove(T value)
         {
             int deletedPosition = IndexOf(value);
@@ -105,6 +143,11 @@ namespace Task1
             return true;
         }
 
+        /// <summary>
+        /// Returns index
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public int IndexOf(T key)
         {
             var current = head;
@@ -132,6 +175,11 @@ namespace Task1
             previous.Next = newNode;
         }
 
+        /// <summary>
+        /// Inserts an element into the List<T> at the specified index
+        /// </summary>
+        /// <param name="position">The zero-based index at which item should be inserted</param>
+        /// <param name="value">The object to insert</param>
         public void Insert(int position, T value)
         {
             if (position > Count + 1 && position != 0 || position < 1)
@@ -150,8 +198,18 @@ namespace Task1
             ++Count;
         }
 
+        /// <summary>
+        /// Adds an object to the end of the List<T>.
+        /// </summary>
+        /// <param name="value">Value of added element</param>
         public void Add(T value)
         {
+            if (Count == 0)
+            {
+                head = new Node(value);
+                ++Count;
+                return;
+            }
             var current = head;
             while (current.Next != null)
             {
@@ -161,12 +219,21 @@ namespace Task1
             ++Count;
         }
 
+        /// <summary>
+        /// Removes all elements from the List<T>
+        /// </summary>
         public void Clear()
         {
             head = null;
             Count = 0;
         }
 
+        /// <summary>
+        /// Copies the List<T> or a portion of it to an array
+        /// </summary>
+        /// <param name="array">The one-dimensional Array that is the destination of the elements copied from List<T>.
+        /// The Array must have zero-based indexing</param>
+        /// <param name="arrayIndex">The zero-based index in array at which copying begins</param>
         public void CopyTo(T[] array, int arrayIndex)
         {
             if (arrayIndex < 0)

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Task1
+namespace GenericList
 {
     /// <summary>
     /// Throws when position of value in list 
