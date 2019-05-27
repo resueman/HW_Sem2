@@ -13,11 +13,14 @@ namespace Set
         private Set<int> set5 = new Set<int>();
         private Set<int> set8 = new Set<int>();
         private Set<int> set11 = new Set<int>();
+        private Set<int> otherSet1 = new Set<int> { 28, 37, 19, 45, 87, 93, 94, 12, 1234, 909 };
+        private Set<int>  otherSet2 = new Set<int> { 28, 37, 19 };
+
 
         private int[] array11 = new int[] { 37, 20, 90, 48, 18, 28, 150, 170, 9, 30, 120 };
         private int[] array8 = new int[] { 150, 98, 90, 95, 18, 180, 170, 160 };
         private int[] array5 = new int[] { 48, 90, 120, 28, 10 };
-        private int[] array4 = new int[] { 67, 37, 28, 18 };
+        private int[] array4 = new int[] { 19, 57, 8, 58 };
         private int[] array3 = new int[] { 28, 37, 19 };
         private int[] array1 = new int[] { 9 };
         private int[] array0 = new int[] { };
@@ -45,6 +48,10 @@ namespace Set
 
         private void AreEqual<T>(Set<T> set, T[] array) where T : IComparable<T>
         {
+            if (set.Count != array.Length)
+            {
+                Assert.Fail();
+            } 
             Array.Sort(array);
             int i = 0;
             foreach (var key in set)
@@ -67,25 +74,62 @@ namespace Set
         }
 
         [Test]
-        public void IsReadOnlyTest()
-        {
-
-        }
-
-
-        [Test]
         public void ContainsTest()
         {
             for (int i = 0; i < array11.Length; ++i)
             {
                 Assert.IsTrue(set11.Contains(array11[i]));
             }
+            set11.Remove(170);
+            set11.Remove(9);
+            set11.Remove(37);
         }
 
         [Test]
-        public void RemoveTest()
+        public void RemoveTestOnOneElement()
         {
-            
+            Assert.IsFalse(set1.Remove(8));
+            Assert.IsTrue(set1.Remove(9));
+            Assert.IsFalse(set1.Contains(9));
+        }
+
+        [Test]
+        public void RemoveHeadOfBigTreeTest()
+        {
+            Assert.IsTrue(set11.Remove(37));
+            Assert.IsFalse(set11.Contains(37));
+            var result = new int[] { 9, 18, 20, 28, 30, 48, 90, 120, 150, 170 };
+            AreEqual(set11, result);
+        }
+
+        [Test]
+        public void RemoveManyElementsTest()
+        {
+            var toRemove = new int[] { 37, 20, 48, 170, 30, 9 };
+            for (int i = 0; i < toRemove.Length; ++i)
+            {
+                set11.Remove(toRemove[i]);
+            }
+            var result = new int[] { 18, 28, 90, 120, 150 };
+            AreEqual(set11, result);
+        }
+
+        [Test]
+        public void ManyAddAndRemoveTest()
+        {
+            var toAdd = new int[] { 37, 20, 48, 170, 30, 9, 88, 45, 89, 53, 97, 37, 99, 33, 12, 890 };
+            var toRemove = new int[] { 45, 48, 170, 890, 150, 98, 98, 98, 170, 890, 9, 20, 37, 53, 18 };
+            var result = new int[] { 30, 88, 89, 97, 99, 33, 12, 90, 180, 160, 95 };
+            Array.Sort(result);
+            for (int i = 0; i < toAdd.Length; ++i)
+            {
+                set8.Add(toAdd[i]);
+            }
+            for (int i = 0; i < toRemove.Length; ++i)
+            {
+                set8.Remove(toRemove[i]);
+            }
+            AreEqual(set8, result);
         }
 
         [Test]
@@ -106,80 +150,123 @@ namespace Set
         }
 
         [Test]
-        public void IntersectWith()           //////////////
+        public void IntersectWith()           
         {
             set11.IntersectWith(set8);
             var result = new int[] { 170, 150, 90, 18 };
+            AreEqual(set11, result);
         }
 
         [Test]
         public void ExceptWith()
         {
-            
+            var toRemove = new int[] { 37, 20, 48, 170, 30, 9 };
+            set11.ExceptWith(toRemove);            
+            var result = new int[] { 18, 28, 90, 120, 150 };
+            AreEqual(set11, result);
         }
 
         [Test]
         public void SymmetricExceptWithTest()
         {
-
+            set11.SymmetricExceptWith(array8);
+            var result = new int[] { 37, 20, 48, 28, 9, 30, 120, 98, 95, 180, 160 };
+            Array.Sort(result);
+            AreEqual(set11, result);
         }
 
         [Test]
         public void UnionWithTest()
         {
+            set11.UnionWith(set8);
+            set11.UnionWith(set5);
+            set11.UnionWith(set4);
+            set11.UnionWith(set1);
+            set11.UnionWith(set0);
+            var result = new int[] { 9, 37, 20, 90, 48, 18, 28, 150, 170, 30, 120, 98, 95, 180, 160, 10, 19, 57, 8, 58 };
+            Array.Sort(result);
+            AreEqual(set11, result);
         }
 
         [Test]
         public void SetEqualsTest()
         {
-
+            Assert.IsFalse(set5.SetEquals(set4));
+            Assert.IsFalse(set1.SetEquals(set4));
+            Assert.IsFalse(set4.SetEquals(set0));
+            Assert.IsFalse(set8.SetEquals(set4));
+            Assert.IsTrue(set4.SetEquals(set3));
+            Assert.IsTrue(set3.SetEquals(set11));
+            Assert.IsTrue(set11.SetEquals(set1));
+            Assert.IsTrue(set1.SetEquals(set11));
         }
 
         [Test]
-        public void CorrectCopyToTest()
+        public void CorrectCopyToZeroArrayIndexTest()
         {
-            
+            var array = new int[11];
+            set11.CopyTo(array, 0);
+            var expected = new int[] { 37, 20, 90, 48, 18, 28, 150, 170, 9, 30, 120 };
+            Array.Sort(expected);
+            for (int i = 0; i < expected.Length; ++i)
+            {
+                Assert.AreEqual(expected[i], array[i]);
+            }
+        }
+
+        [Test]
+        public void CorrectCopyToNonZeroArrayIndexTest()
+        {
+            var array = new int[3] { 6, 7, 8 };
+            var result = new int[] { 6, 7, 8, 9, 18, 20, 28, 30, 37, 48, 90, 120, 150, 170 };
+            Array.Resize(ref array, 14);
+            set11.CopyTo(array, 3);
+            for (int i = 0; i < result.Length; ++i)
+            {
+                Assert.AreEqual(result[i], array[i]);
+            }
         }
 
         [Test]
         public void InorrectCopyToTestTooShortArray()
         {
-
-        }
-
-        [Test]
-        public void InorrectCopyToTestNonOneDimensionalArray()
-        {
-
+            var array = new int[5];
+            Assert.Throws<IndexOutOfRangeException>(() => set11.CopyTo(array, 0));
         }
 
         [Test]
         public void IncorrectCopyToTestNegativeArrayIndex()
         {
-
-        }
-
-        [Test]
-        public void IsSubsetOfTest()
-        {
-            
+            var array = new int[5];
+            Assert.Throws<ArgumentOutOfRangeException>(() => set1.CopyTo(array, -1));
         }
 
         [Test]
         public void IsProperSubsetOfTest()
         {
-            
+            Assert.IsTrue(set3.IsProperSubsetOf(otherSet1));
+            Assert.IsFalse(set3.IsProperSubsetOf(otherSet2));
+        }
+
+        [Test]
+        public void IsSubsetOfTest()
+        {
+            Assert.IsTrue(set3.IsSubsetOf(otherSet1));
+            Assert.IsTrue(set3.IsSubsetOf(otherSet2));
         }
 
         [Test]
         public void IsSupersetOfTest()
         {
-            
+            Assert.IsTrue(otherSet1.IsSupersetOf(set3));
+            Assert.IsTrue(otherSet2.IsSupersetOf(set3));
         }
 
         [Test]
         public void IsProperSupersetOfTest()
-        { }
-
+        {
+            Assert.IsTrue(otherSet1.IsProperSupersetOf(set3));
+            Assert.IsFalse(otherSet2.IsProperSupersetOf(set3));
+        }
     }
 }

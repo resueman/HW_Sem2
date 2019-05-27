@@ -149,8 +149,7 @@ namespace Set
 
         private T FindLeftSubTreeMaximum(Node node)
         {
-            var temp = node;
-            temp = temp.Left;
+            var temp = node.Left;
             while (temp.Right != null)
             {
                 temp = temp.Right;
@@ -158,37 +157,61 @@ namespace Set
             return temp.Key;
         }
 
-        private void FindToRemove(ref Node node, T key)
+        private void DoRemove(ref Node node, T key, ref Node parent, bool left)
         {
             if (key.CompareTo(node.Key) > 0)
             {
                 var rightChild = node.Right;
-                FindToRemove(ref rightChild, key);
+                DoRemove(ref rightChild, key, ref node, false);
             }
             else if (key.CompareTo(node.Key) < 0)
             {
                 var leftChild = node.Left;
-                FindToRemove(ref leftChild, key);
+                DoRemove(ref leftChild, key, ref node, true);
             }
             else
             {
                 if (node.Left == null && node.Right == null)
                 {
-                    node = null;
+                    if (Count == 0)
+                    {
+                        node = null;
+                        return;
+                    }
+                    if (left)
+                    {
+                        parent.Left = null;
+                        return;
+                    }
+                    parent.Right = null;
                 }
                 else if (node.Left == null && node.Right != null)
                 {
-                    node = node.Right;
+                    if (left)
+                    {
+                        parent.Left = node.Right;
+                    }
+                    else
+                    {
+                        parent.Right = node.Right;
+                    }
                 }
                 else if (node.Left != null && node.Right == null)
                 {
-                    node = node.Left;
+                    if (left)
+                    {
+                        parent.Left = node.Left;
+                    }
+                    else
+                    {
+                        parent.Right = node.Left;
+                    }
                 }
                 else
                 {
                     node.Key = FindLeftSubTreeMaximum(node);
                     var leftChild = node.Left;
-                    FindToRemove(ref leftChild, node.Key);
+                    DoRemove(ref leftChild, node.Key, ref node, true);
                 }
             }
         }
@@ -201,15 +224,11 @@ namespace Set
         /// false if item is not found in the Set<T> object</returns>
         public bool Remove(T key)
         {
-            if (Count == 0)
-            {
-                return false;
-            }
             if (!Contains(key))
             {
                 return false;
             }
-            FindToRemove(ref root, key);
+            DoRemove(ref root, key, ref root, true);
             --Count;
             return true;
         }
@@ -263,7 +282,7 @@ namespace Set
         }
 
         /// <summary>
-        /// Removes all elements in the specified collection from the current 
+        /// Removes all elements in the specified collection from the current set
         /// </summary>
         /// <param name="other">The collection of items to remove from the current set</param>
         public void ExceptWith(IEnumerable<T> other)
@@ -316,20 +335,14 @@ namespace Set
         /// <returns>true if the Set<T> object is equal to other; otherwise, false</returns>
         public bool SetEquals(IEnumerable<T> other)
         {
-            var otherSize = 0;
             foreach (var key in other)
             {
-                if (!Contains(key))
+                if (Contains(key))
                 {
-                    return false;
+                    return true;
                 }
-                ++otherSize;
             }
-            if (otherSize != Count)
-            {
-                return false;
-            }
-            return true;
+            return false;
         }
 
         private void DoCopyTo(Node node, T[] array, ref int index)
@@ -354,10 +367,6 @@ namespace Set
         /// <param name="arrayIndex">The zero-based index in array at which copying begins</param>
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if (array.Rank > 1)
-            {
-                throw new ArgumentOutOfRangeException("Array must be one-dimensional");
-            }
             if (arrayIndex < 0)
             {
                 throw new ArgumentOutOfRangeException("Index must be a positive number");
@@ -369,36 +378,7 @@ namespace Set
             DoCopyTo(root, array, ref arrayIndex);
         }
 
-        private int SizeOfIntersection(IEnumerable<T> other)
-        {
-            var setOfOther = new Set<T>();
-            int sizeIntersection = 0;
-            foreach (var key in other)
-            {
-                setOfOther.Add(key);
-                if (Contains(key))
-                {
-                    ++sizeIntersection;
-                }
-            }     
-            if (sizeIntersection == setOfOther.Count && sizeIntersection <= Count)
-            {
-                if (sizeIntersection < Count)
-                {
-                    return 2; //is proper superset
-                }
-                return 4; //is Superset
-            }
-            if (sizeIntersection == Count && sizeIntersection >= setOfOther.Count)
-            {
-                if (sizeIntersection > setOfOther.Count)
-                {
-                    return 1; // is proper subset
-                }
-                return 3; // is subset
-            }
-            return -1; // clear intersection
-        }
+        
 
         /// <summary>
         /// Determines whether a Set<T> object is a subset of the specified collection
@@ -407,11 +387,19 @@ namespace Set
         /// <returns>true if the Set<T> object is a subset of other; otherwise, false.</returns>
         public bool IsSubsetOf(IEnumerable<T> other)
         {
-            if (SizeOfIntersection(other) == 3)
+            var otherSet = new Set<T>();
+            foreach (var key in other)
             {
-                return true;
+                otherSet.Add(key);
             }
-            return false;
+            foreach (var key in this)
+            {
+                if (!otherSet.Contains(key))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>
@@ -422,11 +410,25 @@ namespace Set
         /// <returns>true if the Set<T> object is a proper subset of other; otherwise, false</returns>
         public bool IsProperSubsetOf(IEnumerable<T> other)
         {
-            if (SizeOfIntersection(other) == 1)
+            var otherSet = new Set<T>();
+            foreach (var key in other)
             {
-                return true;
+                otherSet.Add(key);
             }
-            return false;
+            var intersection = 0;
+            foreach (var key in this)
+            {
+                if (!otherSet.Contains(key))
+                {
+                    return false;
+                }
+                ++intersection;
+            }
+            if (intersection == otherSet.Count)
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -436,11 +438,14 @@ namespace Set
         /// <returns>true if the Set<T> object is a superset of other; otherwise, false</returns>
         public bool IsSupersetOf(IEnumerable<T> other)
         {
-            if (SizeOfIntersection(other) == 4)
+            foreach (var key in other)
             {
-                return true;
+                if (!Contains(key))
+                {
+                    return false;
+                }
             }
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -451,11 +456,20 @@ namespace Set
         /// otherwise, false.</returns>
         public bool IsProperSupersetOf(IEnumerable<T> other)
         {
-            if (SizeOfIntersection(other) == 2)
+            var intersection = 0;
+            foreach (var key in other)
             {
-                return true;
+                if (!Contains(key))
+                {
+                    return false;
+                }
+                ++intersection;
             }
-            return false;
+            if (intersection == Count)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
