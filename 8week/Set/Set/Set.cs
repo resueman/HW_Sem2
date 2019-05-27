@@ -10,10 +10,6 @@ namespace Set
     /// <typeparam name="T">Type of elements contained in Set</typeparam>
     public class Set<T> : ISet<T> where T : IComparable<T>
     {
-        public int Count { get; private set; }
-
-        public bool IsReadOnly { get; private set; }
-
         private Node root;
 
         private class Node
@@ -27,9 +23,26 @@ namespace Set
                 Key = value;
             }
         }
+        public int Count { get; private set; }
+
+        public bool IsReadOnly { get; private set; }
+
+        public IEnumerator<T> GetEnumerator() => Traversal();
+
+        IEnumerator IEnumerable.GetEnumerator() => Traversal();
+
+        private IEnumerator<T> Traversal()
+        {
+            var queue = new Queue<T>();
+            AscendingOrder(root, queue);
+            for (int i = 0; i < Count; ++i)
+            {
+                yield return queue.Dequeue();
+            }
+        }
 
         private void AscendingOrder(Node node, Queue<T> queue)
-        { 
+        {
             if (node == null)
             {
                 return;
@@ -43,21 +56,21 @@ namespace Set
             {
                 AscendingOrder(node.Right, queue);
             }
-        } 
-
-        private IEnumerator<T> Traversal()
-        {
-            var queue = new Queue<T>();
-            AscendingOrder(root, queue);
-            for (int i = 0; i < Count; ++i)
-            {
-                yield return queue.Dequeue();
-            }
         }
 
-        public IEnumerator<T> GetEnumerator() => Traversal();
-
-        IEnumerator IEnumerable.GetEnumerator() => Traversal();
+        /// <summary>
+        /// Determines whether a Set<T> object contains the specified element
+        /// </summary>
+        /// <param name="key">The element to locate in the Set<T> object</param>
+        /// <returns>true if the Set<T> object contains the specified element; otherwise, false</returns>
+        public bool Contains(T key)
+        {
+            if (Count == 0)
+            {
+                return false;
+            }
+            return GetNodeByKey(root, key) != null;
+        }
 
         private Node GetNodeByKey(Node node, T key)
         {
@@ -78,42 +91,6 @@ namespace Set
                 return GetNodeByKey(node.Left, key);
             }
             return node;
-        }
-
-        /// <summary>
-        /// Determines whether a Set<T> object contains the specified element
-        /// </summary>
-        /// <param name="key">The element to locate in the Set<T> object</param>
-        /// <returns>true if the Set<T> object contains the specified element; otherwise, false</returns>
-        public bool Contains(T key)
-        {
-            if (Count == 0)
-            {
-                return false;
-            }
-            return GetNodeByKey(root, key) != null;
-        }
-
-        private void DoAdd(Node node, T key)
-        {
-            if (key.CompareTo(node.Key) > 0)
-            {
-                if (node.Right == null)
-                {
-                    node.Right = new Node(key);
-                    return;
-                }
-                DoAdd(node.Right, key);
-            }
-            if (key.CompareTo(node.Key) < 0)
-            {
-                if (node.Left == null)
-                {
-                    node.Left = new Node(key);
-                    return;
-                }
-                DoAdd(node.Left, key);
-            }
         }
 
         /// <summary>
@@ -147,14 +124,43 @@ namespace Set
             Add(item);
         }
 
-        private T FindLeftSubTreeMaximum(Node node)
+        private void DoAdd(Node node, T key)
         {
-            var temp = node.Left;
-            while (temp.Right != null)
+            if (key.CompareTo(node.Key) > 0)
             {
-                temp = temp.Right;
+                if (node.Right == null)
+                {
+                    node.Right = new Node(key);
+                    return;
+                }
+                DoAdd(node.Right, key);
             }
-            return temp.Key;
+            if (key.CompareTo(node.Key) < 0)
+            {
+                if (node.Left == null)
+                {
+                    node.Left = new Node(key);
+                    return;
+                }
+                DoAdd(node.Left, key);
+            }
+        }
+
+        /// <summary>
+        /// Removes the specified element from a Set<T> object.
+        /// </summary>
+        /// <param name="key">The element to remove</param>
+        /// <returns>true if the element is successfully found and removed;
+        /// false if item is not found in the Set<T> object</returns>
+        public bool Remove(T key)
+        {
+            if (!Contains(key))
+            {
+                return false;
+            }
+            DoRemove(ref root, key, ref root, true);
+            --Count;
+            return true;
         }
 
         private void DoRemove(ref Node node, T key, ref Node parent, bool left)
@@ -216,21 +222,14 @@ namespace Set
             }
         }
 
-        /// <summary>
-        /// Removes the specified element from a Set<T> object.
-        /// </summary>
-        /// <param name="key">The element to remove</param>
-        /// <returns>true if the element is successfully found and removed;
-        /// false if item is not found in the Set<T> object</returns>
-        public bool Remove(T key)
+        private T FindLeftSubTreeMaximum(Node node)
         {
-            if (!Contains(key))
+            var temp = node.Left;
+            while (temp.Right != null)
             {
-                return false;
+                temp = temp.Right;
             }
-            DoRemove(ref root, key, ref root, true);
-            --Count;
-            return true;
+            return temp.Key;
         }
 
         /// <summary>
@@ -345,20 +344,6 @@ namespace Set
             return false;
         }
 
-        private void DoCopyTo(Node node, T[] array, ref int index)
-        {
-            if (node.Left != null)
-            {
-                DoCopyTo(node.Left, array, ref index);
-            }
-            array[index] = node.Key;
-            ++index;
-            if (node.Right != null)
-            {
-                DoCopyTo(node.Right, array, ref index);
-            }
-        }
-
         /// <summary>
         /// Copies the elements of a Set<T> object to an array, starting at the specified array index
         /// </summary>
@@ -378,7 +363,19 @@ namespace Set
             DoCopyTo(root, array, ref arrayIndex);
         }
 
-        
+        private void DoCopyTo(Node node, T[] array, ref int index)
+        {
+            if (node.Left != null)
+            {
+                DoCopyTo(node.Left, array, ref index);
+            }
+            array[index] = node.Key;
+            ++index;
+            if (node.Right != null)
+            {
+                DoCopyTo(node.Right, array, ref index);
+            }
+        }
 
         /// <summary>
         /// Determines whether a Set<T> object is a subset of the specified collection

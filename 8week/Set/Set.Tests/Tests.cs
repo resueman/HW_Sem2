@@ -1,50 +1,21 @@
 using NUnit.Framework;
-using System.Collections.Generic;
 using System;
 
 namespace Set
 {
     public class Tests
     {
-        private Set<int> set0 = new Set<int>();
-        private Set<int> set1 = new Set<int>();
-        private Set<int> set3 = new Set<int>();
-        private Set<int> set4 = new Set<int>();
-        private Set<int> set5 = new Set<int>();
-        private Set<int> set8 = new Set<int>();
-        private Set<int> set11 = new Set<int>();
-        private Set<int> otherSet1 = new Set<int> { 28, 37, 19, 45, 87, 93, 94, 12, 1234, 909 };
-        private Set<int>  otherSet2 = new Set<int> { 28, 37, 19 };
-
-
-        private int[] array11 = new int[] { 37, 20, 90, 48, 18, 28, 150, 170, 9, 30, 120 };
-        private int[] array8 = new int[] { 150, 98, 90, 95, 18, 180, 170, 160 };
-        private int[] array5 = new int[] { 48, 90, 120, 28, 10 };
-        private int[] array4 = new int[] { 19, 57, 8, 58 };
-        private int[] array3 = new int[] { 28, 37, 19 };
-        private int[] array1 = new int[] { 9 };
-        private int[] array0 = new int[] { };
-
-
-        private void Fill<T>(Set<T> set, T[] array) where T : IComparable<T>
-        {
-            for (int i = 0; i < array.Length; ++i)
-            {
-                set.Add(array[i]);
-            }
-        }
-
-        [SetUp]
-        public void Setup()
-        {
-            Fill(set0, array0);
-            Fill(set1, array1);
-            Fill(set3, array3);
-            Fill(set4, array4);
-            Fill(set5, array5);
-            Fill(set8, array8);
-            Fill(set11, array11);
-        }
+        private readonly Set<int> set0 = new Set<int>();
+        private readonly Set<int> set1 = new Set<int> { 9 };
+        private readonly Set<int> set3 = new Set<int> { 28, 37, 19 };
+        private readonly Set<int> set4 = new Set<int> { 19, 57, 8, 58 };
+        private readonly Set<int> set5 = new Set<int> { 48, 90, 120, 28, 10 };
+        private readonly Set<int> set8 = new Set<int> { 150, 98, 90, 95, 18, 180, 170, 160 };
+        private readonly Set<int> set11 = new Set<int> { 37, 20, 90, 48, 18, 28, 150, 170, 9, 30, 120 };
+        private readonly Set<int> otherSet1 = new Set<int> { 28, 37, 19, 45, 87, 93, 94, 12, 1234, 909 };
+        private readonly Set<int>  otherSet2 = new Set<int> { 28, 37, 19 };
+        private readonly int[] array11 = new int[] { 37, 20, 90, 48, 18, 28, 150, 170, 9, 30, 120 };
+        private readonly int[] array8 = new int[] { 150, 98, 90, 95, 18, 180, 170, 160 };
 
         private void AreEqual<T>(Set<T> set, T[] array) where T : IComparable<T>
         {
@@ -64,13 +35,12 @@ namespace Set
         [Test]
         public void AddTest()
         {
-            AreEqual(set0, array0);
-            AreEqual(set1, array1);
-            AreEqual(set3, array3);
-            AreEqual(set4, array4);
-            AreEqual(set5, array5);
-            AreEqual(set8, array8);
-            AreEqual(set11, array11);
+            var toAdd = new int[] { 37, 20, 90, 48, 18, 28, 150, 170, 9, 30, 120 };
+            for (int i = 0; i < toAdd.Length; ++i)
+            {
+                set0.Add(toAdd[i]);
+            }
+            AreEqual(set0, array11);            
         }
 
         [Test]
