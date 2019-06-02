@@ -8,7 +8,7 @@ namespace GenericList
     /// Structure to store and work with data
     /// </summary>
     /// <typeparam name="T">Type of stored data</typeparam>
-    public partial class List<T> : IList<T>
+    public class List<T> : IList<T>
     {
         private Node head;
 
@@ -90,7 +90,10 @@ namespace GenericList
             /// <summary>
             /// Disposes node
             /// </summary>
-            public void Dispose() { }
+            public void Dispose()
+            {
+                throw new NotSupportedException("Method wasn't implemented");
+            }
         }
 
         /// <summary>

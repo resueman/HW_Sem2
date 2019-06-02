@@ -12,7 +12,7 @@ namespace GenericList
         private readonly List<int> emptyList = new List<int>();
         private readonly int[] keys = new int[] { 4, 8, 34, -7, 14, -23, 87, 2345, -143, -364, 78 };
 
-        private void AreEqual<T>(List<T> list, T[] array) where T : IComparable<T>
+        private static void AreEqual<T>(List<T> list, T[] array) where T : IComparable<T>
         {
             if (list.Count != array.Length)
             {
@@ -26,7 +26,7 @@ namespace GenericList
             }
         }
 
-        private void AreEqual<T>(T[] array1, T[] array2) where T : IComparable<T>
+        private static void AreEqual<T>(T[] array1, T[] array2) where T : IComparable<T>
         {
             if (array1.Length != array2.Length)
             {
