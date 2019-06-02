@@ -17,7 +17,7 @@ namespace Set
         private readonly int[] array11 = new int[] { 37, 20, 90, 48, 18, 28, 150, 170, 9, 30, 120 };
         private readonly int[] array8 = new int[] { 150, 98, 90, 95, 18, 180, 170, 160 };
 
-        private void AreEqual<T>(Set<T> set, T[] array) where T : IComparable<T>
+        private static void AreEqual<T>(Set<T> set, T[] array) where T : IComparable<T>
         {
             if (set.Count != array.Length)
             {

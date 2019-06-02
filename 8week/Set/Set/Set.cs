@@ -222,7 +222,7 @@ namespace Set
             }
         }
 
-        private T FindLeftSubTreeMaximum(Node node)
+        private static T FindLeftSubTreeMaximum(Node node)
         {
             var temp = node.Left;
             while (temp.Right != null)
