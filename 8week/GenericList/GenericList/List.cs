@@ -48,6 +48,52 @@ namespace GenericList
         IEnumerator IEnumerable.GetEnumerator() => new ListEnumerator(head);
 
         /// <summary>
+        /// List enumerator implemntation
+        /// </summary>
+        private class ListEnumerator : IEnumerator<T>
+        {
+            private readonly Node head;
+            private Node current = new Node();
+
+            public ListEnumerator(Node head)
+            {
+                this.head = head;
+                current.Next = head;
+            }
+
+            /// <summary>
+            /// Returns next node
+            /// </summary>
+            /// <returns> false if next node is null; otherwise true</returns>
+            public bool MoveNext()
+            {
+                current = current.Next;
+                if (current == null)
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            /// <summary>
+            /// Set enumerator to initial position(before head)
+            /// </summary>
+            public void Reset() => current.Next = head;
+
+            /// <summary>
+            /// Returns value of current node
+            /// </summary>
+            public T Current => current.Value;
+
+            object IEnumerator.Current => current;
+
+            /// <summary>
+            /// Disposes node
+            /// </summary>
+            public void Dispose() { }
+        }
+
+        /// <summary>
         /// Searches for an element that matches the conditions defined by a specified predicate
         /// </summary>
         /// <param name="index"></param>
@@ -61,15 +107,15 @@ namespace GenericList
                 {
                     throw new IncorrectPositionException("Can't get value of item, because index is incorrect");
                 }
-                return GetPreviousNodeByPosition(index + 2).Value;
+                return GetPreviousNodeByPosition(index + 1).Value;
             }
             set
             {
-                if (!IsCorrectPosition(index))
+                if (!IsCorrectPosition(index + 1))
                 {
                     throw new IncorrectPositionException("Can't set item value, because index is incorrect");
                 }
-                GetPreviousNodeByPosition(index + 2).Value = value;
+                GetPreviousNodeByPosition(index).Value = value;
             }
         }
 
@@ -126,7 +172,7 @@ namespace GenericList
             }
             --Count;
         }
-
+        
         /// <summary>
         /// Delete value from a list
         /// </summary>
@@ -144,10 +190,11 @@ namespace GenericList
         }
 
         /// <summary>
-        /// Returns index
+        /// Returns the zero-based index of the first occurrence of a value in the List<T>
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
+        /// <param name="key">The object to locate in the List<T></param>
+        /// <returns>The zero-based index of the first occurrence of item within the range of elements 
+        /// in the List<T> that extends from index to the last element, if found; otherwise, -1</returns>
         public int IndexOf(T key)
         {
             var current = head;
@@ -155,7 +202,7 @@ namespace GenericList
             {
                 if (key.Equals(current.Value))
                 {
-                    return i + 1;
+                    return i;
                 }
                 current = current.Next;
             }
@@ -182,12 +229,12 @@ namespace GenericList
         /// <param name="value">The object to insert</param>
         public void Insert(int position, T value)
         {
-            if (position > Count + 1 && position != 0 || position < 1)
+            if (position > Count || position < 0)
             {
                 throw new IncorrectPositionException("Incorrect position");
             }
             var newNode = new Node(value);
-            if (position == 1)
+            if (position == 0)
             {
                 InsertToHead(newNode);
             }
