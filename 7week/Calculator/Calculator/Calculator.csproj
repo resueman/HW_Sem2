@@ -57,6 +57,7 @@
     <Compile Include="DivisionByZeroException.cs" />
     <Compile Include="IncorrectInfixExpressionException.cs" />
     <Compile Include="ConvertInfixToPostfix.cs" />
+    <Compile Include="InputChecker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CalculatorForm.resx">

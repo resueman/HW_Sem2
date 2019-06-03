@@ -17,51 +17,24 @@ namespace Calculator
             InitializeComponent();
         }
 
-        private void ZeroButtonClick(object sender, EventArgs e) => textBox.Text += 0;        
-        private void OneButtonClick(object sender, EventArgs e) => textBox.Text += 1;
-        private void TwoButtonClick(object sender, EventArgs e) => textBox.Text += 2;
-        private void ThreeButtonClick(object sender, EventArgs e) => textBox.Text += 3;
-        private void FourButtonClick(object sender, EventArgs e) => textBox.Text += 4;
-        private void FiveButtonClick(object sender, EventArgs e) => textBox.Text += 5;
-        private void SixButtonClick(object sender, EventArgs e) => textBox.Text += 6;
-        private void SevenButtonClick(object sender, EventArgs e) => textBox.Text += 7;
-        private void EightButtonClick(object sender, EventArgs e) => textBox.Text += 8;
-        private void NineButtonClick(object sender, EventArgs e) => textBox.Text += 9;
+        private void DigitButtonClick(object sender, EventArgs e)
+        {
+            textBox.Text += (sender as Button).Text;
+        }
 
         private void CommaButtonClick(object sender, EventArgs e)
         {
             textBox.Text += ",";
         }
 
-        private void DivisionButtonClick(object sender, EventArgs e)
+        private void OperatorButtonClick(object sender, EventArgs e)
         {
-            textBox.Text += "÷";
+            textBox.Text += (sender as Button).Text;
         }
 
-        private void MultiplicationButtonClick(object sender, EventArgs e)
+        private void BracketButtonClick(object sender, EventArgs e)
         {
-            textBox.Text += "*";
-
-        }
-
-        private void SubtructionButtonClick(object sender, EventArgs e)
-        {
-            textBox.Text += "-";
-        }
-
-        private void AdditionButtonClick(object sender, EventArgs e)
-        {
-            textBox.Text += "+";
-        }
-
-        private void RightBracketClick(object sender, EventArgs e)
-        {
-            textBox.Text += ")";
-        }
-
-        private void LeftBracketClick(object sender, EventArgs e)
-        {
-            textBox.Text += "(";
+            textBox.Text += (sender as Button).Text;
         }
     }
 }

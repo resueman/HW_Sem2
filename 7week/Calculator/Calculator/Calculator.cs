@@ -4,7 +4,7 @@ namespace Calculator
 {
     class Calculator
     {
-        private readonly Stack<int> stack;
+        private Stack<int> stack;
 
         private static int PerformingOperation(int number2, int number1, string operation)
         {
@@ -30,6 +30,7 @@ namespace Calculator
 
         public int Calculation(List<string> expression)
         {
+            stack = new Stack<int>();
             foreach (string singleString in expression)
             {
                 if (singleString == "+" || singleString == "-" || singleString == "*" || singleString == "/")

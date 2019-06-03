@@ -28,7 +28,7 @@ namespace Calculator
 
         public List<string> InfixToPostfix(List<string> infixExpression)
         {
-            //check bracket balance here
+            //BracketBalance.Check(infixExpression);
             var stack = new Stack<string>();
             var postfixExpression = new List<string>();
 
