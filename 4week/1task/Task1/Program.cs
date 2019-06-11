@@ -13,7 +13,7 @@ namespace Task1
             {
                 Console.WriteLine("Enter expression");
                 string line = Console.ReadLine();
-                Tree tree = new Tree(line);
+                var tree = new Tree(line);
                 Console.WriteLine("Expression:");
                 tree.PrintTree();
                 Console.WriteLine($"Result of calculation:  {tree.CalculateTree()}");
@@ -23,7 +23,7 @@ namespace Task1
             {
                 Console.WriteLine(exception.Message);
             }
-            catch (DivisionByZeroException exception)
+            catch (DivideByZeroException exception)
             {
                 Console.WriteLine(exception.Message);
             }

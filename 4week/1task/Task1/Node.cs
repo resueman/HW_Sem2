@@ -3,12 +3,12 @@
     /// <summary>
     /// Tree node methods
     /// </summary>
-    abstract class Node
+    interface INode
     {
         /// <summary>
         /// Prints node value
         /// </summary>
-        public abstract void Print();
+        void Print();
 
         /// <summary>
         /// Returns value of subtree for operator - nodes 
@@ -16,6 +16,6 @@
         /// </summary>
         /// <returns>Value of subtree for operator - nodes 
         /// or node value - for operand - nodes</returns>
-        public abstract int Calculate();
+        int Calculate();
     }
 }

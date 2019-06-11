@@ -8,7 +8,7 @@ namespace Task1
     /// </summary>
     public class Tree
     {
-        private static Node Root { get; set; }
+        private static INode Root { get; set; }
 
         public Tree(string expression)
         {
@@ -19,11 +19,11 @@ namespace Task1
             Root = CreateNode(input, ref index);
         }
 
-        private static Node CreateNode(string[] input, ref int index)
+        private static INode CreateNode(string[] input, ref int index)
         {
             if (input[index] == "(")
             {
-                Operator newNode = new Operator(input[index + 1]);
+                var newNode = new Operator(input[index + 1]);
                 index += 2;
 
                 newNode.Left = CreateNode(input, ref index);

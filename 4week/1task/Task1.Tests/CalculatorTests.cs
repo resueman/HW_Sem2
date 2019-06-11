@@ -43,7 +43,7 @@ namespace Tests
         public void DivivsionByZero(string line)
         {
             tree = new Tree(line);
-            Assert.Throws<DivisionByZeroException>(() => { tree.CalculateTree(); });
+            Assert.Throws<DivideByZeroException>(() => { tree.CalculateTree(); });
         }
 
         [Test]

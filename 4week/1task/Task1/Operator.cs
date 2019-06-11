@@ -5,11 +5,11 @@ namespace Task1
     /// <summary>
     /// Methods to work with node - operators
     /// </summary>
-    class Operator : Node
+    class Operator : INode
     {
         private readonly string data;
-        public Node Left { get; set; }
-        public Node Right { get; set; }
+        public INode Left { get; set; }
+        public INode Right { get; set; }
 
         public Operator(string data)
         {
@@ -23,10 +23,28 @@ namespace Task1
         private static bool IsOperator(string symbol)
             => symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/";
 
-        public override int Calculate()
-            => Calculation.PerformingOperation(data, Left, Right);
+        public int Calculate()
+        {
+            if (data == "/" && Right.Calculate() == 0)
+            {
+                throw new DivideByZeroException("Devide by zero");
+            }
+            switch (data)
+            {
+                case "+":
+                    return Left.Calculate() + Right.Calculate();
+                case "-":
+                    return Left.Calculate() - Right.Calculate();
+                case "*":
+                    return Left.Calculate() * Right.Calculate();
+                case "/":
+                    return Left.Calculate() / Right.Calculate();
+                default:
+                    throw new IncorrectInputException("Unexpected symbol");
+            }
+        }
 
-        public override void Print()
+        public void Print()
         {
             Console.Write("( ");
             Left.Print();
