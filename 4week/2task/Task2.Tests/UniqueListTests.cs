@@ -14,13 +14,13 @@ namespace Task2.Tests
         public void Initialization()
         {
             list = new UniqueList<int>();
-            list.AddNode(-3);
-            list.AddNode(-2);
-            list.AddNode(-1);
-            list.AddNode(0);
-            list.AddNode(1);
-            list.AddNode(2);
-            list.AddNode(3);
+            list.Add(-3);
+            list.Add(-2);
+            list.Add(-1);
+            list.Add(0);
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
         }
 
         [DataRow(-5)]
@@ -30,31 +30,31 @@ namespace Task2.Tests
         [TestMethod]
         public void CorrectAdd(int value)
         {
-            list.AddNode(value);
+            list.Add(value);
             Assert.AreEqual(value, list.GetValue(1));
         }
 
         [TestMethod]
-        public void CorrectDeleteTest1()
+        public void DeleteFirstElementByValue()
         {
-            list.DeleteNode(-3);
+            list.Delete(-3);
             Assert.AreEqual("3 2 1 0 -1 -2 ", list.GetStringOfListElements());
         }
 
         [TestMethod]
-        public void CorrectDeleteTest2()
+        public void DeleteLastElementByValue()
         {
-            list.DeleteNode(1);
-            list.DeleteNode(3);
+            list.Delete(1);
+            list.Delete(3);
             Assert.AreEqual("2 0 -1 -2 -3 ", list.GetStringOfListElements());
         }
 
         [TestMethod]
-        public void CorrectDeleteTest3()
+        public void DeleteSeveralElementsFromTheMiddleByValue()
         {
-            list.DeleteNode(-2);
-            list.DeleteNode(0);
-            list.DeleteNode(-1);
+            list.Delete(-2);
+            list.Delete(0);
+            list.Delete(-1);
             Assert.AreEqual("3 2 1 -3 ", list.GetStringOfListElements());
         }
 
@@ -75,14 +75,14 @@ namespace Task2.Tests
         [ExpectedException(typeof(AddExistingNodeException))]
         public void AddExistingNodeToBegin()
         {
-            list.AddNode(3);
+            list.Add(3);
         }
 
         [TestMethod]
         [ExpectedException(typeof(AddExistingNodeException))]
         public void AddExistingNodeToEnd()
         {
-            list.AddNode(-3);
+            list.Add(-3);
         }
 
         [DataRow(0)]
@@ -94,7 +94,7 @@ namespace Task2.Tests
         [ExpectedException(typeof(AddExistingNodeException))]
         public void AddExistingNodeInTheMiddle(int value)
         {
-            list.AddNode(value);
+            list.Add(value);
         }
 
         [DataRow(-8)]
@@ -105,7 +105,7 @@ namespace Task2.Tests
         [ExpectedException(typeof(DeleteNonExistentNodeException))]
         public void DeleteNonExistentNode(int value)
         {
-            list.DeleteNode(value);
+            list.Delete(value);
         }
 
         [TestMethod]
@@ -113,7 +113,7 @@ namespace Task2.Tests
         public void DeleteFromEmptyList()
         {
             list.Clear();
-            list.DeleteNode(2);
+            list.Delete(2);
         }
 
         [DataRow(3, 1)]

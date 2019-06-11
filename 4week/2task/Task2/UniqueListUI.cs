@@ -28,7 +28,7 @@ namespace Task2
                     {
                         Console.Write("Enter value of new element: ");
                         string value = Console.ReadLine();
-                        list.AddNode(value);
+                        list.Add(value);
                         Console.WriteLine("Success!\n");
                         break;
                     }
@@ -36,7 +36,7 @@ namespace Task2
                     {
                         Console.Write("Enter value of element to delete: ");
                         string value = Console.ReadLine();
-                        list.DeleteNode(value);
+                        list.Delete(value);
                         Console.WriteLine("Success!\n");
                         break;
                     }

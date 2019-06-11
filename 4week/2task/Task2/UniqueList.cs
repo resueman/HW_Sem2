@@ -6,23 +6,32 @@
     /// <typeparam name="T">Type of stored data</typeparam>
     public class UniqueList<T> : List<T>
     {
-        public void AddNode(T value)
+        public override void Add(T value)
         {
             if (GetPositionByValue(value) != -1)
             {
                 throw new AddExistingNodeException("Such key already exists");
             }
-            AddNode(value, 1);
+            Add(value, 1);
         }
 
-        public void DeleteNode(T value)
+        public override void Add(T value, int position)
+        {
+            if (GetPositionByValue(value) != -1)
+            {
+                throw new AddExistingNodeException("Such key already exists");
+            }
+            Add(value, position);
+        }
+
+        public void Delete(T value)
         {
             var position = GetPositionByValue(value);
             if (position == -1)
             {
                 throw new DeleteNonExistentNodeException("No such key");
             }
-            DeleteNodeByPosition(position);
+            DeleteByPosition(position);
         }
 
         public override void SetValue(T value, int position)

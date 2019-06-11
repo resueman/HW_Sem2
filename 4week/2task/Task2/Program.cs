@@ -22,6 +22,7 @@ namespace Task2
             {
                 Console.WriteLine(exception.Message);
             }
+            var uniqueList = new UniqueList<int>();
         }
     }
 }

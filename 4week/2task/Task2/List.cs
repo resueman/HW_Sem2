@@ -57,7 +57,7 @@ namespace Task2
             return current;
         }
 
-        public void DeleteNodeByPosition(int position)
+        public void DeleteByPosition(int position)
         {
             if (!IsCorrectPosition(position))
             {
@@ -88,7 +88,7 @@ namespace Task2
             previous.Next = newNode;
         }
 
-        public void AddNode(T value, int position)
+        public virtual void Add(T value, int position)
         {
             if (position > Length + 1 && position != 0 || position < 1)
             {
@@ -104,6 +104,11 @@ namespace Task2
                 InsertNotToHead(newNode, position);
             }
             ++Length;
+        }
+
+        public virtual void Add(T value)
+        {
+            InsertToHead(new Node(value));
         }
 
         protected int GetPositionByValue(T key)

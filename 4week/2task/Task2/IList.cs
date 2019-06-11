@@ -11,13 +11,13 @@
         /// </summary>
         /// <param name="value">Value to add</param>
         /// <param name="position">Position where to insert element</param>
-        void AddNode(T value, int position);
+        void Add(T value, int position);
 
         /// <summary>
         /// Delete value by position
         /// </summary>
         /// <param name="position">Position of element to be deleted</param>
-        void DeleteNodeByPosition(int position);
+        void DeleteByPosition(int position);
 
         /// <summary>
         /// Get value of element by position
