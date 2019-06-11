@@ -14,10 +14,7 @@ namespace GenericList
 
         private static void AreEqual<T>(List<T> list, T[] array) where T : IComparable<T>
         {
-            if (list.Count != array.Length)
-            {
-                Assert.Fail();
-            }
+            Assert.AreEqual(list.Count, array.Length);
             int i = 0;
             foreach (var key in list)
             {
@@ -28,10 +25,7 @@ namespace GenericList
 
         private static void AreEqual<T>(T[] array1, T[] array2) where T : IComparable<T>
         {
-            if (array1.Length != array2.Length)
-            {
-                Assert.Fail();
-            }
+            Assert.AreEqual(array1.Length, array2.Length);
             for (int i = 0; i < array1.Length; ++i)
             {
                 Assert.IsTrue(array1[i].CompareTo(array2[i]) == 0);

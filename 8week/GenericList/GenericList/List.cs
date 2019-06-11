@@ -68,11 +68,7 @@ namespace GenericList
             public bool MoveNext()
             {
                 current = current.Next;
-                if (current == null)
-                {
-                    return false;
-                }
-                return true;
+                return current != null;
             }
 
             /// <summary>
