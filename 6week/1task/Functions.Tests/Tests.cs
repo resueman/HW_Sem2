@@ -10,7 +10,7 @@ namespace Tests
     {
         private List<char> listOfChars;
         private List<int> listOfNumbers;
-        private List<string> Slogans;
+        private List<string> slogans;
 
         [SetUp]
         public void SetUp()
@@ -19,9 +19,9 @@ namespace Tests
 
             listOfChars = new List<char>() { 'a', 'b', 'c', 'f', 'm', 'k', 'n', 'o', 'y', 'z' };
 
-            Slogans = new List<string>() { "Freedom", "Equality", "Brotherhood",
-            "Cuba - yes", "Yankee - no", "Proletarians of all countries", "Unite",
-            "Wir", "Sind", "Das", "Volk" };
+            slogans = new List<string>() { "Freedom", "Equality", "Brotherhood",
+              "Cuba - yes", "Yankee - no", "Proletarians of all countries", "Unite",
+              "Wir", "Sind", "Das", "Volk" };
 
         }
 
@@ -49,10 +49,10 @@ namespace Tests
         public void MapForStringType()
         {
             var result = new List<string> { "Freedom!", "Equality!", "Brotherhood!",
-            "Cuba - yes!", "Yankee - no!", "Proletarians of all countries!", "Unite!",
-            "Wir!", "Sind!", "Das!", "Volk!" };
-            Slogans = Functions.Functions.Map(Slogans, word => word + "!");
-            Assert.IsTrue(CheckEquality(Slogans, result));
+              "Cuba - yes!", "Yankee - no!", "Proletarians of all countries!", "Unite!",
+              "Wir!", "Sind!", "Das!", "Volk!" };
+            slogans = Functions.Functions.Map(slogans, word => word + "!");
+            Assert.IsTrue(CheckEquality(slogans, result));
         }
 
         [Test]
@@ -75,8 +75,8 @@ namespace Tests
         public void FilterForStringType()
         {
             var result = new List<string> { "Brotherhood", "Yankee - no", "Proletarians of all countries" };
-            Slogans = Functions.Functions.Filter(Slogans, x => x.Length > 10);
-            Assert.IsTrue(CheckEquality(Slogans, result));
+            slogans = Functions.Functions.Filter(slogans, x => x.Length > 10);
+            Assert.IsTrue(CheckEquality(slogans, result));
         }
 
         [Test]
