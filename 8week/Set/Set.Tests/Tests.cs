@@ -40,7 +40,9 @@ namespace Set
             {
                 set0.Add(toAdd[i]);
             }
-            AreEqual(set0, array11);            
+            AreEqual(set0, array11);
+            AreEqual(set11, array11);
+            AreEqual(set8, array8);
         }
 
         [Test]
@@ -161,14 +163,12 @@ namespace Set
         [Test]
         public void SetEqualsTest()
         {
-            Assert.IsFalse(set5.SetEquals(set4));
-            Assert.IsFalse(set1.SetEquals(set4));
-            Assert.IsFalse(set4.SetEquals(set0));
-            Assert.IsFalse(set8.SetEquals(set4));
-            Assert.IsTrue(set4.SetEquals(set3));
-            Assert.IsTrue(set3.SetEquals(set11));
-            Assert.IsTrue(set11.SetEquals(set1));
-            Assert.IsTrue(set1.SetEquals(set11));
+            var array1 = new int[] { 37, 20, 90, 48, 18, 150, 170, 9, 30, 120 };
+            var array2 = new int[] { 37, 20, 90, 48, 18, 28, 150, 170, 9, 1, 30, 120 };
+            Assert.IsFalse(set11.SetEquals(array1));
+            Assert.IsFalse(set11.SetEquals(array2));
+            Assert.IsTrue(set11.SetEquals(array11));
+            Assert.IsTrue(set8.SetEquals(array8));
         }
 
         [Test]
