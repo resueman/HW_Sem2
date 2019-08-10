@@ -10,13 +10,22 @@ namespace Tests
     public class HeroBehaviourTests
     {
         private EventLoop eventLoop;
+        private Game game;
+
+        private void Subscribe()
+        {
+            eventLoop.LeftHandler += game.OnLeft;
+            eventLoop.RightHandler += game.OnRight;
+            eventLoop.TopHandler += game.OnTop;
+            eventLoop.DownHandler += game.OnDown;
+        }
 
         [SetUp]
         public void Initialization()
         {
+            game = new Game("TestMap1.txt");
             eventLoop = new EventLoop();
-            Map.CreateMap("TestMap1.txt");
-            _ = new Hero(Map.HeroStartPointLeft, Map.HeroStartPointTop);
+            Subscribe();
         }
 
         [Test]
@@ -26,8 +35,8 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.DownArrow);
             }
-            Assert.AreEqual(2, Hero.LeftPosition);
-            Assert.AreEqual(2, Hero.TopPosition);
+            Assert.AreEqual(2, game.hero.LeftPosition);
+            Assert.AreEqual(2, game.hero.TopPosition);
         }
 
         [Test]
@@ -38,8 +47,8 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.RightArrow);
             }
-            Assert.AreEqual(9, Hero.LeftPosition);
-            Assert.AreEqual(2, Hero.TopPosition);
+            Assert.AreEqual(9, game.hero.LeftPosition);
+            Assert.AreEqual(2, game.hero.TopPosition);
         }
 
         [Test]
@@ -49,8 +58,8 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.UpArrow);
             }
-            Assert.AreEqual(2, Hero.LeftPosition);
-            Assert.AreEqual(1, Hero.TopPosition);
+            Assert.AreEqual(2, game.hero.LeftPosition);
+            Assert.AreEqual(1, game.hero.TopPosition);
         }
 
         [Test]
@@ -65,8 +74,8 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.LeftArrow);
             }
-            Assert.AreEqual(14, Hero.LeftPosition);
-            Assert.AreEqual(0, Hero.TopPosition);
+            Assert.AreEqual(14, game.hero.LeftPosition);
+            Assert.AreEqual(0, game.hero.TopPosition);
         }
 
         [Test]
@@ -76,8 +85,8 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.LeftArrow);
             }
-            Assert.AreEqual(0, Hero.LeftPosition);
-            Assert.AreEqual(1, Hero.TopPosition);
+            Assert.AreEqual(0, game.hero.LeftPosition);
+            Assert.AreEqual(1, game.hero.TopPosition);
         }
 
         [Test]
@@ -88,8 +97,8 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.UpArrow);
             }
-            Assert.AreEqual(1, Hero.LeftPosition);
-            Assert.AreEqual(0, Hero.TopPosition);
+            Assert.AreEqual(1, game.hero.LeftPosition);
+            Assert.AreEqual(0, game.hero.TopPosition);
         }
 
         [Test]
@@ -99,8 +108,8 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.RightArrow);
             }
-            Assert.AreEqual(Map.IsBorder.GetLength(0) + Map.resizeMapIndex - 1, Hero.LeftPosition);
-            Assert.AreEqual(1, Hero.TopPosition);
+            Assert.AreEqual(Map.IsBorder.GetLength(0) + Map.resizeMapIndex - 1, game.hero.LeftPosition);
+            Assert.AreEqual(1, game.hero.TopPosition);
         }
 
         [Test]
@@ -114,21 +123,22 @@ namespace Tests
             {
                 eventLoop.ProcessKey(ConsoleKey.DownArrow);
             }
-            Assert.AreEqual(6, Hero.LeftPosition);
-            Assert.AreEqual(Map.resizeMapIndex - 1, Hero.TopPosition);
+            Assert.AreEqual(6, game.hero.LeftPosition);
+            Assert.AreEqual(Map.resizeMapIndex - 1, game.hero.TopPosition);
         }
 
         [Test]
         public void IsPossibleToNavigateAnEmptyMap()
         {
-            Map.CreateMap("EmptyMap.txt");
+            game = new Game("EmptyMap.txt");
+            Subscribe();
             for (int i = 0; i < Map.resizeMapIndex; ++i)
             {
                 eventLoop.ProcessKey(ConsoleKey.RightArrow);
                 eventLoop.ProcessKey(ConsoleKey.DownArrow);
             }
-            Assert.AreEqual(Map.resizeMapIndex - 1, Hero.TopPosition);
-            Assert.AreEqual(Map.resizeMapIndex - 1, Hero.LeftPosition);
+            Assert.AreEqual(Map.resizeMapIndex - 1, game.hero.TopPosition);
+            Assert.AreEqual(Map.resizeMapIndex - 1, game.hero.LeftPosition);
         }
     }
 }

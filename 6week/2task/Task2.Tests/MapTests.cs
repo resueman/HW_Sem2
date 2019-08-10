@@ -10,12 +10,12 @@ namespace Tests
     /// </summary>
     public class MapTests
     {
-        private bool[,] TestIsBorder;
+        private bool[,] testIsBorder;
 
         [Test]
         public static void FileWithMapNotFoundException()
         {
-            Assert.Throws<FileNotFoundException>(() => Map.CreateMap("IAmNotExist.txt"));
+            Assert.Throws<FileNotFoundException>(() => new Game("IAmNotExist.txt"));
         }
 
         [Test]
@@ -23,17 +23,17 @@ namespace Tests
         [TestCase("IncorrectMap2.txt")]
         public static void IncorrectMapTest(string fileName)
         {
-            Assert.Throws<IncorrectMapException>(() => Map.CreateMap(fileName));
+            Assert.Throws<IncorrectMapException>(() => new Game(fileName));
         }
 
         private void TestWallsInitialize()
         {
-            TestIsBorder = new bool[7, 14];
-            for (int i = 0; i < TestIsBorder.GetLength(0); ++i)
+            testIsBorder = new bool[7, 14];
+            for (int i = 0; i < testIsBorder.GetLength(0); ++i)
             {
-                for (int j = 0; j < TestIsBorder.GetLength(1); ++j)
+                for (int j = 0; j < testIsBorder.GetLength(1); ++j)
                 {
-                    TestIsBorder[i, j] = false;
+                    testIsBorder[i, j] = false;
                 }
             }
 
@@ -49,7 +49,7 @@ namespace Tests
             {
                 for (int j = 0; j < wallsCoords[i].GetLength(0); ++j)
                 {
-                    TestIsBorder[i, wallsCoords[i][j]] = true;
+                    testIsBorder[i, wallsCoords[i][j]] = true;
                 }
             }
         }
@@ -58,12 +58,12 @@ namespace Tests
         public void IsCorrectBorderRecognition()
         {
             TestWallsInitialize();
-            Map.CreateMap("TestMap1.txt");
-            for (int i = 0; i < TestIsBorder.GetLength(0); ++i)
+            _ = new Game("TestMap1.txt");
+            for (int i = 0; i < testIsBorder.GetLength(0); ++i)
             {
-                for (int j = 0; j < TestIsBorder.GetLength(1); ++j)
+                for (int j = 0; j < testIsBorder.GetLength(1); ++j)
                 {
-                    Assert.AreEqual(TestIsBorder[i, j], Map.IsBorder[i, j]);
+                    Assert.AreEqual(testIsBorder[i, j], Map.IsBorder[i, j]);
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace Tests
         [TestCase("TestMap3.txt", 21, 43)]
         public static void IsCorrectHeroPosition(string fileName, int topPoint, int leftPoint)
         {
-            Map.CreateMap(fileName);
+            _ = new Game(fileName);
             Assert.AreEqual(Map.HeroStartPointTop, topPoint);
             Assert.AreEqual(Map.HeroStartPointLeft, leftPoint);
         }

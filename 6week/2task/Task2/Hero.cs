@@ -10,33 +10,36 @@ namespace Task2
     public class Hero
     {
         public static char Appearance { get; private set; } = '@';
-        public static int LeftPosition { get; private set; }
-        public static int TopPosition { get; private set; }
+        public int LeftPosition { get; private set; } 
+        public int TopPosition { get; private set; }
 
         public Hero(int leftPosition, int topPosition)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             LeftPosition = leftPosition;
             TopPosition = topPosition;
-        } 
+            MoveHeroOnTheMap();
+        }
 
-        public void MoveHeroOnTheMap()
+        private void MoveHeroOnTheMap()
         {
             Console.SetCursorPosition(LeftPosition, TopPosition);
-            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(Appearance);
         }
 
-        public static void ChangeHeroCoordinates(int deltaLeft, int deltaTop)
+        public void ChangeHeroCoordinates(int deltaLeft, int deltaTop)
         {
             if (!IsCorrectPosition(LeftPosition + deltaLeft, TopPosition + deltaTop))
             {
+                MoveHeroOnTheMap();
                 return;
             }            
             LeftPosition += deltaLeft;
             TopPosition += deltaTop;
+            MoveHeroOnTheMap();
         }
 
-        private static bool IsCorrectPosition(int left, int top)
+        private bool IsCorrectPosition(int left, int top)
         {
             if (top < 0 || left < 0)
             {
@@ -46,11 +49,7 @@ namespace Task2
             {
                 return false;
             }
-            if (Map.IsBorder[top, left])
-            {
-                return false;
-            }
-            return true;
+            return !Map.IsBorder[top, left];
         }
     }
 }

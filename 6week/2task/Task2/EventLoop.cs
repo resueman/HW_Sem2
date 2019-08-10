@@ -9,15 +9,10 @@ namespace Task2
     /// </summary>
     public class EventLoop
     {
-        public event Action LeftHandler, RightHandler, TopHandler, DownHandler;
-
-        public EventLoop()
-        {
-            LeftHandler += Game.OnLeft;
-            RightHandler += Game.OnRight;
-            TopHandler += Game.OnTop;
-            DownHandler += Game.OnDown;
-        }
+        public event Action LeftHandler;
+        public event Action RightHandler;
+        public event Action TopHandler;
+        public event Action DownHandler;
 
         public bool ProcessKey(ConsoleKey key)
         {
@@ -41,20 +36,14 @@ namespace Task2
             return true;
         }
 
-        public void Run(string fileName)
+        public void Run()
         {
-            Game.Settings();
-            Map.CreateMap(fileName);
-            var hero = new Hero(Map.HeroStartPointLeft, Map.HeroStartPointTop);
-            hero.MoveHeroOnTheMap();
-
             bool wantToPlay = true;
             while (wantToPlay)
             {
                 var key = Console.ReadKey(true);
                 Console.Write("\b ");
                 wantToPlay = ProcessKey(key.Key);
-                hero.MoveHeroOnTheMap();
             }
         }
     }

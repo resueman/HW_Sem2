@@ -17,6 +17,12 @@ namespace Task2
         public static int HeroStartPointTop { get; private set; }
         public static bool[,] IsBorder { get; private set; }
 
+        private static void TuneMap()
+        {
+            Console.CursorVisible = false;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+        }
+
         private static void ResizeMap(bool addLines)
         {
             bool[,] newMatrix;
@@ -40,49 +46,51 @@ namespace Task2
 
         public static void CreateMap(string fileName)
         {
-            StreamReader objectReader = new StreamReader(fileName);
-
-            IsBorder = new bool[,] { };
-            int currentLine = -1;
-            bool heroFound = false;
-            while (true)
+            using (var objectReader = new StreamReader(fileName))
             {
-                string buffer = objectReader.ReadLine();
-                ++currentLine;
-                if (buffer == null)
+                TuneMap();
+                IsBorder = new bool[,] { };
+                int currentLine = -1;
+                bool heroFound = false;
+                while (true)
                 {
-                    break;
-                }
-                if (currentLine >= IsBorder.GetLength(0))
-                {
-                    ResizeMap(true);
-                }
-                for (int i = 0; i < buffer.Length; ++i)
-                {
-                    if (i >= IsBorder.GetLength(1))
+                    string buffer = objectReader.ReadLine();
+                    ++currentLine;
+                    if (buffer == null)
                     {
-                        ResizeMap(false);
+                        break;
                     }
-                    if (buffer[i] == Hero.Appearance)
+                    if (currentLine >= IsBorder.GetLength(0))
                     {
-                        if (heroFound)
+                        ResizeMap(true);
+                    }
+                    for (int i = 0; i < buffer.Length; ++i)
+                    {
+                        if (i >= IsBorder.GetLength(1))
                         {
-                            throw new IncorrectMapException("Borders look like hero");
+                            ResizeMap(false);
                         }
-                        heroFound = true;
-                        HeroStartPointLeft = i;
-                        HeroStartPointTop = currentLine;
-                        IsBorder[currentLine, i] = false;
-                        continue;
+                        if (buffer[i] == Hero.Appearance)
+                        {
+                            if (heroFound)
+                            {
+                                throw new IncorrectMapException("Borders look like hero");
+                            }
+                            heroFound = true;
+                            HeroStartPointLeft = i;
+                            HeroStartPointTop = currentLine;
+                            IsBorder[currentLine, i] = false;
+                            continue;
+                        }
+                        IsBorder[currentLine, i] = buffer[i] != ' ';
                     }
-                    IsBorder[currentLine, i] = buffer[i] != ' ';
+                    Console.WriteLine(buffer);
                 }
-                Console.WriteLine(buffer);
-            }
-            objectReader.Close();
-            if (!heroFound)
-            {
-                throw new IncorrectMapException("Incorrect map, there is no hero start position");
+
+                if (!heroFound)
+                {
+                    throw new IncorrectMapException("Incorrect map, there is no hero start position");
+                }
             }
         }
     }
