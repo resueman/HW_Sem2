@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,14 +18,15 @@ namespace Clock
             InitializeComponent();
         }
 
-        private void Timer1_Tick(object sender, EventArgs e)
+        private void ClockFormLoad(object sender, EventArgs e)
         {
-            TimeLabel.Text = DateTime.Now.ToLongTimeString();
+            timer.Start();
         }
 
-        private void ClockForm_Load(object sender, EventArgs e)
+        private void TimerTick(object sender, EventArgs e)
         {
-            timer1.Start();
+            dateLabel.Text = DateTime.Now.ToString("m", CultureInfo.CreateSpecificCulture("en-US"));
+            timeLabel.Text = DateTime.Now.ToString("T");
         }
     }
 }
