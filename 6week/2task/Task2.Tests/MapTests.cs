@@ -1,8 +1,7 @@
 using NUnit.Framework;
 using System.IO;
-using Task2;
 
-namespace Tests
+namespace Task2.Tests
 {
     /// <summary>
     /// Tests the response to the absence of a file and incorrect maps
@@ -10,12 +9,13 @@ namespace Tests
     /// </summary>
     public class MapTests
     {
+        private Map map;
         private bool[,] testIsBorder;
 
         [Test]
         public static void FileWithMapNotFoundException()
         {
-            Assert.Throws<FileNotFoundException>(() => new Game("IAmNotExist.txt"));
+            Assert.Throws<FileNotFoundException>(() => new Map("IAmNotExist.txt"));
         }
 
         [Test]
@@ -23,7 +23,7 @@ namespace Tests
         [TestCase("IncorrectMap2.txt")]
         public static void IncorrectMapTest(string fileName)
         {
-            Assert.Throws<IncorrectMapException>(() => new Game(fileName));
+            Assert.Throws<IncorrectMapException>(() => new Map(fileName));
         }
 
         private void TestWallsInitialize()
@@ -58,12 +58,12 @@ namespace Tests
         public void IsCorrectBorderRecognition()
         {
             TestWallsInitialize();
-            _ = new Game("TestMap1.txt");
-            for (int i = 0; i < testIsBorder.GetLength(0); ++i)
+            map = new Map("TestMap1.txt");
+            for (int i = 0; i < map.IsBorder.GetLength(0); ++i)
             {
-                for (int j = 0; j < testIsBorder.GetLength(1); ++j)
+                for (int j = 0; j < map.IsBorder.GetLength(1); ++j)
                 {
-                    Assert.AreEqual(testIsBorder[i, j], Map.IsBorder[i, j]);
+                    Assert.AreEqual(map.IsBorder[i, j], map.IsBorder[i, j]);
                 }
             }
         }
@@ -72,11 +72,11 @@ namespace Tests
         [TestCase("TestMap1.txt", 1, 2)]
         [TestCase("TestMap2.txt", 4, 6)]
         [TestCase("TestMap3.txt", 21, 43)]
-        public static void IsCorrectHeroPosition(string fileName, int topPoint, int leftPoint)
+        public void IsCorrectHeroPosition(string fileName, int topPoint, int leftPoint)
         {
-            _ = new Game(fileName);
-            Assert.AreEqual(Map.HeroStartPointTop, topPoint);
-            Assert.AreEqual(Map.HeroStartPointLeft, leftPoint);
+            map = new Map(fileName);
+            Assert.AreEqual(map.HeroStartPointTop, topPoint);
+            Assert.AreEqual(map.HeroStartPointLeft, leftPoint);
         }
     }
 }

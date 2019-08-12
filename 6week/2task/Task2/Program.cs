@@ -14,10 +14,12 @@ namespace Task2
             {                
                 var game = new Game("Map.txt");                
                 var eventLoop = new EventLoop();
+
                 eventLoop.LeftHandler += game.OnLeft;
                 eventLoop.RightHandler += game.OnRight;
                 eventLoop.TopHandler += game.OnTop;
                 eventLoop.DownHandler += game.OnDown;
+
                 eventLoop.Run();
             }
             catch (FileNotFoundException exception)

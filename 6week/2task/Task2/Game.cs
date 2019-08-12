@@ -7,24 +7,49 @@ namespace Task2
     /// </summary>
     public class Game
     {
-        public readonly Hero hero;
-        
+        private readonly Map map;
+        private readonly Hero hero;
+
         public Game(string fileName)
         {
-            Map.CreateMap(fileName);
-            hero = new Hero(Map.HeroStartPointLeft, Map.HeroStartPointTop);
+            map = new Map(fileName);
+            hero = new Hero(map.HeroStartPointLeft, map.HeroStartPointTop);
         }
 
         public void OnLeft()
-            => hero.ChangeHeroCoordinates(-1, 0);
+            => MoveHero(-1, 0);
 
         public void OnRight()
-            => hero.ChangeHeroCoordinates(1, 0);
+            => MoveHero(1, 0);
 
         public void OnTop()
-            => hero.ChangeHeroCoordinates(0, -1);
+            => MoveHero(0, -1);
 
         public void OnDown()
-            => hero.ChangeHeroCoordinates(0, 1);
+            => MoveHero(0, 1);
+
+        private void MoveHero(int deltaLeft, int deltaTop)
+        {
+            if (!IsCorrectPosition(hero.LeftPosition + deltaLeft, hero.TopPosition + deltaTop))
+            {
+                hero.PrintHeroOnMap();
+                return;
+            }
+            hero.ChangeHeroCoordinates(deltaLeft, deltaTop);
+            hero.PrintHeroOnMap();
+        }
+
+        private bool IsCorrectPosition(int left, int top)
+        {
+            if (top < 0 || left < 0)
+            {
+                return false;
+            }
+            if (top >= map.IsBorder.GetLength(0) || left >= map.IsBorder.GetLength(1))
+            {
+                return false;
+            }
+            return !map.IsBorder[top, left];
+        }
     }
 }

@@ -10,45 +10,24 @@ namespace Task2
     /// for keeping size of area, possible to play on 
     /// and changing it depending on number and location of walls
     /// </summary>
-    public static class Map
+    public class Map
     {
-        public static readonly int resizeMapIndex = 10;
-        public static int HeroStartPointLeft { get; private set; }
-        public static int HeroStartPointTop { get; private set; }
-        public static bool[,] IsBorder { get; private set; }
+        public static int ResizeMapIndex { get; } = 10;
+        public int HeroStartPointLeft { get; private set; }
+        public int HeroStartPointTop { get; private set; }
+        public bool[,] IsBorder { get; private set; }
 
-        private static void TuneMap()
+        public Map(string fileName)
         {
             Console.CursorVisible = false;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
+            CreateMap(fileName);
         }
 
-        private static void ResizeMap(bool addLines)
-        {
-            bool[,] newMatrix;
-            if (addLines)
-            {
-                newMatrix = new bool[resizeMapIndex + IsBorder.GetLength(0), IsBorder.GetLength(1)];
-            }
-            else
-            {
-                newMatrix = new bool[IsBorder.GetLength(0), resizeMapIndex + IsBorder.GetLength(1)];
-            }
-            for (int i = 0; i < IsBorder.GetLength(0); ++i)
-            {
-                for (int j = 0; j < IsBorder.GetLength(1); ++j)
-                {
-                    newMatrix[i, j] = IsBorder[i, j];
-                }
-            }
-            IsBorder = newMatrix;
-        }
-
-        public static void CreateMap(string fileName)
+        private void CreateMap(string fileName)
         {
             using (var objectReader = new StreamReader(fileName))
             {
-                TuneMap();
                 IsBorder = new bool[,] { };
                 int currentLine = -1;
                 bool heroFound = false;
@@ -92,6 +71,27 @@ namespace Task2
                     throw new IncorrectMapException("Incorrect map, there is no hero start position");
                 }
             }
+        }
+
+        private void ResizeMap(bool addLines)
+        {
+            bool[,] newMatrix;
+            if (addLines)
+            {
+                newMatrix = new bool[ResizeMapIndex + IsBorder.GetLength(0), IsBorder.GetLength(1)];
+            }
+            else
+            {
+                newMatrix = new bool[IsBorder.GetLength(0), ResizeMapIndex + IsBorder.GetLength(1)];
+            }
+            for (int i = 0; i < IsBorder.GetLength(0); ++i)
+            {
+                for (int j = 0; j < IsBorder.GetLength(1); ++j)
+                {
+                    newMatrix[i, j] = IsBorder[i, j];
+                }
+            }
+            IsBorder = newMatrix;
         }
     }
 }
