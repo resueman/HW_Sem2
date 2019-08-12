@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    static class BracketBalance
+    // most likely is an excessive class
+    class BracketBalance
     {
-        public static bool Check(List<string> input)
+        public bool IsBalance(string expression)
         {
-            var stack = new Stack<string>();
-            foreach (var symbol in input)
+            var stack = new Stack<char>();
+            foreach (var symbol in expression)
             {
-                if (symbol == "(")
+                if (symbol == '(')
                 {
                     stack.Push(symbol);
                 }
-                if (symbol == ")")
+                if (symbol == ')')
                 {
                     if (stack.Count == 0)
                     {

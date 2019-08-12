@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    class ConvertInfixToPostfix
+    class InfixToPostfixConverter
     {
         private int Precedence(string operation)
         {
@@ -21,14 +21,13 @@ namespace Calculator
             => Precedence(stack.Peek()) <= Precedence(operation);
 
         private bool IsOperand(string symbol)
-            => int.TryParse(symbol, out int _);        
+            => double.TryParse(symbol, out double _);
 
         private bool IsOperator(string symbol)
             => symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/";
 
-        public List<string> InfixToPostfix(List<string> infixExpression)
+        public List<string> Convert(List<string> infixExpression)
         {
-            //BracketBalance.Check(infixExpression);
             var stack = new Stack<string>();
             var postfixExpression = new List<string>();
 
@@ -67,4 +66,3 @@ namespace Calculator
         }
     }
 }
-
