@@ -34,9 +34,8 @@ namespace Calculator
         }
 
         private bool IsOperator(string symbol)
-        {
-            return symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/";
-        }
+            => symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/";
+        
 
         public double CalculateResult(List<string> expression)
         {
