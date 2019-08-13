@@ -20,8 +20,9 @@ namespace Calculator
             currentNumber = "";
         }
 
-        List<string> expression;/// currentTextBox.Text
-        string currentNumber;// expressionTextBox.Text
+        private List<string> expression;/// currentTextBox.Text
+        private string currentNumber;// expressionTextBox.Text
+        private bool containComma = false;
 
         private bool IsNumberEntered()
             => currentTextBox.Text.Length != 0 && char.IsDigit(currentTextBox.Text.Last())
@@ -83,7 +84,11 @@ namespace Calculator
             currentNumber = "";
         }
 
-        private void AddLeftBracket(string bracket)
+        private bool IsPossibleToAddLeftBracket()
+            => expression.Count == 0 && currentNumber == "" 
+            || expression.Count != 0 && (IsOperator(expression.Last()) || expression.Last() == "(");
+
+        private void AddLeftBracket()
         {
             if (!IsPossibleToAddLeftBracket())
             {
@@ -93,7 +98,10 @@ namespace Calculator
             AddBracket("(");
         }
 
-        private void AddRightBracket(string bracket)
+        private bool IsPossibleToAddRightBracket()
+            => currentNumber != "" && currentNumber[currentNumber.Length - 1] != ','|| expression.Last() == ")";
+
+        private void AddRightBracket()
         {
             if (!IsPossibleToAddRightBracket())
             {
@@ -111,19 +119,22 @@ namespace Calculator
             currentNumber = "";
         }
 
-        private bool IsPossibleToAddLeftBracket()
-        {
-            return false;
-        }
-
-        private bool IsPossibleToAddRightBracket()
-        {
-            return false;
-        }
-
         private bool IsPossibleToAddComma()
+            => currentNumber == "" || currentNumber != "" && !containComma;
+
+
+        private void CommaButtonClick(object sender, EventArgs e)
         {
-            return false;
+            if (!IsPossibleToAddComma())
+            {
+                currentTextBox.Text = "Ошибка";
+                return;
+            }
+            if (currentNumber == "")
+            {
+                currentNumber = "0,";
+                currentTextBox.Text = "0,";
+            }
         }
 
         private void SquareRootButtonClick(object sender, EventArgs e)
@@ -139,21 +150,6 @@ namespace Calculator
             currentNumber = Math.Sqrt(double.Parse(currentNumber)).ToString();
         }
 
-        private void DeleteLastDigitButtonClick(object sender, EventArgs e)
-        {
-            if (!IsNumberEntered())
-            {
-                return;
-            }
-            currentTextBox.Text = currentTextBox.Text.Substring(0, currentTextBox.Text.Length - 1);
-            currentNumber = currentNumber.Substring(0, currentNumber.Length - 1);
-        }
-
-        private void CommaButtonClick(object sender, EventArgs e)
-        {
-
-        }
-
         private void GetResultButtonClick(object sender, EventArgs e)
         {
 
@@ -162,6 +158,16 @@ namespace Calculator
         private void ChangeSignButtonClick(object sender, EventArgs e)
         {
 
+        }
+
+        private void DeleteLastDigitButtonClick(object sender, EventArgs e)
+        {
+            if (!IsNumberEntered())
+            {
+                return;
+            }
+            currentTextBox.Text = currentTextBox.Text.Substring(0, currentTextBox.Text.Length - 1);
+            currentNumber = currentNumber.Substring(0, currentNumber.Length - 1);
         }
 
         private void ClearButtonClick(object sender, EventArgs e)
