@@ -15,176 +15,115 @@ namespace Calculator
         public CalculatorForm()
         {
             InitializeComponent();
-            expression = new List<string>();
-            //currentTextBox.Text = "0";
-            currentNumber = "";
+            expression = new Expression();
         }
 
-        private List<string> expression;/// currentTextBox.Text
-        private string currentNumber;// expressionTextBox.Text
-        private bool containComma = false;
-
-        private bool IsNumberEntered()
-            => currentTextBox.Text.Length != 0 && char.IsDigit(currentTextBox.Text.Last())
-               || currentTextBox.Text.Last() == ',';
-                          
-        private bool IsPossibleToAddDigit()
-        {
-            if (expression.Count == 0)
-            {
-                return true;
-            }
-            if (expression.Last() == ")")
-            {
-                currentTextBox.Text = "Ошибка"; //, после " + "'" + expression.Last() + "'" + " требуется знак операции";
-                return false;
-            }
-            return true;
-        }
-
-        private void AddDigit(int digit)
-        {
-            if (!IsPossibleToAddDigit())
-            {
-                currentTextBox.Text = "Ошибка";
-                return;
-            }
-            if (IsOperator(currentTextBox.Text) || currentTextBox.Text == "Ошибка")
-            {
-                currentTextBox.Text = "";
-            }
-            currentNumber += digit.ToString();
-            currentTextBox.Text += digit.ToString();
-        }
-
-        private bool IsPossibleToAddOperator()
-        {
-            if (currentTextBox.Text.Length != 0 && char.IsDigit(currentTextBox.Text.Last()))
-            {
-                return true;
-            }
-            if (expression.Count == 0 || expression.Last() == "(" || expression.Last() == ",")
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private void AddOperator(string operatorValue)
-        {
-            if (!IsPossibleToAddOperator())
-            {
-                currentTextBox.Text = "Ошибка";
-                return;
-            }
-            currentTextBox.Text = operatorValue;
-            expressionTextBox.Text += currentNumber + operatorValue;
-            expression.Add(currentNumber);
-            expression.Add(operatorValue);
-            currentNumber = "";
-        }
-
-        private bool IsPossibleToAddLeftBracket()
-            => expression.Count == 0 && currentNumber == "" 
-            || expression.Count != 0 && (IsOperator(expression.Last()) || expression.Last() == "(");
-
-        private void AddLeftBracket()
-        {
-            if (!IsPossibleToAddLeftBracket())
-            {
-                currentTextBox.Text = "Ошибка";
-                return;
-            }
-            AddBracket("(");
-        }
-
-        private bool IsPossibleToAddRightBracket()
-            => currentNumber != "" && currentNumber[currentNumber.Length - 1] != ','|| expression.Last() == ")";
-
-        private void AddRightBracket()
-        {
-            if (!IsPossibleToAddRightBracket())
-            {
-                currentTextBox.Text = "Ошибка";
-                return;
-            }
-            AddBracket(")");
-        }
-
-        private void AddBracket(string bracket)
-        {
-            currentTextBox.Text = bracket;
-            expressionTextBox.Text += currentNumber + bracket;
-            expression.Add(bracket);
-            currentNumber = "";
-        }
+        private readonly Expression expression;
 
         private bool IsPossibleToAddComma()
-            => currentNumber == "" || currentNumber != "" && !containComma;
-
-
+            => expression.Count != 0 && expression.Last() != ")" && expression.CurrentNumber == "" 
+            || expression.CurrentNumber != "" && !expression.ContainComma;
+        
         private void CommaButtonClick(object sender, EventArgs e)
         {
-            if (!IsPossibleToAddComma())
-            {
-                currentTextBox.Text = "Ошибка";
-                return;
-            }
-            if (currentNumber == "")
-            {
-                currentNumber = "0,";
-                currentTextBox.Text = "0,";
-            }
+
         }
 
         private void SquareRootButtonClick(object sender, EventArgs e)
         {
-            if (currentNumber == "(" || currentNumber == ")" || currentNumber == "")
-            {
-                throw new ArgumentException("");
-            }
-            if (IsOperator(currentNumber))
-            {
 
-            }
-            currentNumber = Math.Sqrt(double.Parse(currentNumber)).ToString();
         }
 
         private void GetResultButtonClick(object sender, EventArgs e)
         {
-
+            
         }
 
         private void ChangeSignButtonClick(object sender, EventArgs e)
         {
-
+            if (expression.CurrentNumber != "")
+            {
+                expression.ChangeCurrentNumberSign();
+                currentTextBox.Text = expression.CurrentNumber;
+                return;
+            }
+            if (expression.Count != 0)
+            {
+                expression.ChangeSign();
+                expressionTextBox.Text = expression.ToString();
+            }
         }
 
         private void DeleteLastDigitButtonClick(object sender, EventArgs e)
         {
-            if (!IsNumberEntered())
+            if (expression.CurrentNumber == "")
             {
                 return;
             }
             currentTextBox.Text = currentTextBox.Text.Substring(0, currentTextBox.Text.Length - 1);
-            currentNumber = currentNumber.Substring(0, currentNumber.Length - 1);
+            expression.DeleteLastDigit();
         }
 
         private void ClearButtonClick(object sender, EventArgs e)
         {
             expression.Clear();
-            currentNumber = "";
             expressionTextBox.Text = "";
             currentTextBox.Text = "";
         }
 
         private void ClearEntryButtonClick(object sender, EventArgs e)
         {
-            if (IsNumberEntered())
-            {
-                currentNumber = "";
-            }
+            expression.ClearEntry();
             currentTextBox.Text = "";
+        }
+
+        private void AddDigit(int digit)
+        {
+            if (expression.CurrentNumber == "" || currentTextBox.Text == "Error")
+            {
+                currentTextBox.Text = "";
+            }
+            if (!expression.AddDigit(digit))
+            {
+                currentTextBox.Text = "Error";
+                return;
+            }
+            currentTextBox.Text += digit.ToString();
+        }
+
+        private void AddOperator(string operation)
+        {
+            var number = expression.CurrentNumber;
+            if (!expression.AddOperator(operation))
+            {
+                currentTextBox.Text = "Error";
+                return;
+            }
+            currentTextBox.Text = operation;
+            expressionTextBox.Text += number + operation;
+        }
+
+        private void AddLeftBracket()
+        {
+            if (!expression.AddLeftBracket())
+            {
+                currentTextBox.Text = "Error";
+                return;
+            }
+            currentTextBox.Text = "(";
+            expressionTextBox.Text += expression.CurrentNumber + "(";
+        }
+
+        private void AddRightBracket()
+        {
+            var number = expression.CurrentNumber;
+            if (!expression.AddRightBracket())
+            {
+                currentTextBox.Text = "Error";
+                return;
+            }
+            currentTextBox.Text = ")";
+            expressionTextBox.Text += number + ")";
         }
 
         private void ZeroButtonClick(object sender, EventArgs e) => AddDigit(0);
@@ -203,7 +142,5 @@ namespace Calculator
         private void DevideButtonClick(object sender, EventArgs e) => AddOperator("/");
         private void LeftBracketbuttonClick(object sender, EventArgs e) => AddLeftBracket();
         private void RightBracketbuttonClick(object sender, EventArgs e) => AddRightBracket();
-        private bool IsOperator(string symbol)
-            => symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/";
     }
 }

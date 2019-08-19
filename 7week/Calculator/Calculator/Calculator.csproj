@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="BracketBalance.cs" />
     <Compile Include="InfixToPostfixConverter.cs" />
-    <Compile Include="ExpressionBuilder.cs" />
+    <Compile Include="Expression.cs" />
     <Compile Include="CalculatorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +58,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PostfixCalculator.cs" />
+    <Compile Include="Validator.cs" />
     <EmbeddedResource Include="CalculatorForm.resx">
       <DependentUpon>CalculatorForm.cs</DependentUpon>
     </EmbeddedResource>

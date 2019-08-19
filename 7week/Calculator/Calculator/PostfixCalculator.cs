@@ -31,11 +31,7 @@ namespace Calculator
                     break;
             }
             return result;
-        }
-
-        private bool IsOperator(string symbol)
-            => symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/";
-        
+        }        
 
         public double CalculateResult(List<string> expression)
         {
@@ -48,7 +44,7 @@ namespace Calculator
                 {
                     stack.Push(operand);
                 }
-                else if (IsOperator(unit))
+                else if (Validator.IsOperator(unit))
                 {
                     var operand2 = stack.Pop();
                     var operand1 = stack.Pop();
