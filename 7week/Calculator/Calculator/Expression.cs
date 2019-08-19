@@ -6,114 +6,175 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    class Expression : List<string>
+    class ExpressionBuilder
     {
-        public bool ContainComma { get; private set; } = false;
-        public string CurrentNumber { get; private set; } = ""; // invariant, is "" if not a number entered
-        private int numberOfLeftBrackets = 0;
-        private int numberOfRightBrackets = 0;
+        public ExpressionBuilder()
+        {
+            expression = new Expression();
+        }
+
+        public string CurrentNumber { get; private set; } = "";
+        public string CurrentTextBox { get; private set; }
+        public string ExpressionTextBox { get; private set; }
+
+        private readonly Expression expression;
+
+        private class Expression : List<string>
+        {
+            public bool ContainComma { get; set; } = false;
+            public int NumberOfLeftBrackets { get; set; } = 0;
+            public int NumberOfRightBrackets { get; set; } = 0;
+        }
 
         private bool IsPossibleToAddDigit()
-            => Count == 0 || Count != 0 && this.Last() != ")";
+            => expression.Count == 0 || expression.Count != 0 && expression.Last() != ")";
 
-        public bool AddDigit(int digit)
+        public void AddDigit(int digit)
         {
             if (!IsPossibleToAddDigit())
             {
-                return false;
+                CurrentTextBox = "Error";
+                return;
             }
-            CurrentNumber += digit.ToString();
-            return true;
+            if (CurrentNumber == "" || CurrentTextBox == "Error")
+            {
+                CurrentTextBox = "";
+            }
+            CurrentNumber += digit.ToString(); 
+            CurrentTextBox = CurrentNumber;
         }
 
         private bool IsPossibleToAddOperator()
-            => CurrentNumber != "" || Count != 0 && this.Last() == ")";
+            => CurrentNumber != "" || expression.Count != 0 && expression.Last() == ")";
 
-        public bool AddOperator(string operatorValue)
+        public void AddOperator(string operatorValue)
         {
             if (!IsPossibleToAddOperator())
             {
-                return false;
+                CurrentTextBox = "Error";
+                return;
             }
-            Add(CurrentNumber);
-            Add(operatorValue);
+            expression.Add(CurrentNumber);
+            expression.Add(operatorValue);
+            CurrentTextBox = "";
+            ExpressionTextBox += CurrentNumber + operatorValue;
             CurrentNumber = "";
-            return true;
         }               
 
         private bool IsPossibleToAddLeftBracket()
-            => Count == 0 && CurrentNumber == ""
-            || Count != 0 && (Validator.IsOperator(this.Last()) || this.Last() == "(");
+            => expression.Count == 0 && CurrentNumber == ""
+            || expression.Count != 0 && (Validator.IsOperator(expression.Last()) || expression.Last() == "(");
 
-        public bool AddLeftBracket()
+        public void AddLeftBracket()
         {
             if (!IsPossibleToAddLeftBracket())
             {
-                return false;
+                CurrentTextBox = "Error";
+                return;
             }
-            ++numberOfLeftBrackets;
+            ++expression.NumberOfLeftBrackets;
             AddBracket("(");
-            return true;
         }
 
         private bool IsPossibleToAddRightBracket()
-            => numberOfRightBrackets < numberOfLeftBrackets && (CurrentNumber != ""
+            => expression.NumberOfRightBrackets < expression.NumberOfLeftBrackets && (CurrentNumber != ""
             && CurrentNumber[CurrentNumber.Length - 1] != ','
-            || Count != 0 && this.Last() == ")");
+            || expression.Count != 0 && expression.Last() == ")");
 
-        public bool AddRightBracket()
+        public void AddRightBracket()
         {
             if (!IsPossibleToAddRightBracket())
             {
-                return false;
+                CurrentTextBox = "Error";
+                return;
             }
-            ++numberOfRightBrackets;
+            ++expression.NumberOfRightBrackets;
+            expression.Add(CurrentNumber);
             AddBracket(")");
-            return true;
         }
 
         private void AddBracket(string bracket)
         {
-            Add(bracket);
+            expression.Add(bracket);
+            CurrentTextBox = bracket;
+            ExpressionTextBox += CurrentNumber + bracket;
             CurrentNumber = "";
-        }
-
-        public void ChangeCurrentNumberSign()
-        {
-            int number = int.Parse(CurrentNumber);
-            number *= -1;
-            CurrentNumber = number.ToString();
         }
 
         public void ChangeSign()
         {
-            Insert(0, "-");
-            Insert(1, "(");
-            Insert(Count - 1, ")");
-        }
-
-        public void DeleteLastDigit() 
-            => CurrentNumber = CurrentNumber.Substring(0, CurrentNumber.Length - 1);
-
-        public override string ToString()
-        {
-            string expression = "";
-            foreach (var unit in this)
+            if (CurrentNumber != "")
             {
-                expression += unit;
+                int number = int.Parse(CurrentNumber);
+                number *= -1;
+                CurrentNumber = number.ToString();
+                CurrentTextBox = CurrentNumber;
+                return;
             }
-            return expression;
+            if (expression.Count != 0)
+            {
+                if (expression.First() == "-" && expression.ElementAt(1) == "(" && expression.Last() == ")")
+                {
+                    expression.RemoveAt(0);
+                    expression.RemoveAt(0);
+                    expression.RemoveAt(expression.Count - 1);
+                }
+                else
+                {
+                    expression.Insert(0, "-");
+                    expression.Insert(1, "(");
+                    expression.Insert(expression.Count - 1, ")");
+                }
+            }
+            ExpressionTextBox = "";
+            foreach(var unit in expression)
+            {
+                ExpressionTextBox += unit;
+            }
         }
 
-        public new void Clear()
+        public void DeleteLastDigit()
         {
-            CurrentNumber = "";
-            base.Clear();
-        }
+            if (CurrentNumber == "")
+            {
+                return;
+            }
+            CurrentTextBox = CurrentTextBox.Substring(0, CurrentTextBox.Length - 1);
+            CurrentNumber = CurrentNumber.Substring(0, CurrentNumber.Length - 1);
+        }            
 
         public void ClearEntry()
         {
             CurrentNumber = "";
+            CurrentTextBox = "";
+        }
+
+        public void Clear()
+        {
+            expression.Clear();
+            CurrentNumber = "";
+            CurrentTextBox = "";
+            ExpressionTextBox = "";
+        }
+
+        private bool IsPossibleToAddComma() => IsPossibleToAddDigit() && CurrentNumber == ""
+            || CurrentNumber != "" && !expression.ContainComma;
+
+        public void AddComma()
+        {
+            if (!IsPossibleToAddComma())
+            {
+                CurrentTextBox = "Error";
+                return;
+            }
+            if (CurrentNumber == "")
+            {
+                CurrentNumber = "0,";
+                CurrentTextBox = "0,";
+                return;
+            }
+            CurrentNumber += ",";
+            CurrentTextBox += ",";
         }
     }
 }

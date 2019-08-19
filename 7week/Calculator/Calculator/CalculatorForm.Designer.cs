@@ -65,7 +65,7 @@
             this.zeroButton.TabIndex = 0;
             this.zeroButton.Text = "0";
             this.zeroButton.UseVisualStyleBackColor = false;
-            this.zeroButton.Click += new System.EventHandler(this.ZeroButtonClick);
+            this.zeroButton.Click += new System.EventHandler(this.DigitButtonClick);
             // 
             // fiveButton
             // 
@@ -77,7 +77,7 @@
             this.fiveButton.TabIndex = 1;
             this.fiveButton.Text = "5";
             this.fiveButton.UseVisualStyleBackColor = false;
-            this.fiveButton.Click += new System.EventHandler(this.FiveButtonClick);
+            this.fiveButton.Click += new System.EventHandler(this.DigitButtonClick);
             // 
             // fourButton
             // 
@@ -89,7 +89,7 @@
             this.fourButton.TabIndex = 2;
             this.fourButton.Text = "4";
             this.fourButton.UseVisualStyleBackColor = false;
-            this.fourButton.Click += new System.EventHandler(this.FourButtonClick);
+            this.fourButton.Click += new System.EventHandler(this.DigitButtonClick);
             // 
             // threeButton
             // 
@@ -101,7 +101,7 @@
             this.threeButton.TabIndex = 3;
             this.threeButton.Text = "3";
             this.threeButton.UseVisualStyleBackColor = false;
-            this.threeButton.Click += new System.EventHandler(this.ThreeButtonClick);
+            this.threeButton.Click += new System.EventHandler(this.DigitButtonClick);
             // 
             // twoButton
             // 
@@ -113,7 +113,7 @@
             this.twoButton.TabIndex = 4;
             this.twoButton.Text = "2";
             this.twoButton.UseVisualStyleBackColor = false;
-            this.twoButton.Click += new System.EventHandler(this.TwoButtonClick);
+            this.twoButton.Click += new System.EventHandler(this.DigitButtonClick);
             // 
             // oneButton
             // 
@@ -125,7 +125,7 @@
             this.oneButton.TabIndex = 5;
             this.oneButton.Text = "1";
             this.oneButton.UseVisualStyleBackColor = false;
-            this.oneButton.Click += new System.EventHandler(this.OneButtonClick);
+            this.oneButton.Click += new System.EventHandler(this.DigitButtonClick);
             // 
             // nineButton
             // 
@@ -137,7 +137,7 @@
             this.nineButton.TabIndex = 6;
             this.nineButton.Text = "9";
             this.nineButton.UseVisualStyleBackColor = false;
-            this.nineButton.Click += new System.EventHandler(this.NineButtonClick);
+            this.nineButton.Click += new System.EventHandler(this.DigitButtonClick);
             // 
             // eightButton
             // 
@@ -149,7 +149,7 @@
             this.eightButton.TabIndex = 7;
             this.eightButton.Text = "8";
             this.eightButton.UseVisualStyleBackColor = false;
-            this.eightButton.Click += new System.EventHandler(this.EightButtonClick);
+            this.eightButton.Click += new System.EventHandler(this.DigitButtonClick);
             // 
             // sevenButton
             // 
@@ -161,7 +161,7 @@
             this.sevenButton.TabIndex = 8;
             this.sevenButton.Text = "7";
             this.sevenButton.UseVisualStyleBackColor = false;
-            this.sevenButton.Click += new System.EventHandler(this.SevenButtonClick);
+            this.sevenButton.Click += new System.EventHandler(this.DigitButtonClick);
             // 
             // sixButton
             // 
@@ -173,7 +173,7 @@
             this.sixButton.TabIndex = 9;
             this.sixButton.Text = "6";
             this.sixButton.UseVisualStyleBackColor = false;
-            this.sixButton.Click += new System.EventHandler(this.SixButtonClick);
+            this.sixButton.Click += new System.EventHandler(this.DigitButtonClick);
             // 
             // plusButton
             // 
@@ -184,7 +184,7 @@
             this.plusButton.TabIndex = 10;
             this.plusButton.Text = "+";
             this.plusButton.UseVisualStyleBackColor = true;
-            this.plusButton.Click += new System.EventHandler(this.PlusButtonClick);
+            this.plusButton.Click += new System.EventHandler(this.OperatorButtonClick);
             // 
             // commaButton
             // 
@@ -208,7 +208,7 @@
             this.devideButton.TabIndex = 12;
             this.devideButton.Text = "/";
             this.devideButton.UseVisualStyleBackColor = false;
-            this.devideButton.Click += new System.EventHandler(this.DevideButtonClick);
+            this.devideButton.Click += new System.EventHandler(this.OperatorButtonClick);
             // 
             // multiplyButton
             // 
@@ -219,7 +219,7 @@
             this.multiplyButton.TabIndex = 13;
             this.multiplyButton.Text = "*";
             this.multiplyButton.UseVisualStyleBackColor = true;
-            this.multiplyButton.Click += new System.EventHandler(this.MultiplyButtonClick);
+            this.multiplyButton.Click += new System.EventHandler(this.OperatorButtonClick);
             // 
             // minusButton
             // 
@@ -230,7 +230,7 @@
             this.minusButton.TabIndex = 14;
             this.minusButton.Text = "-";
             this.minusButton.UseVisualStyleBackColor = true;
-            this.minusButton.Click += new System.EventHandler(this.MinusButtonClick);
+            this.minusButton.Click += new System.EventHandler(this.OperatorButtonClick);
             // 
             // rightBracketbutton
             // 
