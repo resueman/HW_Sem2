@@ -50,9 +50,9 @@ namespace Calculator
             => expressionBuilder.ClearEntry();
 
         private void LeftBracketbuttonClick(object sender, EventArgs e)
-            => expressionBuilder.AddLeftBracket();
+            => expressionBuilder.AddOpeningBracket();
 
         private void RightBracketbuttonClick(object sender, EventArgs e)
-            => expressionBuilder.AddRightBracket();
+            => expressionBuilder.AddClosingBracket();
     }
 }
