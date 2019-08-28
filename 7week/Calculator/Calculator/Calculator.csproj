@@ -46,9 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BracketBalance.cs" />
     <Compile Include="InfixToPostfixConverter.cs" />
-    <Compile Include="Expression.cs" />
+    <Compile Include="ExpressionBuilder.cs" />
     <Compile Include="CalculatorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +70,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\BracketBalance.datasource" />
+    <None Include="Properties\DataSources\Calculator.Properties.Resources.datasource" />
+    <None Include="Properties\DataSources\Calculator.Properties.Settings.datasource" />
+    <None Include="Properties\DataSources\CalculatorForm.datasource" />
+    <None Include="Properties\DataSources\ExpressionBuilder.datasource" />
+    <None Include="Properties\DataSources\InfixToPostfixConverter.datasource" />
+    <None Include="Properties\DataSources\PostfixCalculator.datasource" />
+    <None Include="Properties\DataSources\Program.datasource" />
+    <None Include="Properties\DataSources\Validator.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

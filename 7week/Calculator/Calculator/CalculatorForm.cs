@@ -16,80 +16,43 @@ namespace Calculator
         {
             InitializeComponent();
             expressionBuilder = new ExpressionBuilder();
+            currentTextBox.DataBindings.Add("Text", expressionBuilder, "CurrentNumber");
+            expressionTextBox.DataBindings.Add("Text", expressionBuilder, "StringExpression");
         }
 
         private readonly ExpressionBuilder expressionBuilder;
 
-        private void UpdateTextBoxes()
-        {
-            currentTextBox.Text = expressionBuilder.CurrentTextBox;
-            expressionTextBox.Text = expressionBuilder.ExpressionTextBox;
-        }
-        
-        private void CommaButtonClick(object sender, EventArgs e)
-        {
-            expressionBuilder.AddComma();
-            UpdateTextBoxes();
-        }
-
-        private void SquareRootButtonClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void GetResultButtonClick(object sender, EventArgs e)
-        {
-         
-        }
-
-        private void ChangeSignButtonClick(object sender, EventArgs e)
-        {
-            expressionBuilder.ChangeSign();
-            UpdateTextBoxes();
-        }
-
-        private void DeleteLastDigitButtonClick(object sender, EventArgs e)
-        {
-            expressionBuilder.DeleteLastDigit();
-            UpdateTextBoxes();
-        }
-
-        private void ClearButtonClick(object sender, EventArgs e)
-        {
-            expressionBuilder.Clear();
-            UpdateTextBoxes();
-        }
-
-        private void ClearEntryButtonClick(object sender, EventArgs e)
-        {
-            expressionBuilder.ClearEntry();
-            UpdateTextBoxes();
-        }
-
         private void DigitButtonClick(object sender, EventArgs e)
-        {
-            var button = sender as Button;
-            expressionBuilder.AddDigit(int.Parse(button.Text));
-            UpdateTextBoxes();
-        }
+            => expressionBuilder.AddDigit(int.Parse((sender as Button).Text));
 
         private void OperatorButtonClick(object sender, EventArgs e)
-        {
-            var button = sender as Button;
-            expressionBuilder.AddOperator(button.Text);
-            UpdateTextBoxes();
-        }
+            => expressionBuilder.AddOperator((sender as Button).Text);
+
+        private void CommaButtonClick(object sender, EventArgs e)
+            => expressionBuilder.AddComma();
+
+        private void SquareRootButtonClick(object sender, EventArgs e)
+            => expressionBuilder.AddRoot();
+
+        private void GetResultButtonClick(object sender, EventArgs e)
+            => expressionBuilder.GetResult();
+
+        private void ChangeSignButtonClick(object sender, EventArgs e)
+            => expressionBuilder.ChangeSign();
+
+        private void DeleteLastDigitButtonClick(object sender, EventArgs e)
+            => expressionBuilder.DeleteLastDigit();
+
+        private void ClearButtonClick(object sender, EventArgs e)
+            => expressionBuilder.Clear();
+
+        private void ClearEntryButtonClick(object sender, EventArgs e)
+            => expressionBuilder.ClearEntry();
 
         private void LeftBracketbuttonClick(object sender, EventArgs e)
-        {
-            expressionBuilder.AddLeftBracket();
-            UpdateTextBoxes();
-        }
+            => expressionBuilder.AddLeftBracket();
 
         private void RightBracketbuttonClick(object sender, EventArgs e)
-        {
-            expressionBuilder.AddRightBracket();
-            UpdateTextBoxes();
-        }
+            => expressionBuilder.AddRightBracket();
     }
 }

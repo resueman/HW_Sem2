@@ -8,7 +8,7 @@ namespace Calculator
 {
     class InfixToPostfixConverter
     {
-        private int Precedence(string operation)
+        private static int Precedence(string operation)
         {
             if (operation == "+" || operation == "-")
             {
@@ -17,20 +17,16 @@ namespace Calculator
             return 1;
         }
 
-        private bool TopHasLowerPrecedence(Stack<string> stack, string operation)
-            => Precedence(stack.Peek()) <= Precedence(operation);
+        private static bool TopHasLowerPrecedence(string top, string operation)
+            => Precedence(top) <= Precedence(operation);
 
-        private bool IsOperand(string symbol)
+        private static bool IsOperand(string symbol)
             => double.TryParse(symbol, out double _);
 
-        private bool IsOperator(string symbol)
-            => symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/";
-
-        public List<string> Convert(List<string> infixExpression)
+        public static List<string> Convert(List<string> infixExpression)
         {
             var stack = new Stack<string>();
             var postfixExpression = new List<string>();
-
             foreach (var node in infixExpression)
             {
                 if (IsOperand(node))
@@ -41,9 +37,9 @@ namespace Calculator
                 {
                     stack.Push(node);
                 }
-                else if (IsOperator(node))
+                else if (Validator.IsOperator(node))
                 {
-                    while (stack.Count != 0 && TopHasLowerPrecedence(stack, node) && node != "(")
+                    while (stack.Count != 0 && TopHasLowerPrecedence(stack.Peek(), node) && stack.Peek() != "(")
                     {
                         postfixExpression.Add(stack.Pop());
                     }

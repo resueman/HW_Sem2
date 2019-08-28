@@ -8,7 +8,7 @@ namespace Calculator
 {
     class PostfixCalculator
     {
-        private double PerformingOperation(double operand1, double operand2, string operation)
+        private static double PerformingOperation(double operand1, double operand2, string operation)
         {
             if (operation == "/" && operand2 == 0)
             {
@@ -33,9 +33,8 @@ namespace Calculator
             return result;
         }        
 
-        public double CalculateResult(List<string> expression)
+        public static double CalculateResult(List<string> expression)
         {
-            double expressionValue = 0;
             var stack = new Stack<double>();
 
             foreach (var unit in expression)
@@ -56,7 +55,7 @@ namespace Calculator
                     throw new ArgumentException("Unexpected symbol");
                 }
             }
-            expressionValue = stack.Pop();
+            var expressionValue = stack.Pop();
             if (stack.Count != 0)
             {
                 throw new ArgumentException("Input string is not a postfix form");
