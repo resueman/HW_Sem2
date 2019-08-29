@@ -17,7 +17,7 @@ namespace Calculator
             InitializeComponent();
             expressionBuilder = new ExpressionBuilder();
             currentTextBox.DataBindings.Add("Text", expressionBuilder, "CurrentNumber");
-            expressionTextBox.DataBindings.Add("Text", expressionBuilder, "StringExpression");
+            expressionTextBox.DataBindings.Add("Text", expressionBuilder, "Expression");
         }
 
         private readonly ExpressionBuilder expressionBuilder;

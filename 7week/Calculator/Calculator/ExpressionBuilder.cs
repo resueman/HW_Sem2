@@ -10,12 +10,12 @@ namespace Calculator
 {
     class ExpressionBuilder : INotifyPropertyChanged
     {
-        private string stringExpression = "";
-        private string currentNumber = "";
         private bool containComma = false;
         private int numberOfLeftBrackets = 0;
         private int numberOfRightBrackets = 0;
-        private readonly List<string> expression = new List<string>();
+
+        private string currentNumber = "";
+        private string expression = "";
 
         public string CurrentNumber
         {
@@ -28,13 +28,13 @@ namespace Calculator
             }
         } 
 
-        public string StringExpression
+        public string Expression
         {
-            get => stringExpression;
+            get => expression;
 
             private set
             {
-                stringExpression = value;
+                expression = value;
                 NotifyPropertyChanged();
             }
         }
@@ -46,82 +46,83 @@ namespace Calculator
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private char LastOfExpression => expression.Length == 0 ? ' ' : Expression.Last();
+
+        private char LastOfCurrent => CurrentNumber.Length == 0 ? ' ' : CurrentNumber.Last();
+
+        private void AddCurrentNumber()
+        {
+            if (CurrentNumber == "-")
+            {
+                CurrentNumber = "0";
+            }
+            if (LastOfCurrent == ',')
+            {
+                CurrentNumber = CurrentNumber.Substring(0, CurrentNumber.Length - 1);
+            }
+            Expression += CurrentNumber;
+            ClearCurrentNumber();
+        }
+
         private void ClearCurrentNumber()
         {
             CurrentNumber = "";
             containComma = false;
         }
 
-        private bool IsPossibleToAddOperator()
-            => CurrentNumber != "" || expression.Count != 0 && expression.Last() == ")" && expression.Last() != ",";
-
         public void AddOperator(string operatorValue)
         {
-            if (IsPossibleToAddOperator())
+            if (char.IsDigit(LastOfCurrent) || LastOfExpression == ')' || LastOfCurrent == ',')
             {
-                expression.Add(CurrentNumber);
-                expression.Add(operatorValue);
-                StringExpression += CurrentNumber + operatorValue;
-                ClearCurrentNumber();
+                AddCurrentNumber();
+                Expression += operatorValue;
                 return;
             }
-            if (operatorValue == "-" && currentNumber.Length == 0)
+            if (operatorValue == "-" && CurrentNumber == "")
             {
                 CurrentNumber = "-";
             }
         }
 
-        private bool IsPossibleToAddDigit()
-            => expression.Count == 0 || expression.Last() != ")" || expression.Last() == ")" && CurrentNumber == "-";
-
         public void AddDigit(int digit)
         {
-            if (IsPossibleToAddDigit())
+            if (LastOfExpression != ')')
             {
                 CurrentNumber += digit.ToString();
             }
         }
 
         private bool IsPossibleToAddOpeningBracket()
-            => expression.Count == 0 && CurrentNumber == "" || Validator.IsOperator(expression.Last()) || expression.Last() == "(";
+            => Expression.Length == 0 && CurrentNumber == "" || LastOfExpression == '('
+            || Validator.IsOperator(LastOfExpression.ToString()); 
 
         public void AddOpeningBracket()
         {
             if (IsPossibleToAddOpeningBracket())
             {
                 ++numberOfLeftBrackets;
-                AddBracket("(");
+                Expression += '(';
             }
         }
 
         private bool IsPossibleToAddClosingBracket()
-            => numberOfRightBrackets < numberOfLeftBrackets &&
-            (CurrentNumber != "" && CurrentNumber[CurrentNumber.Length - 1] != ',' || expression.Last() == ")");
+            => numberOfRightBrackets < numberOfLeftBrackets && (CurrentNumber != "" || LastOfExpression == ')');
 
         public void AddClosingBracket()
         {
             if (IsPossibleToAddClosingBracket())
             {
-                expression.Add(CurrentNumber);
                 ++numberOfRightBrackets;
-                AddBracket(")");
+                AddCurrentNumber();
+                Expression += ')';
             }
-        }
-
-        private void AddBracket(string bracket)
-        {
-            expression.Add(bracket);
-            StringExpression += CurrentNumber + bracket;
-            ClearCurrentNumber();
         }
 
         public void ChangeSign()
         {
             if (CurrentNumber != "")
             {
-                int number = int.Parse(CurrentNumber);
-                number *= -1;
-                CurrentNumber = number.ToString();
+                CurrentNumber = (-1 * int.Parse(CurrentNumber)).ToString();
             }
         }
 
@@ -129,7 +130,7 @@ namespace Calculator
         {
             if (CurrentNumber != "")
             {
-                if (CurrentNumber[CurrentNumber.Length - 1] == ',')
+                if (LastOfCurrent == ',')
                 {
                     containComma = false;
                 }
@@ -141,16 +142,15 @@ namespace Calculator
 
         public void Clear()
         {
-            expression.Clear();
-            StringExpression = "";
+            Expression = "";
             ClearCurrentNumber();
         }
 
         public void AddComma()
         {
-            containComma = true;
-            if (expression.Count == 0 || !containComma && expression.Last() != ")")
+            if (LastOfExpression != ')' && !containComma)
             {
+                containComma = true;
                 if (CurrentNumber == "")
                 {
                     CurrentNumber = "0,";
@@ -165,9 +165,7 @@ namespace Calculator
             if (CurrentNumber != "")
             {
                 CurrentNumber = Math.Sqrt(double.Parse(CurrentNumber)).ToString();
-                StringExpression += CurrentNumber;
-                expression.Add(CurrentNumber);
-                CurrentNumber = "";
+                AddCurrentNumber();
             }
         }
 
@@ -175,20 +173,19 @@ namespace Calculator
         {
             while (numberOfLeftBrackets - numberOfRightBrackets > 0)
             {
-                expression.Add(")");
+                Expression += ')';
                 ++numberOfRightBrackets;
             }
-            var last = expression.Last();
-            return !(Validator.IsOperator(last) || last == "(" || last == ",");
+            return char.IsDigit(LastOfExpression) || LastOfExpression == ')';
         }
 
         public void GetResult()
         {
-            expression.Add(CurrentNumber);
+            AddCurrentNumber();
             if (IsPossibleToGetResult())
             {
-                CurrentNumber = PostfixCalculator.CalculateResult(InfixToPostfixConverter.Convert(expression)).ToString();
-                StringExpression = "";
+                CurrentNumber = PostfixCalculator.CalculateResult(InfixToPostfixConverter.Convert(Expression)).ToString();
+                Expression = "";
             }
         }
     }

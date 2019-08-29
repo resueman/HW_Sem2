@@ -10,7 +10,5 @@ namespace Calculator
     {
         public static bool IsOperator(string symbol)
             => symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/";
-
-
     }
 }
