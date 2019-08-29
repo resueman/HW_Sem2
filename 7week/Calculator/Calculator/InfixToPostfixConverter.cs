@@ -27,8 +27,9 @@ namespace Calculator
         {
             var stack = new Stack<string>();
             var postfixExpression = new List<string>();
-            string pattern = "";
-            foreach (var node in Regex.Split(infixExpression, pattern))
+            var regularExpression = new Regex(@"(?((\*-\d*)|(\+-\d*)|(\/-\d*)|(\--\d*))(-\d*)|([-+)*/(]))");
+            string[] splitted = regularExpression.Split(infixExpression);
+            foreach (var node in splitted)
             {
                 if (IsOperand(node))
                 {
