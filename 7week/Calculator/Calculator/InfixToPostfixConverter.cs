@@ -27,27 +27,34 @@ namespace Calculator
         {
             var stack = new Stack<string>();
             var postfixExpression = new List<string>();
-            var regularExpression = new Regex(@"(?((\*-\d*)|(\+-\d*)|(\/-\d*)|(\--\d*))(-\d*)|([-+)*/(]))");
-            string[] splitted = regularExpression.Split(infixExpression);
-            foreach (var node in splitted)
+
+            var regularExpression = new Regex(@"(?<![\)\d])\-\d+(\,)?\d*|\d+(\,)?\d*|[-+*/()]");
+            var matches = regularExpression.Matches(infixExpression);
+            var expression = new List<string>();
+            foreach(Match match in matches)
             {
-                if (IsOperand(node))
+                expression.Add(match.Value);
+            }
+                  
+            foreach (var unit in expression)
+            {
+                if (IsOperand(unit))
                 {
-                    postfixExpression.Add(node);
+                    postfixExpression.Add(unit);
                 }
-                else if (node == "(")
+                else if (unit == "(")
                 {
-                    stack.Push(node);
+                    stack.Push(unit);
                 }
-                else if (Validator.IsOperator(node))
+                else if (Validator.IsOperator(unit))
                 {
-                    while (stack.Count != 0 && TopHasLowerPrecedence(stack.Peek(), node) && stack.Peek() != "(")
+                    while (stack.Count != 0 && TopHasLowerPrecedence(stack.Peek(), unit) && stack.Peek() != "(")
                     {
                         postfixExpression.Add(stack.Pop());
                     }
-                    stack.Push(node);
+                    stack.Push(unit);
                 }
-                else if (node == ")")
+                else if (unit == ")")
                 {
                     while (stack.Count != 0 && stack.Peek() != "(")
                     {
