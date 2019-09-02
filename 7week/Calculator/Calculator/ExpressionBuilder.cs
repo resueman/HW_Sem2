@@ -8,8 +8,18 @@ using System.Runtime.CompilerServices;
 
 namespace Calculator
 {
-    class ExpressionBuilder : INotifyPropertyChanged
+    /// <summary>
+    /// Builds arithmetic expression by adding numbers and operators to it
+    /// </summary>
+    public class ExpressionBuilder : INotifyPropertyChanged
     {
+        public ExpressionBuilder() { }
+
+        public ExpressionBuilder(string expression)
+        {
+            Expression = expression;
+        }
+
         private bool containComma = false;
         private int numberOfLeftBrackets = 0;
         private int numberOfRightBrackets = 0;
@@ -46,8 +56,14 @@ namespace Calculator
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Return last symbol of expression
+        /// </summary>
         private char LastOfExpression => expression.Length == 0 ? ' ' : Expression.Last();
 
+        /// <summary>
+        /// Return last symbol of entered number
+        /// </summary>
         private char LastOfCurrent => CurrentNumber.Length == 0 ? ' ' : CurrentNumber.Last();
 
         private void AddCurrentNumber()
@@ -70,9 +86,17 @@ namespace Calculator
             containComma = false;
         }
 
+        private bool IsPossibleToAddOperator(string operatorValue)
+        => Validators.IsOperator(operatorValue.ToString()) && 
+            (char.IsDigit(LastOfCurrent) || LastOfExpression == ')' || LastOfCurrent == ',');
+
+        /// <summary>
+        /// Add multiplication, division, subtraction or addition operator to expresson
+        /// </summary>
+        /// <param name="operatorValue"></param>
         public void AddOperator(string operatorValue)
         {
-            if (char.IsDigit(LastOfCurrent) || LastOfExpression == ')' || LastOfCurrent == ',')
+            if (IsPossibleToAddOperator(operatorValue))
             {
                 AddCurrentNumber();
                 Expression += operatorValue;
@@ -84,18 +108,28 @@ namespace Calculator
             }
         }
 
+        /// <summary>
+        /// Add digit to entered number
+        /// </summary>
+        /// <param name="digit"></param>
         public void AddDigit(int digit)
         {
             if (LastOfExpression != ')')
             {
-                CurrentNumber += digit.ToString();
+                if (!(CurrentNumber == "0" && digit == 0))
+                {
+                    CurrentNumber += digit.ToString();
+                }
             }
         }
 
         private bool IsPossibleToAddOpeningBracket()
             => Expression.Length == 0 && CurrentNumber == "" || LastOfExpression == '('
-            || Validator.IsOperator(LastOfExpression.ToString()); 
+            || Validators.IsOperator(LastOfExpression.ToString()); 
 
+        /// <summary>
+        /// Add opening bracket to expresson
+        /// </summary>
         public void AddOpeningBracket()
         {
             if (IsPossibleToAddOpeningBracket())
@@ -108,6 +142,9 @@ namespace Calculator
         private bool IsPossibleToAddClosingBracket()
             => numberOfRightBrackets < numberOfLeftBrackets && (CurrentNumber != "" || LastOfExpression == ')');
 
+        /// <summary>
+        /// Add closing bracket to expresson 
+        /// </summary>
         public void AddClosingBracket()
         {
             if (IsPossibleToAddClosingBracket())
@@ -118,6 +155,9 @@ namespace Calculator
             }
         }
 
+        /// <summary>
+        /// Change sign of entered number
+        /// </summary>
         public void ChangeSign()
         {
             if (CurrentNumber != "")
@@ -126,6 +166,9 @@ namespace Calculator
             }
         }
 
+        /// <summary>
+        /// Delete last digit of entered number
+        /// </summary>
         public void DeleteLastDigit()
         {
             if (CurrentNumber != "")
@@ -136,16 +179,25 @@ namespace Calculator
                 }
                 CurrentNumber = CurrentNumber.Substring(0, CurrentNumber.Length - 1);
             }
-        }            
+        }
 
+        /// <summary>
+        /// Сlear entry field of entered number
+        /// </summary>
         public void ClearEntry() => ClearCurrentNumber();
 
+        /// <summary>
+        /// Clear entry fields of expression and entered number
+        /// </summary>
         public void Clear()
         {
             Expression = "";
             ClearCurrentNumber();
         }
 
+        /// <summary>
+        /// Add comma to entered number
+        /// </summary>
         public void AddComma()
         {
             if (LastOfExpression != ')' && !containComma)
@@ -160,17 +212,25 @@ namespace Calculator
             }
         }
 
-        public void AddRoot()
+        /// <summary>
+        /// Extract the square root of the entered number
+        /// </summary>
+        public void AddSquareRoot()
         {
             if (CurrentNumber != "")
             {
                 CurrentNumber = Math.Sqrt(double.Parse(CurrentNumber)).ToString();
-                AddCurrentNumber();
             }
         }
 
-        private bool IsPossibleToGetResult()
+        /// <summary>
+        /// Complete expression by adding
+        /// </summary>
+        /// <returns>True, if expression completed and its value can be calculated;
+        /// False, if expession can't be completed without user and as result calculated</returns>
+        public bool Complete()
         {
+            AddCurrentNumber();
             while (numberOfLeftBrackets - numberOfRightBrackets > 0)
             {
                 Expression += ')';
@@ -179,14 +239,13 @@ namespace Calculator
             return char.IsDigit(LastOfExpression) || LastOfExpression == ')';
         }
 
-        public void GetResult()
+        /// <summary>
+        /// Write value of expression to the entered number field
+        /// </summary>
+        /// <param name="result"></param>
+        public void AssignCurrentNumberToResult(double result)
         {
-            AddCurrentNumber();
-            if (IsPossibleToGetResult())
-            {
-                CurrentNumber = PostfixCalculator.CalculateResult(InfixToPostfixConverter.Convert(Expression)).ToString();
-                Expression = "";
-            }
+            CurrentNumber = result.ToString();
         }
     }
 }

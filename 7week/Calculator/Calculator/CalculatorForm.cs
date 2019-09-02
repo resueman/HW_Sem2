@@ -32,10 +32,7 @@ namespace Calculator
             => expressionBuilder.AddComma();
 
         private void SquareRootButtonClick(object sender, EventArgs e)
-            => expressionBuilder.AddRoot();
-
-        private void GetResultButtonClick(object sender, EventArgs e)
-            => expressionBuilder.GetResult();
+            => expressionBuilder.AddSquareRoot();
 
         private void ChangeSignButtonClick(object sender, EventArgs e)
             => expressionBuilder.ChangeSign();
@@ -54,5 +51,27 @@ namespace Calculator
 
         private void RightBracketbuttonClick(object sender, EventArgs e)
             => expressionBuilder.AddClosingBracket();
+
+        private void GetResultButtonClick(object sender, EventArgs e)
+            => GetResult();
+
+        public void GetResult()
+        {
+            try
+            {
+                if (expressionBuilder.Complete())
+                {
+                    var postfixExpression = InfixToPostfixConverter.Convert(expressionBuilder.Expression);
+                    var result = PostfixCalculator.Calculate(postfixExpression);
+                    expressionBuilder.Clear();
+                    expressionBuilder.AssignCurrentNumberToResult(result);
+                }
+            }
+            catch (DivideByZeroException)
+            {
+                expressionBuilder.Clear();
+                currentTextBox.Text = "Division by zero";
+            }
+        }
     }
 }

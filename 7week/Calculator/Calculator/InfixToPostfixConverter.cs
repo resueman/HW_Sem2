@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    class InfixToPostfixConverter
+    /// <summary>
+    /// Class for converting infix arithmetic expression to postfix form 
+    /// </summary>
+    public static class InfixToPostfixConverter
     {
         private static int Precedence(string operation)
         {
@@ -23,18 +26,33 @@ namespace Calculator
         private static bool IsOperand(string symbol)
             => double.TryParse(symbol, out double _);
 
+        /// <summary>
+        /// Split expression on operands, operators and brackets
+        /// </summary>
+        /// <param name="infixExpression">Infix expression</param>
+        /// <returns>Splitted infix expression</returns>
+        private static List<string> Split(string infixExpression)
+        {
+            var regularExpression = new Regex(@"(?<![\)\d])\-\d+(\,)?\d*|\d+(\,)?\d*|[-+*/()]");
+            var matches = regularExpression.Matches(infixExpression);
+            var expression = new List<string>();
+            foreach (Match match in matches)
+            {
+                expression.Add(match.Value);
+            }
+            return expression;
+        }
+
+        /// <summary>
+        /// Covert infix arithmetic expression to postfix
+        /// </summary>
+        /// <param name="infixExpression">Infix expression</param>
+        /// <returns>Postfix expression</returns>
         public static List<string> Convert(string infixExpression)
         {
             var stack = new Stack<string>();
             var postfixExpression = new List<string>();
-
-            var regularExpression = new Regex(@"(?<![\)\d])\-\d+(\,)?\d*|\d+(\,)?\d*|[-+*/()]");
-            var matches = regularExpression.Matches(infixExpression);
-            var expression = new List<string>();
-            foreach(Match match in matches)
-            {
-                expression.Add(match.Value);
-            }
+            var expression = Split(infixExpression);
                   
             foreach (var unit in expression)
             {
@@ -46,7 +64,7 @@ namespace Calculator
                 {
                     stack.Push(unit);
                 }
-                else if (Validator.IsOperator(unit))
+                else if (Validators.IsOperator(unit))
                 {
                     while (stack.Count != 0 && TopHasLowerPrecedence(stack.Peek(), unit) && stack.Peek() != "(")
                     {
