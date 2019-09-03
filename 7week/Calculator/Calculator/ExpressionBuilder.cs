@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -21,8 +18,8 @@ namespace Calculator
         }
 
         private bool containComma = false;
-        private int numberOfOpeningBrackets = 0;
-        private int numberOfClosingBrackets = 0;
+        private int numberOfOpeningBrackets;
+        private int numberOfClosingBrackets;
 
         private string currentNumber = "";
         private string expression = "";
@@ -118,8 +115,8 @@ namespace Calculator
         }
 
         private bool IsPossibleToAddOpeningBracket()
-            => Expression.Length == 0 && CurrentNumber == "" || LastOfExpression == '('
-            || Validators.IsOperator(LastOfExpression.ToString()); 
+            => CurrentNumber == "" && (Expression.Length == 0 || LastOfExpression == '('
+            || Validators.IsOperator(LastOfExpression.ToString())); 
 
         /// <summary>
         /// Add opening bracket to expresson
@@ -211,7 +208,7 @@ namespace Calculator
         /// </summary>
         public void AddSquareRoot()
         {
-            if (CurrentNumber != "")
+            if (CurrentNumber != "" && double.Parse(CurrentNumber) >= 0)
             {
                 CurrentNumber = Math.Sqrt(double.Parse(CurrentNumber)).ToString();
             }
@@ -245,8 +242,7 @@ namespace Calculator
         /// </summary>
         /// <param name="result"></param>
         public void AssignCurrentNumberToResult(double result)
-        {
-            CurrentNumber = result.ToString();
-        }
+            => CurrentNumber = result.ToString();
+        
     }
 }

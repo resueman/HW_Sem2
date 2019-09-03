@@ -7,7 +7,7 @@ namespace Calculator.Tests
 {
     class PostfixCalculatorTests
     {
-        private List<string> Initialization(string currentExpression)
+        private static List<string> Initialization(string currentExpression)
         {
             var regularExpression = new Regex(@"\-\d+(\,)?\d*|\d+(\,)?\d*|[-+*/()]");
             var matches = regularExpression.Matches(currentExpression);
@@ -19,7 +19,7 @@ namespace Calculator.Tests
             return expression;
         }
 
-        private bool CompareDouble(double first, double second)
+        private static bool CompareDouble(double first, double second)
             => Math.Abs(first - second) < 0.0000001;
 
         [Test]

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
 
 namespace Calculator.Tests
@@ -41,6 +39,8 @@ namespace Calculator.Tests
                 case 'D':
                     expressionBuilder.DeleteLastDigit();
                     break;
+                default:
+                    throw new ArgumentException("Unexpected symbol in tests!");
             }
         }
 
@@ -111,6 +111,7 @@ namespace Calculator.Tests
         [TestCase("((5-7)-8)+9)*", "((5-7)-8)+9*")]
         [TestCase(",(-", "0-")]
         [TestCase(",)-", "0-")]
+        [TestCase("4*545(6867+984)+", "4*5456867+984+")]
         [TestCase("()()(6-7)(((+(((65,))))))", "(((6-7)+(((65)))))")]
         [TestCase("837*))))(((((", "837*(((((")]
         [TestCase("-(,84(+++((67-77)", "-0,84+((67-77)")]
@@ -152,15 +153,26 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void ClearEntryTests(string expression)
-        {
-            Assert.Pass();
-        }
+        [TestCase("879+", "879+")]
+        [TestCase("9879+9878", "9879+")]
+        [TestCase("87689,9877", "")]
+        [TestCase("(987-68)", "(987-68)")]
+        [TestCase("9+98,83+,", "9+98,83+")]
+        [TestCase(",", "")]
+        public void ClearEntryTests(string expression, string expected)
+            => Compare(expression, expected);
 
         [Test]
-        public void ChangeSignTests(string expression)
+        public void ChangeSignTests()
         {
-            Assert.Pass();
+            string expression = "89+82-83787";
+            foreach (var symbol in expression)
+            {
+                Add(symbol);
+            }
+            expressionBuilder.ChangeSign();
+            expressionBuilder.Complete();
+            Assert.AreEqual("89+82--83787", expressionBuilder.Expression);
         }
 
         [Test]
@@ -179,6 +191,23 @@ namespace Calculator.Tests
                 Add(symbol);
             }
             Assert.AreEqual(isComleted, expressionBuilder.Complete());
+            Assert.AreEqual(expected, expressionBuilder.Expression);
+        }
+
+        [Test]
+        [TestCase("4+9", "4+3")]
+        [TestCase("9*9*", "9*9*")]
+        [TestCase("98-(", "98-(")]
+        [TestCase("98+(73-8)", "98+(73-8)")]
+        [TestCase("-4", "-4")]
+        public void AddSquareRootTests(string expression, string expected)
+        {
+            foreach (var symbol in expression)
+            {
+                Add(symbol);
+            }
+            expressionBuilder.AddSquareRoot();
+            expressionBuilder.Complete();
             Assert.AreEqual(expected, expressionBuilder.Expression);
         }
     }
