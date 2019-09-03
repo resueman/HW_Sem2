@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator
 {
@@ -17,23 +14,18 @@ namespace Calculator
             {
                 throw new DivideByZeroException();
             }
-            double result = 0;
             switch (operation)
             {
                 case "+":
-                    result = operand1 + operand2;
-                    break;
+                    return operand1 + operand2;
                 case "-":
-                    result = operand1 - operand2;
-                    break;
+                    return operand1 - operand2;
                 case "*":
-                    result = operand1 * operand2;
-                    break;
+                    return operand1 * operand2;
                 case "/":
-                    result = operand1 / operand2;
-                    break;
+                    return operand1 / operand2;
             }
-            return result;
+            return 0;
         }        
 
         /// <summary>
@@ -46,7 +38,6 @@ namespace Calculator
             try
             {
                 var stack = new Stack<double>();
-
                 foreach (var unit in expression)
                 {
                     if (double.TryParse(unit, out double operand))

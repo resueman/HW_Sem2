@@ -17,7 +17,7 @@ namespace Calculator
             Expression = expression;
         }
 
-        private bool containComma = false;
+        private bool containComma;
         private int numberOfOpeningBrackets;
         private int numberOfClosingBrackets;
 
@@ -77,17 +77,16 @@ namespace Calculator
             containComma = false;
         }
 
-        private bool IsPossibleToAddOperator(char operatorValue)
-        => Validators.IsOperator(operatorValue.ToString()) && 
-            (char.IsDigit(LastOfCurrent) || LastOfExpression == ')' || LastOfCurrent == ',');
+        private bool IsPossibleToAddOperator()
+            => char.IsDigit(LastOfCurrent) || LastOfExpression == ')' || LastOfCurrent == ',';
 
         /// <summary>
         /// Add multiplication, division, subtraction or addition operator to expresson
         /// </summary>
-        /// <param name="operatorValue"></param>
+        /// <param name="operatorValue">Value of operator</param>
         public void AddOperator(char operatorValue)
         {
-            if (IsPossibleToAddOperator(operatorValue))
+            if (IsPossibleToAddOperator())
             {
                 AddCurrentNumber();
                 Expression += operatorValue;
@@ -102,7 +101,7 @@ namespace Calculator
         /// <summary>
         /// Add digit to entered number
         /// </summary>
-        /// <param name="digit"></param>
+        /// <param name="digit">Digit to add</param>
         public void AddDigit(char digit)
         {
             if (LastOfExpression != ')')
@@ -242,7 +241,6 @@ namespace Calculator
         /// </summary>
         /// <param name="result"></param>
         public void AssignCurrentNumberToResult(double result)
-            => CurrentNumber = result.ToString();
-        
+            => CurrentNumber = result.ToString();        
     }
 }

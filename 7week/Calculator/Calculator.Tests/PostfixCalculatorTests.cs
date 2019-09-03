@@ -5,6 +5,10 @@ using NUnit.Framework;
 
 namespace Calculator.Tests
 {
+    /// <summary>
+    /// Tests  whether the value of the expression matches
+    /// the result calculated by the postfix calculator
+    /// </summary>
     class PostfixCalculatorTests
     {
         private static List<string> Initialization(string currentExpression)
@@ -37,6 +41,9 @@ namespace Calculator.Tests
         [TestCase("8", 8)]
         [TestCase("1 2 + 3 + 4 + 5 + 6 + ", 21)]
         [TestCase("598 6 -97 8 9 -93 - 4 * - 6 - 2 * - - - ", 1307)]
+        [TestCase("85 -8,84 * -48,83 * 95 690 59 4 4 9,8 874 958 - / 9 * + 4 - * - 48,84 + * * + 738091 / ", 10.0000038776)]
+        [TestCase("8 -7 -98 88 - -19 - -9 -86 / + -7 + -9 * - - -400 / ", -3.95014534884)]
+        [TestCase("-9 -9 -87 + - -8 -9 - - ", 86)]
         public void CalculateCorrectExpressionTest(string currentExpression, double expected)
         {
             var expression = Initialization(currentExpression);

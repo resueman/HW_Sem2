@@ -3,6 +3,10 @@ using NUnit.Framework;
 
 namespace Calculator.Tests
 {
+    /// <summary>
+    /// Tests if numbers, operators and brackets 
+    /// are added to arithmetical expression correctly
+    /// </summary>
     class ExpressionBuilderTests
     {
         ExpressionBuilder expressionBuilder;
