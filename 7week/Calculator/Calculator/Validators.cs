@@ -10,7 +10,7 @@ namespace Calculator
     /// Class containing symbol validators 
     /// to determine their belonging to a particular group of characters
     /// </summary>
-    static class Validators
+    public static class Validators
     {
         /// <summary>
         /// Срeck if a symbol is an addition, subtract, multiplication or division operator

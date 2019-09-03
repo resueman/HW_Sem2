@@ -23,10 +23,10 @@ namespace Calculator
         private readonly ExpressionBuilder expressionBuilder;
 
         private void DigitButtonClick(object sender, EventArgs e)
-            => expressionBuilder.AddDigit(int.Parse((sender as Button).Text));
+            => expressionBuilder.AddDigit(char.Parse((sender as Button).Text));
 
         private void OperatorButtonClick(object sender, EventArgs e)
-            => expressionBuilder.AddOperator((sender as Button).Text);
+            => expressionBuilder.AddOperator(char.Parse((sender as Button).Text));
 
         private void CommaButtonClick(object sender, EventArgs e)
             => expressionBuilder.AddComma();

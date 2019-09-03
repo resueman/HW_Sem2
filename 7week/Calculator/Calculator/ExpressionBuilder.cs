@@ -21,8 +21,8 @@ namespace Calculator
         }
 
         private bool containComma = false;
-        private int numberOfLeftBrackets = 0;
-        private int numberOfRightBrackets = 0;
+        private int numberOfOpeningBrackets = 0;
+        private int numberOfClosingBrackets = 0;
 
         private string currentNumber = "";
         private string expression = "";
@@ -56,14 +56,8 @@ namespace Calculator
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        /// <summary>
-        /// Return last symbol of expression
-        /// </summary>
         private char LastOfExpression => expression.Length == 0 ? ' ' : Expression.Last();
 
-        /// <summary>
-        /// Return last symbol of entered number
-        /// </summary>
         private char LastOfCurrent => CurrentNumber.Length == 0 ? ' ' : CurrentNumber.Last();
 
         private void AddCurrentNumber()
@@ -86,7 +80,7 @@ namespace Calculator
             containComma = false;
         }
 
-        private bool IsPossibleToAddOperator(string operatorValue)
+        private bool IsPossibleToAddOperator(char operatorValue)
         => Validators.IsOperator(operatorValue.ToString()) && 
             (char.IsDigit(LastOfCurrent) || LastOfExpression == ')' || LastOfCurrent == ',');
 
@@ -94,7 +88,7 @@ namespace Calculator
         /// Add multiplication, division, subtraction or addition operator to expresson
         /// </summary>
         /// <param name="operatorValue"></param>
-        public void AddOperator(string operatorValue)
+        public void AddOperator(char operatorValue)
         {
             if (IsPossibleToAddOperator(operatorValue))
             {
@@ -102,7 +96,7 @@ namespace Calculator
                 Expression += operatorValue;
                 return;
             }
-            if (operatorValue == "-" && CurrentNumber == "")
+            if (operatorValue == '-' && CurrentNumber == "")
             {
                 CurrentNumber = "-";
             }
@@ -112,11 +106,11 @@ namespace Calculator
         /// Add digit to entered number
         /// </summary>
         /// <param name="digit"></param>
-        public void AddDigit(int digit)
+        public void AddDigit(char digit)
         {
             if (LastOfExpression != ')')
             {
-                if (!(CurrentNumber == "0" && digit == 0))
+                if (!((CurrentNumber == "0" || CurrentNumber == "-0") && digit == '0'))
                 {
                     CurrentNumber += digit.ToString();
                 }
@@ -134,13 +128,13 @@ namespace Calculator
         {
             if (IsPossibleToAddOpeningBracket())
             {
-                ++numberOfLeftBrackets;
+                ++numberOfOpeningBrackets;
                 Expression += '(';
             }
         }
 
         private bool IsPossibleToAddClosingBracket()
-            => numberOfRightBrackets < numberOfLeftBrackets && (CurrentNumber != "" || LastOfExpression == ')');
+            => numberOfClosingBrackets < numberOfOpeningBrackets && (CurrentNumber != "" || LastOfExpression == ')');
 
         /// <summary>
         /// Add closing bracket to expresson 
@@ -149,7 +143,7 @@ namespace Calculator
         {
             if (IsPossibleToAddClosingBracket())
             {
-                ++numberOfRightBrackets;
+                ++numberOfClosingBrackets;
                 AddCurrentNumber();
                 Expression += ')';
             }
@@ -203,9 +197,9 @@ namespace Calculator
             if (LastOfExpression != ')' && !containComma)
             {
                 containComma = true;
-                if (CurrentNumber == "")
+                if (CurrentNumber == "" || CurrentNumber == "-")
                 {
-                    CurrentNumber = "0,";
+                    CurrentNumber += "0,";
                     return;
                 }
                 CurrentNumber += ",";
@@ -230,11 +224,18 @@ namespace Calculator
         /// False, if expession can't be completed without user and as result calculated</returns>
         public bool Complete()
         {
-            AddCurrentNumber();
-            while (numberOfLeftBrackets - numberOfRightBrackets > 0)
+            if (numberOfOpeningBrackets != numberOfClosingBrackets && IsPossibleToAddClosingBracket())
             {
-                Expression += ')';
-                ++numberOfRightBrackets;
+                AddCurrentNumber();
+                while (numberOfOpeningBrackets - numberOfClosingBrackets > 0)
+                {
+                    Expression += ')';
+                    ++numberOfClosingBrackets;
+                }
+            }
+            else
+            {
+                AddCurrentNumber();
             }
             return char.IsDigit(LastOfExpression) || LastOfExpression == ')';
         }
