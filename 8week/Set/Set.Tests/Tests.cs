@@ -19,15 +19,12 @@ namespace Set
 
         private static void AreEqual<T>(Set<T> set, T[] array) where T : IComparable<T>
         {
-            if (set.Count != array.Length)
-            {
-                Assert.Fail();
-            } 
+            Assert.AreEqual(set.Count, array.Length);
             Array.Sort(array);
             int i = 0;
             foreach (var key in set)
             {
-                Assert.IsTrue(array[i].CompareTo(key) == 0);
+                Assert.AreEqual(0, array[i].CompareTo(key));
                 ++i;
             }
         }
