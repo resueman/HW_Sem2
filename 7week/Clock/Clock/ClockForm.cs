@@ -3,10 +3,6 @@ using System.Globalization;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Clock
@@ -25,7 +21,7 @@ namespace Clock
 
         private void TimerTick(object sender, EventArgs e)
         {
-            dateLabel.Text = DateTime.Now.ToString("m", CultureInfo.CreateSpecificCulture("en-US"));
+            dateLabel.Text = DateTime.Now.ToString("d.MM.yyyy", CultureInfo.CreateSpecificCulture("en-US"));
             timeLabel.Text = DateTime.Now.ToString("T");
         }
     }
