@@ -18,9 +18,30 @@ namespace Calculator
             expressionBuilder = new ExpressionBuilder();
             currentTextBox.DataBindings.Add("Text", expressionBuilder, "CurrentNumber");
             expressionTextBox.DataBindings.Add("Text", expressionBuilder, "Expression");
+            currentTextBox.TextAlign = HorizontalAlignment.Right;
+            expressionTextBox.TextAlign = HorizontalAlignment.Right;
         }
 
         private readonly ExpressionBuilder expressionBuilder;
+
+        private void CurrentTextBoxTextChanged(object sender, EventArgs e)
+        {
+            if (expressionBuilder.Expression == "")
+            {
+                currentTextBox.SelectionStart = 0;
+            }
+            else
+            {
+                currentTextBox.SelectionStart = currentTextBox.Text.Length;
+            }
+            currentTextBox.ScrollToCaret();
+        }
+
+        private void ExpressionTextBoxTextChanged(object sender, EventArgs e)
+        {
+            expressionTextBox.SelectionStart = expressionTextBox.Text.Length;
+            expressionTextBox.ScrollToCaret();
+        }
 
         private void DigitButtonClick(object sender, EventArgs e)
             => expressionBuilder.AddDigit(char.Parse((sender as Button).Text));
@@ -70,7 +91,7 @@ namespace Calculator
             catch (DivideByZeroException)
             {
                 expressionBuilder.Clear();
-                currentTextBox.Text = "Division by zero";
+                currentTextBox.Text = "Division by zero!";
             }
         }
     }

@@ -51,17 +51,12 @@ namespace Calculator
                         var intermediateValue = PerformingOperation(operand1, operand2, unit);
                         stack.Push(intermediateValue);
                     }
-                    else
-                    {
-                        throw new ArgumentException("Unexpected symbol");
-                    }
                 }
-                var expressionValue = stack.Pop();
-                if (stack.Count != 0)
+                if (stack.Count != 1)
                 {
                     throw new ArgumentException("Input string is not a postfix form");
                 }
-                return expressionValue;
+                return stack.Pop(); 
             }
             catch (InvalidOperationException)
             {

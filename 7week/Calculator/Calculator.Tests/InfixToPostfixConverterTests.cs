@@ -28,7 +28,7 @@ namespace Calculator.Tests
         [TestCase("(8-(-7-(-98-88-(-19)+(-9)/-86+(-7))*(-9)))/-400",
             "8 -7 -98 88 - -19 - -9 -86 / + -7 + -9 * - - -400 / ")]
         [TestCase("-9-((-9)+(-87))-((-8)-(-9))", "-9 -9 -87 + - -8 -9 - - ")]
-        public void CorrectConversionTest(string infixExpression, string expected)
+        public void ConversionTest(string infixExpression, string expected)
         {
             var postfixList = InfixToPostfixConverter.Convert(infixExpression);
             string postfixExpression = "";

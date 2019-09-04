@@ -9,7 +9,7 @@ namespace Calculator.Tests
     /// </summary>
     class ExpressionBuilderTests
     {
-        ExpressionBuilder expressionBuilder;
+        private ExpressionBuilder expressionBuilder;
 
         [SetUp]
         public void Initialization()
@@ -48,13 +48,12 @@ namespace Calculator.Tests
             }
         }
 
-        private void Compare(string expression, string expected)
+        private void BuildExpression(string expression)
         {
             foreach (var symbol in expression)
             {
                 Add(symbol);
-            }
-            Assert.AreEqual(expected, expressionBuilder.Expression);
+            }            
         }
 
         [Test]
@@ -73,7 +72,10 @@ namespace Calculator.Tests
         [TestCase("354*98-(-------68----87-", "354*98-(-68--87-")]
         [TestCase("(((((989-9)/*-9)-98)+-46)/8------9)*45-99+", "(((((989-9)/-9)-98)+-46)/8--9)*45-99+")]
         public void AddOperatorTest(string expression, string expected)
-            => Compare(expression, expected);
+        {
+            BuildExpression(expression);
+            Assert.AreEqual(expected, expressionBuilder.Expression);
+        }
 
         [Test]
         [TestCase("848", "")]
@@ -89,7 +91,7 @@ namespace Calculator.Tests
         [TestCase("784,,,,,98,765+", "784,98765+")]
         [TestCase("934,,,,,,,,+", "934+")]
         [TestCase("934,(,),+,4,---75,,,,,3,,,,,2,,3+", "934+0,4--75,323+")]
-        [TestCase("093,00/", "093,00/")]
+        [TestCase("093,00/", "93,00/")]
         [TestCase("000000*", "0*")]
         [TestCase("-000000*", "-0*")]
         [TestCase("6543,,,,,,+", "6543+")]
@@ -103,7 +105,10 @@ namespace Calculator.Tests
         [TestCase("((5-10)984759+)7483-3,)9876,02", "((5-10)+7483-3)")]
         [TestCase("(983-2872,,,)", "(983-2872)")]
         public void AddNumberTest(string expression, string expected)
-            => Compare(expression, expected);
+        {
+            BuildExpression(expression);
+            Assert.AreEqual(expected, expressionBuilder.Expression);
+        }
 
         [Test]
         [TestCase("(((((()))))))", "((((((")]
@@ -121,7 +126,10 @@ namespace Calculator.Tests
         [TestCase("-(,84(+++((67-77)", "-0,84+((67-77)")]
         [TestCase(",,,,,(4-4),,9484,59985*-3-", "0,4-4,948459985*-3-")]
         public void AddBracketsTest(string expression, string expected)
-            => Compare(expression, expected);
+        {
+            BuildExpression(expression);
+            Assert.AreEqual(expected, expressionBuilder.Expression);
+        }
 
         [TestCase("987,9DD90,88-", "98790,88-")]
         [TestCase("87DDDDDDDD11-", "11-")]
@@ -135,7 +143,10 @@ namespace Calculator.Tests
         [TestCase("(8687+DDDD", "(8687+")]
         [TestCase("(667-98)DDDD", "(667-98)")]
         public void DeleteLastTests(string expression, string expected)
-            => Compare(expression, expected);
+        {
+            BuildExpression(expression);
+            Assert.AreEqual(expected, expressionBuilder.Expression);
+        }
 
         [TestCase("")]
         [TestCase("879+")]
@@ -147,10 +158,7 @@ namespace Calculator.Tests
         [TestCase("345678")]
         public void ClearTests(string expression)
         {
-            foreach (var symbol in expression)
-            {
-                Add(symbol);
-            }
+            BuildExpression(expression);
             expressionBuilder.Clear();
             Assert.AreEqual(expressionBuilder.Expression, "");
             Assert.AreEqual(expressionBuilder.CurrentNumber, "");
@@ -164,16 +172,16 @@ namespace Calculator.Tests
         [TestCase("9+98,83+,", "9+98,83+")]
         [TestCase(",", "")]
         public void ClearEntryTests(string expression, string expected)
-            => Compare(expression, expected);
+        {
+            BuildExpression(expression);
+            Assert.AreEqual(expected, expressionBuilder.Expression);
+        }
 
         [Test]
         public void ChangeSignTests()
         {
             string expression = "89+82-83787";
-            foreach (var symbol in expression)
-            {
-                Add(symbol);
-            }
+            BuildExpression(expression);
             expressionBuilder.ChangeSign();
             expressionBuilder.Complete();
             Assert.AreEqual("89+82--83787", expressionBuilder.Expression);
@@ -190,10 +198,7 @@ namespace Calculator.Tests
         [TestCase("-7", "-7", true)]
         public void CompleteExpressionTests(string expression, string expected, bool isComleted)
         {
-            foreach (var symbol in expression)
-            {
-                Add(symbol);
-            }
+            BuildExpression(expression);
             Assert.AreEqual(isComleted, expressionBuilder.Complete());
             Assert.AreEqual(expected, expressionBuilder.Expression);
         }
@@ -206,10 +211,7 @@ namespace Calculator.Tests
         [TestCase("-4", "-4")]
         public void AddSquareRootTests(string expression, string expected)
         {
-            foreach (var symbol in expression)
-            {
-                Add(symbol);
-            }
+            BuildExpression(expression);
             expressionBuilder.AddSquareRoot();
             expressionBuilder.Complete();
             Assert.AreEqual(expected, expressionBuilder.Expression);

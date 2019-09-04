@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalculatorForm));
             this.zeroButton = new System.Windows.Forms.Button();
             this.fiveButton = new System.Windows.Forms.Button();
             this.fourButton = new System.Windows.Forms.Button();
@@ -328,6 +329,7 @@
             this.expressionTextBox.ReadOnly = true;
             this.expressionTextBox.Size = new System.Drawing.Size(249, 26);
             this.expressionTextBox.TabIndex = 23;
+            this.expressionTextBox.TextChanged += new System.EventHandler(this.ExpressionTextBoxTextChanged);
             // 
             // currentTextBox
             // 
@@ -337,6 +339,7 @@
             this.currentTextBox.ReadOnly = true;
             this.currentTextBox.Size = new System.Drawing.Size(249, 45);
             this.currentTextBox.TabIndex = 24;
+            this.currentTextBox.TextChanged += new System.EventHandler(this.CurrentTextBoxTextChanged);
             // 
             // CalculatorForm
             // 
@@ -369,11 +372,13 @@
             this.Controls.Add(this.fiveButton);
             this.Controls.Add(this.zeroButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "CalculatorForm";
             this.Text = "Calculator";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

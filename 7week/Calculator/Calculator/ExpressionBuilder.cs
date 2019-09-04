@@ -106,16 +106,18 @@ namespace Calculator
         {
             if (LastOfExpression != ')')
             {
-                if (!((CurrentNumber == "0" || CurrentNumber == "-0") && digit == '0'))
+                if (CurrentNumber == "0" || CurrentNumber == "-0")
                 {
-                    CurrentNumber += digit.ToString();
+                    CurrentNumber = CurrentNumber.Substring(0, CurrentNumber.Length - 1) + digit.ToString();
+                    return;
                 }
+                CurrentNumber += digit.ToString();
             }
         }
 
         private bool IsPossibleToAddOpeningBracket()
             => CurrentNumber == "" && (Expression.Length == 0 || LastOfExpression == '('
-            || Validators.IsOperator(LastOfExpression.ToString())); 
+                || Validators.IsOperator(LastOfExpression.ToString())); 
 
         /// <summary>
         /// Add opening bracket to expresson
@@ -130,7 +132,8 @@ namespace Calculator
         }
 
         private bool IsPossibleToAddClosingBracket()
-            => numberOfClosingBrackets < numberOfOpeningBrackets && (CurrentNumber != "" || LastOfExpression == ')');
+            => numberOfClosingBrackets < numberOfOpeningBrackets 
+                && (CurrentNumber != "" || LastOfExpression == ')');
 
         /// <summary>
         /// Add closing bracket to expresson 
