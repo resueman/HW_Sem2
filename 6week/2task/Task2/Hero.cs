@@ -21,12 +21,20 @@ namespace Task2
             PrintHeroOnMap();
         }
 
+        /// <summary>
+        /// Print hero on map
+        /// </summary>
         public void PrintHeroOnMap()
         {
             Console.SetCursorPosition(LeftPosition, TopPosition);
             Console.Write(Appearance);
         }
 
+        /// <summary>
+        /// Change hero coordinates
+        /// </summary>
+        /// <param name="deltaLeft">Number of units to shift left or right</param>
+        /// <param name="deltaTop">Number of units to shift up or down</param>
         public void ChangeHeroCoordinates(int deltaLeft, int deltaTop)
         {
             LeftPosition += deltaLeft;

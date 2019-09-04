@@ -2,6 +2,9 @@ using NUnit.Framework;
 
 namespace Task2.Tests
 {
+    /// <summary>
+    /// Tests changing of hero coordinates
+    /// </summary>
     class HeroBehaviourTests
     {
         private Hero hero;
