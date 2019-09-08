@@ -88,7 +88,7 @@ namespace GenericList
             /// </summary>
             public void Dispose()
             {
-                throw new NotSupportedException("Method wasn't implemented");
+                //throw new NotSupportedException("Method wasn't implemented");
             }
         }
 
