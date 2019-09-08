@@ -47,7 +47,7 @@
             this.timeLabel.Name = "timeLabel";
             this.timeLabel.Size = new System.Drawing.Size(316, 76);
             this.timeLabel.TabIndex = 0;
-            this.timeLabel.Text = "00:00:00";
+            this.timeLabel.Text = "Time";
             this.timeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ClockTableLayoutPanel
@@ -79,7 +79,7 @@
             this.dateLabel.Name = "dateLabel";
             this.dateLabel.Size = new System.Drawing.Size(316, 76);
             this.dateLabel.TabIndex = 1;
-            this.dateLabel.Text = "00.00.0000";
+            this.dateLabel.Text = "Date";
             this.dateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timer

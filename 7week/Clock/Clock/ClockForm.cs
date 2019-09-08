@@ -21,7 +21,7 @@ namespace Clock
 
         private void TimerTick(object sender, EventArgs e)
         {
-            dateLabel.Text = DateTime.Now.ToString("d.MM.yyyy", CultureInfo.CreateSpecificCulture("en-US"));
+            dateLabel.Text = DateTime.Now.ToString("dd.MM.yyyy", CultureInfo.CreateSpecificCulture("en-US"));
             timeLabel.Text = DateTime.Now.ToString("T");
         }
     }
