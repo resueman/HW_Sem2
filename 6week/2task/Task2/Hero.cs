@@ -9,16 +9,14 @@ namespace Task2
     /// </summary>
     public class Hero
     {
-        public static char Appearance { get; private set; } = '@';
+        public static char Appearance { get; } = '@';
         public int LeftPosition { get; private set; }
         public int TopPosition { get; private set; }
 
         public Hero(int leftPosition, int topPosition)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
             LeftPosition = leftPosition;
             TopPosition = topPosition;
-            PrintHeroOnMap();
         }
 
         /// <summary>

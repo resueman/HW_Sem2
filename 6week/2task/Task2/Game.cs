@@ -4,6 +4,7 @@ namespace Task2
 {
     /// <summary>
     /// Describes actions performed by the hero in game
+    /// Sets game settings(hero and map colors)
     /// </summary>
     public class Game
     {
@@ -12,8 +13,12 @@ namespace Task2
 
         public Game(string fileName)
         {
+            Console.CursorVisible = false;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             map = new Map(fileName);
+            Console.ForegroundColor = ConsoleColor.Red;
             hero = new Hero(map.HeroStartPointLeft, map.HeroStartPointTop);
+            hero.PrintHeroOnMap();
         }
 
         public void OnLeft()

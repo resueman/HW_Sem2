@@ -15,7 +15,7 @@ namespace Task2.Tests
         [Test]
         public static void FileWithMapNotFoundException()
         {
-            Assert.Throws<FileNotFoundException>(() => new Map("IAmNotExist.txt"));
+            Assert.Throws<FileNotFoundException>(() => new Map("IDoNotExist.txt"));
         }
 
         [Test]

@@ -19,8 +19,6 @@ namespace Task2
 
         public Map(string fileName)
         {
-            Console.CursorVisible = false;
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
             CreateMap(fileName);
         }
 
