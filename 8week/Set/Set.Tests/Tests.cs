@@ -5,28 +5,32 @@ namespace Set
 {
     public class Tests
     {
-        private readonly Set<int> set0 = new Set<int>();
-        private readonly Set<int> set1 = new Set<int> { 9 };
-        private readonly Set<int> set3 = new Set<int> { 28, 37, 19 };
-        private readonly Set<int> set4 = new Set<int> { 19, 57, 8, 58 };
-        private readonly Set<int> set5 = new Set<int> { 48, 90, 120, 28, 10 };
-        private readonly Set<int> set8 = new Set<int> { 150, 98, 90, 95, 18, 180, 170, 160 };
-        private readonly Set<int> set11 = new Set<int> { 37, 20, 90, 48, 18, 28, 150, 170, 9, 30, 120 };
-        private readonly Set<int> otherSet1 = new Set<int> { 28, 37, 19, 45, 87, 93, 94, 12, 1234, 909 };
-        private readonly Set<int>  otherSet2 = new Set<int> { 28, 37, 19 };
-        private readonly int[] array11 = new int[] { 37, 20, 90, 48, 18, 28, 150, 170, 9, 30, 120 };
-        private readonly int[] array8 = new int[] { 150, 98, 90, 95, 18, 180, 170, 160 };
+        private  Set<int> set0;
+        private  Set<int> set1;
+        private  Set<int> set3;
+        private  Set<int> set4;
+        private  Set<int> set5;
+        private  Set<int> set8; 
+        private Set<int> set11;
+        private  Set<int> otherSet1;
+        private  Set<int> otherSet2;
+        private  int[] array11;
+        private  int[] array8;
 
-        private static void AreEqual<T>(Set<T> set, T[] array) where T : IComparable<T>
+        [SetUp]
+        public void Init()
         {
-            Assert.AreEqual(set.Count, array.Length);
-            Array.Sort(array);
-            int i = 0;
-            foreach (var key in set)
-            {
-                Assert.AreEqual(0, array[i].CompareTo(key));
-                ++i;
-            }
+            set0 = new Set<int>();
+            set1 = new Set<int> { 9 };
+            set3 = new Set<int> { 28, 37, 19 };
+            set4 = new Set<int> { 19, 57, 8, 58 };
+            set5 = new Set<int> { 48, 90, 120, 28, 10 };
+            set8 = new Set<int> { 150, 98, 90, 95, 18, 180, 170, 160 };
+            set11 = new Set<int> { 37, 20, 90, 48, 18, 28, 150, 170, 9, 30, 120 };
+            otherSet1 = new Set<int> { 28, 37, 19, 45, 87, 93, 94, 12, 1234, 909 };
+            otherSet2 = new Set<int> { 28, 37, 19 };
+            array11 = new int[] { 37, 20, 90, 48, 18, 28, 150, 170, 9, 30, 120 };
+            array8 = new int[] { 150, 98, 90, 95, 18, 180, 170, 160 };
         }
 
         [Test]
@@ -37,9 +41,9 @@ namespace Set
             {
                 set0.Add(toAdd[i]);
             }
-            AreEqual(set0, array11);
-            AreEqual(set11, array11);
-            AreEqual(set8, array8);
+            CollectionAssert.AreEquivalent(set0, array11);
+            CollectionAssert.AreEquivalent(set11, array11);
+            CollectionAssert.AreEquivalent(set8, array8);
         }
 
         [Test]
@@ -49,9 +53,17 @@ namespace Set
             {
                 Assert.IsTrue(set11.Contains(array11[i]));
             }
-            set11.Remove(170);
-            set11.Remove(9);
-            set11.Remove(37);
+        }
+
+        [Test]
+        public void ContainsAfterRemoveTest()
+        {
+            var keysToRemove = new int[] { 170, 9, 37 };
+            foreach (var key in keysToRemove)
+            {
+                set11.Remove(key);
+                Assert.IsFalse(set11.Contains(key));
+            }
         }
 
         [Test]
@@ -68,7 +80,7 @@ namespace Set
             Assert.IsTrue(set11.Remove(37));
             Assert.IsFalse(set11.Contains(37));
             var result = new int[] { 9, 18, 20, 28, 30, 48, 90, 120, 150, 170 };
-            AreEqual(set11, result);
+            CollectionAssert.AreEquivalent(set11, result);
         }
 
         [Test]
@@ -80,7 +92,7 @@ namespace Set
                 set11.Remove(toRemove[i]);
             }
             var result = new int[] { 18, 28, 90, 120, 150 };
-            AreEqual(set11, result);
+            CollectionAssert.AreEquivalent(set11, result);
         }
 
         [Test]
@@ -98,7 +110,7 @@ namespace Set
             {
                 set8.Remove(toRemove[i]);
             }
-            AreEqual(set8, result);
+            CollectionAssert.AreEquivalent(set8, result);
         }
 
         [Test]
@@ -123,7 +135,7 @@ namespace Set
         {
             set11.IntersectWith(set8);
             var result = new int[] { 170, 150, 90, 18 };
-            AreEqual(set11, result);
+            CollectionAssert.AreEquivalent(set11, result);
         }
 
         [Test]
@@ -132,7 +144,7 @@ namespace Set
             var toRemove = new int[] { 37, 20, 48, 170, 30, 9 };
             set11.ExceptWith(toRemove);            
             var result = new int[] { 18, 28, 90, 120, 150 };
-            AreEqual(set11, result);
+            CollectionAssert.AreEquivalent(set11, result);
         }
 
         [Test]
@@ -141,7 +153,7 @@ namespace Set
             set11.SymmetricExceptWith(array8);
             var result = new int[] { 37, 20, 48, 28, 9, 30, 120, 98, 95, 180, 160 };
             Array.Sort(result);
-            AreEqual(set11, result);
+            CollectionAssert.AreEquivalent(set11, result);
         }
 
         [Test]
@@ -154,7 +166,7 @@ namespace Set
             set11.UnionWith(set0);
             var result = new int[] { 9, 37, 20, 90, 48, 18, 28, 150, 170, 30, 120, 98, 95, 180, 160, 10, 19, 57, 8, 58 };
             Array.Sort(result);
-            AreEqual(set11, result);
+            CollectionAssert.AreEquivalent(set11, result);
         }
 
         [Test]

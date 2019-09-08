@@ -35,14 +35,14 @@ namespace Set
         private IEnumerator<T> Traversal()
         {
             var queue = new Queue<T>();
-            BFS(root, queue);
+            InOrderTraversal(root, queue);
             for (int i = 0; i < Count; ++i)
             {
                 yield return queue.Dequeue();
             }
         }
 
-        private void BFS(Node node, Queue<T> queue)
+        private void InOrderTraversal(Node node, Queue<T> queue)
         {
             if (node == null)
             {
@@ -50,12 +50,12 @@ namespace Set
             }
             if (node.Left != null)
             {
-                BFS(node.Left, queue);
+                InOrderTraversal(node.Left, queue);
             }
             queue.Enqueue(node.Key);
             if (node.Right != null)
             {
-                BFS(node.Right, queue);
+                InOrderTraversal(node.Right, queue);
             }
         }
 
@@ -443,7 +443,8 @@ namespace Set
         /// </summary>
         /// <param name="other">The collection to compare to the current</param>
         /// <returns>true if the Set<T> object is a proper subset of other; otherwise, false</returns>
-        public bool IsProperSubsetOf(IEnumerable<T> other) => IsSubsetOf(other) && !SetEquals(other);
+        public bool IsProperSubsetOf(IEnumerable<T> other) 
+            => IsSubsetOf(other) && !SetEquals(other);
 
         /// <summary>
         /// Determines whether a Set<T> object is a proper superset of the specified collection.
@@ -451,13 +452,15 @@ namespace Set
         /// <param name="other">The collection to compare to the current Set<T> object</param>
         /// <returns>true if the Set<T> object is a proper superset of other; 
         /// otherwise, false.</returns>
-        public bool IsProperSupersetOf(IEnumerable<T> other) => IsSupersetOf(other) && !SetEquals(other);
+        public bool IsProperSupersetOf(IEnumerable<T> other) 
+            => IsSupersetOf(other) && !SetEquals(other);
 
         /// <summary>
         /// Determines whether a Set<T> object and the specified collection contain the same elements
         /// </summary>
         /// <param name="other">The collection to compare to the current Set<T> object</param>
         /// <returns>true if the Set<T> object is equal to other; otherwise, false</returns>
-        public bool SetEquals(IEnumerable<T> other) => IsSubsetOf(other) && IsSupersetOf(other);
+        public bool SetEquals(IEnumerable<T> other) 
+            => IsSubsetOf(other) && IsSupersetOf(other);
     }
 }
