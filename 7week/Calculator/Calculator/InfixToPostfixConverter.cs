@@ -41,7 +41,7 @@ namespace Calculator
         }
 
         /// <summary>
-        /// Covert infix arithmetic expression to postfix
+        /// Convert infix arithmetic expression to postfix
         /// </summary>
         /// <param name="infixExpression">Infix expression</param>
         /// <returns>Postfix expression</returns>

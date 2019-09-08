@@ -12,7 +12,7 @@ namespace Calculator.Tests
         private ExpressionBuilder expressionBuilder;
 
         [SetUp]
-        public void Initialization()
+        public void Initialize()
         {
             expressionBuilder = new ExpressionBuilder();
         }

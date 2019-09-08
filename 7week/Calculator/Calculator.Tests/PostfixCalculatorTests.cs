@@ -11,7 +11,7 @@ namespace Calculator.Tests
     /// </summary>
     class PostfixCalculatorTests
     {
-        private static List<string> Initialization(string currentExpression)
+        private static List<string> Initialize(string currentExpression)
         {
             var regularExpression = new Regex(@"\-\d+(\,)?\d*|\d+(\,)?\d*|[-+*/()]");
             var matches = regularExpression.Matches(currentExpression);
