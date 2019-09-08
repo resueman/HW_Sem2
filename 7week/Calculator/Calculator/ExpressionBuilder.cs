@@ -155,7 +155,7 @@ namespace Calculator
         {
             if (CurrentNumber != "")
             {
-                CurrentNumber.Insert(0, "-");
+                CurrentNumber = (-int.Parse(CurrentNumber)).ToString();
             }
         }
 

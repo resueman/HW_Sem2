@@ -46,7 +46,7 @@ namespace Calculator.Tests
         [TestCase("-9 -9 -87 + - -8 -9 - - ", 86)]
         public void CalculateCorrectExpressionTest(string currentExpression, double expected)
         {
-            var expression = Initialization(currentExpression);
+            var expression = Initialize(currentExpression);
             var result = PostfixCalculator.Calculate(expression);
             Assert.IsTrue(CompareDouble(expected, result));
         }
@@ -58,7 +58,7 @@ namespace Calculator.Tests
         [TestCase("8 0,0 /")]
         public void DivisionByZeroTest(string currentExpression)
         {
-            var expression = Initialization(currentExpression);
+            var expression = Initialize(currentExpression);
             Assert.Throws<DivideByZeroException>(() => PostfixCalculator.Calculate(expression));
         }
 
@@ -68,7 +68,7 @@ namespace Calculator.Tests
         [TestCase("0 9 7 + + +")]
         public void NotAPostfixFormTest(string currentExpression)
         {
-            var expression = Initialization(currentExpression);
+            var expression = Initialize(currentExpression);
             Assert.Throws<ArgumentException>(() => PostfixCalculator.Calculate(expression));
         }
     }

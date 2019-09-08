@@ -178,13 +178,14 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void ChangeSignTests()
+        [TestCase("89+82-83787", "89+82--83787")]
+        [TestCase("89+82--83787", "89+82-83787")]
+        public void ChangeSignToMinusTests(string expression, string expected)
         {
-            string expression = "89+82-83787";
             BuildExpression(expression);
             expressionBuilder.ChangeSign();
             expressionBuilder.Complete();
-            Assert.AreEqual("89+82--83787", expressionBuilder.Expression);
+            Assert.AreEqual(expected, expressionBuilder.Expression);
         }
 
         [Test]
