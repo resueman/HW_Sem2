@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace Calculator
 {
@@ -21,7 +22,7 @@ namespace Calculator
             => Precedence(top) <= Precedence(operation);
 
         private static bool IsOperand(string symbol)
-            => double.TryParse(symbol, out double _);
+            => double.TryParse(symbol, NumberStyles.Float, ExpressionBuilder.NumberFormat, out double _);
 
         /// <summary>
         /// Split expression on operands, operators and brackets
