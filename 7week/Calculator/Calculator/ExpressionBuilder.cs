@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -10,12 +11,13 @@ namespace Calculator
     /// </summary>
     public class ExpressionBuilder : INotifyPropertyChanged
     {
-        public ExpressionBuilder() { }
-
-        public ExpressionBuilder(string expression)
+        public ExpressionBuilder()
         {
-            Expression = expression;
+            NumberFormat = new CultureInfo("ru-RU", false).NumberFormat;
+            NumberFormat.NumberDecimalSeparator = ",";
         }
+
+        public static NumberFormatInfo NumberFormat { get; private set; }
 
         private bool containComma;
         private int numberOfOpeningBrackets;
@@ -155,7 +157,7 @@ namespace Calculator
         {
             if (CurrentNumber != "")
             {
-                CurrentNumber = (-int.Parse(CurrentNumber)).ToString();
+                CurrentNumber = (-double.Parse(CurrentNumber, NumberFormat)).ToString(NumberFormat);
             }
         }
 
@@ -210,9 +212,10 @@ namespace Calculator
         /// </summary>
         public void AddSquareRoot()
         {
-            if (CurrentNumber != "" && double.Parse(CurrentNumber) >= 0)
+            if (CurrentNumber != "" && double.Parse(CurrentNumber, NumberFormat) >= 0)
             {
-                CurrentNumber = Math.Sqrt(double.Parse(CurrentNumber)).ToString();
+                var number = double.Parse(CurrentNumber, NumberFormat);
+                CurrentNumber = Math.Sqrt(number).ToString(NumberFormat);
             }
         }
 
@@ -244,6 +247,7 @@ namespace Calculator
         /// </summary>
         /// <param name="result"></param>
         public void AssignCurrentNumberToResult(double result)
-            => CurrentNumber = result.ToString();        
+            => CurrentNumber = result.ToString(NumberFormat);
+        
     }
 }

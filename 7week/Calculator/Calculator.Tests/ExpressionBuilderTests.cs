@@ -210,12 +210,23 @@ namespace Calculator.Tests
         [TestCase("98-(", "98-(")]
         [TestCase("98+(73-8)", "98+(73-8)")]
         [TestCase("-4", "-4")]
+        [TestCase("1,44", "1,2")]
         public void AddSquareRootTests(string expression, string expected)
         {
             BuildExpression(expression);
             expressionBuilder.AddSquareRoot();
             expressionBuilder.Complete();
             Assert.AreEqual(expected, expressionBuilder.Expression);
+        }
+
+        [Test]
+        [TestCase(2.758, "2,758")]
+        [TestCase(4.09985, "4,09985")]
+        [TestCase(89.0000, "89")]
+        public void AssignCurrentNumberToResultTests(double result, string expected)
+        {
+            expressionBuilder.AssignCurrentNumberToResult(result);
+            Assert.AreEqual(expected, expressionBuilder.CurrentNumber);
         }
     }
 }

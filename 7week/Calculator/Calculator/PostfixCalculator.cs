@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 
 namespace Calculator
@@ -40,7 +41,7 @@ namespace Calculator
                 var stack = new Stack<double>();
                 foreach (var unit in expression)
                 {
-                    if (double.TryParse(unit, out double operand))
+                    if (double.TryParse(unit, NumberStyles.Float, ExpressionBuilder.NumberFormat, out double operand))
                     {
                         stack.Push(operand);
                     }
