@@ -9,6 +9,15 @@ environment:
     - solution_name: 2week/3task/3task.sln
     - solution_name: 2week/2task/2task.sln
     - solution_name: 2week/1task/1task.sln
+    - solution_name: 3week/1task/1task.sln
+    - solution_name: 3week/2task/2task.sln
+    - solution_name: 4week/1task/1task.sln
+    - solution_name: 4week/2task/2task.sln 
+    - solution_name: 6week/1task/Functions.sln
+    - solution_name: 6week/2task/2task.sln
+    - solution_name: 7week/Clock/Clock.sln
+    - solution_name: 7week/Calculator/Calculator.sln
+    - solution_name: 8week/GenericList/GenericList.sln
     - solution_name: 8week/Set/Set.sln
     
 before_build:
