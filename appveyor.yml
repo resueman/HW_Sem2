@@ -6,6 +6,10 @@ environment:
     - solution_name: 1week/3task/3task.sln
     - solution_name: 1week/4task/4task.sln
     - solution_name: 1week/5task/5task.sln
+    - solution_name: 2week/3task/3task.sln
+    - solution_name: 2week/2task/2task.sln
+    - solution_name: 2week/1task/1task.sln
+    - solution_name: 3week/1task/1task.sln
     - solution_name: 3week/2task/2task.sln
     
 before_build:
