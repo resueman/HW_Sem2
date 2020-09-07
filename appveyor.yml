@@ -17,6 +17,7 @@ environment:
     - solution_name: 6week/2task/2task.sln
     - solution_name: 7week/Clock/Clock.sln
     - solution_name: 7week/Calculator/Calculator.sln
+    - solution_name: 8week/GenericList/GenericList.sln
     
 before_build:
   - nuget restore %solution_name%
