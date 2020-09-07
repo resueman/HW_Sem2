@@ -4,4 +4,5 @@
 **/packages
 **/TestResults
 *.csproj.user
-
+*.datasource
+*.settings
