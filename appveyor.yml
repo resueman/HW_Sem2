@@ -9,7 +9,13 @@ environment:
     - solution_name: 2week/3task/3task.sln
     - solution_name: 2week/2task/2task.sln
     - solution_name: 2week/1task/1task.sln
+    - solution_name: 3week/1task/1task.sln
+    - solution_name: 3week/2task/2task.sln
+    - solution_name: 4week/1task/1task.sln
     - solution_name: 4week/2task/2task.sln 
+    - solution_name: 7week/Clock/Clock.sln
+    - solution_name: 7week/Calculator/Calculator.sln
+
     
 before_build:
   - nuget restore %solution_name%
